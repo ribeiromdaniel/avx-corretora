@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Criativos AVX Corretora — Saúde & Consórcio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1c2c4c;
+  --navy-light: #243459;
+  --blue: #1b61c9;
+  --blue-soft: #e8f0fb;
+  --purple: #6878b8;
+  --gold: #c9961b;
+  --gold-soft: #fdf3e0;
+  --green: #1a3d24;
+  --surface: #f8fafc;
+  --border: #e2e6ed;
+  --text: #1a202c;
+  --muted: #64748b;
+  --white: #ffffff;
+  --radius: 12px;
+  --radius-lg: 16px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', sans-serif; background: var(--surface); color: var(--text); line-height: 1.6; }
+
+/* HEADER */
+.header { background: var(--navy); padding: 20px 32px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+.logo { display: flex; flex-direction: column; gap: 2px; }
+.logo-mark { font-family: 'Playfair Display', serif; font-style: italic; font-size: 28px; color: #f0eee8; letter-spacing: -0.5px; }
+.logo-mark span { font-style: normal; font-weight: 700; color: var(--purple); }
+.logo-sub { font-size: 9px; letter-spacing: 0.45em; color: #8898c8; text-transform: uppercase; }
+.header-meta { text-align: right; }
+.header-meta p { font-size: 11px; color: rgba(255,255,255,0.45); }
+.header-meta strong { color: rgba(255,255,255,0.7); }
+
+/* HERO STRIP */
+.hero-strip { background: linear-gradient(135deg, #162240 0%, var(--navy) 100%); padding: 48px 32px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.hero-strip h1 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--white); margin-bottom: 8px; }
+.hero-strip p { color: rgba(255,255,255,0.55); font-size: 14px; }
+.badge-row { display: flex; gap: 10px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
+.badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 50px; font-size: 11px; font-weight: 600; letter-spacing: 0.3px; }
+.badge-blue { background: var(--blue-soft); color: var(--blue); }
+.badge-gold { background: var(--gold-soft); color: var(--gold); }
+.badge-navy { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); }
+
+/* MAIN TABS */
+.tab-bar { background: var(--white); border-bottom: 2px solid var(--border); display: flex; gap: 0; position: sticky; top: 68px; z-index: 90; overflow-x: auto; }
+.tab-btn { padding: 16px 32px; font-size: 14px; font-weight: 600; border: none; background: none; cursor: pointer; color: var(--muted); border-bottom: 3px solid transparent; margin-bottom: -2px; white-space: nowrap; transition: all 0.2s; }
+.tab-btn.active { color: var(--navy); border-bottom-color: var(--navy); }
+.tab-btn.saude.active { border-bottom-color: var(--blue); color: var(--blue); }
+.tab-btn.consorcio.active { border-bottom-color: var(--gold); color: var(--gold); }
+
+/* SECTION TABS */
+.section-nav { background: var(--surface); border-bottom: 1px solid var(--border); display: flex; gap: 8px; padding: 12px 32px; flex-wrap: wrap; }
+.sec-btn { padding: 6px 18px; border-radius: 50px; font-size: 13px; font-weight: 500; border: 1px solid var(--border); background: var(--white); color: var(--muted); cursor: pointer; transition: all 0.2s; }
+.sec-btn.active-blue { background: var(--blue); color: white; border-color: var(--blue); }
+.sec-btn.active-gold { background: var(--gold); color: white; border-color: var(--gold); }
+
+/* CONTENT AREA */
+.content-area { max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px; }
+.section-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--navy); margin-bottom: 6px; }
+.section-desc { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+
+/* CARDS */
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(480px, 1fr)); gap: 20px; }
+.card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+.card-header { padding: 18px 24px 14px; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--border); }
+.card-title { font-size: 15px; font-weight: 700; color: var(--navy); line-height: 1.3; }
+.card-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+.tag { font-size: 10px; font-weight: 600; letter-spacing: 0.3px; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; }
+.tag-platform { background: #f0f4ff; color: #3b5fb8; }
+.tag-duration { background: #f0fdf4; color: #166534; }
+.tag-format { background: var(--surface); color: var(--muted); }
+.card-num { font-size: 11px; font-weight: 700; color: var(--muted); background: var(--surface); border-radius: 6px; padding: 3px 8px; white-space: nowrap; }
+.card-body { padding: 20px 24px; }
+
+/* SCRIPT BLOCKS */
+.script-block { margin-bottom: 16px; }
+.script-label { font-size: 10px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+.script-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.time-badge { background: var(--navy); color: white; font-size: 9px; padding: 1px 6px; border-radius: 3px; }
+.time-badge.gold { background: var(--gold); }
+.script-text { font-size: 14px; color: var(--text); line-height: 1.65; background: var(--surface); border-radius: 8px; padding: 12px 14px; border-left: 3px solid var(--border); }
+.script-text.hook { border-left-color: var(--blue); }
+.script-text.hook-gold { border-left-color: var(--gold); }
+.script-text.cta { border-left-color: #10b981; }
+
+/* CAPTION BLOCK */
+.caption-block { background: #f8f9ff; border: 1px solid #dde5ff; border-radius: 8px; padding: 14px; margin-top: 12px; }
+.caption-label { font-size: 10px; font-weight: 700; color: var(--blue); letter-spacing: 0.4px; text-transform: uppercase; margin-bottom: 6px; }
+.caption-text { font-size: 13px; color: var(--text); line-height: 1.6; white-space: pre-wrap; }
+
+/* META COPY BLOCK */
+.meta-block { background: #fafbff; border: 1px solid var(--border); border-radius: 8px; padding: 14px; margin-top: 12px; }
+.meta-row { display: grid; grid-template-columns: 100px 1fr; gap: 8px; align-items: start; margin-bottom: 8px; font-size: 13px; }
+.meta-row:last-child { margin-bottom: 0; }
+.meta-field { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.3px; padding-top: 2px; }
+.meta-value { color: var(--text); line-height: 1.5; }
+.char-count { font-size: 10px; color: var(--muted); margin-left: 6px; }
+
+/* JSON PROMPT BLOCK */
+.prompt-block { background: #0f172a; border-radius: 8px; padding: 16px; margin-top: 12px; overflow-x: auto; }
+.prompt-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.prompt-label { font-size: 10px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.4px; }
+.prompt-copy { font-size: 10px; color: #475569; cursor: pointer; padding: 3px 8px; border: 1px solid #334155; border-radius: 4px; background: none; }
+.prompt-copy:hover { background: #1e293b; color: #94a3b8; }
+.prompt-code { font-family: 'Courier New', monospace; font-size: 12px; color: #e2e8f0; line-height: 1.7; white-space: pre; }
+.json-key { color: #7dd3fc; }
+.json-str { color: #86efac; }
+.json-num { color: #fbbf24; }
+
+/* AD IMAGE CARD SPECIAL */
+.ad-image-card .card-header { background: linear-gradient(135deg, #0f172a 0%, var(--navy) 100%); }
+.ad-image-card .card-title { color: white; }
+.ad-image-card .card-num { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.6); }
+
+/* VIDEO AD CARD SPECIAL */
+.video-ad-card .card-header { background: linear-gradient(135deg, #1a2a1a 0%, #1c2c4c 100%); }
+.video-ad-card .card-title { color: white; }
+.video-ad-card .card-num { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.6); }
+
+/* CONSORCIO COLORS */
+.consorcio-card .card-header { border-left: 3px solid var(--gold); }
+.consorcio-video-ad .card-header { background: linear-gradient(135deg, #2a1f0a 0%, #1c2c4c 100%); }
+.consorcio-video-ad .card-title { color: white; }
+.consorcio-img-ad .card-header { background: linear-gradient(135deg, #1a3d24 0%, #1c2c4c 100%); }
+.consorcio-img-ad .card-title { color: white; }
+
+/* DIVIDER */
+.section-divider { height: 1px; background: var(--border); margin: 40px 0; }
+
+/* HIDDEN */
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+.sub-panel { display: none; }
+.sub-panel.active { display: block; }
+
+/* PRINT */
+@media print { .tab-bar, .section-nav { display: none; } .tab-panel, .sub-panel { display: block !important; } }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="logo">
+    <div class="logo-mark">av<span>X</span></div>
+    <div class="logo-sub">Corretora</div>
+  </div>
+  <div class="header-meta">
+    <p><strong>Criativos de Marketing</strong></p>
+    <p>Plano de Saúde · Consórcio · Abril 2026</p>
+  </div>
+</header>
+
+<div class="hero-strip">
+  <h1>Central de Criativos AVX</h1>
+  <p>Roteiros, anúncios e prompts de imagem — prontos para produção</p>
+  <div class="badge-row">
+    <span class="badge badge-blue">10 Vídeos Orgânicos · Saúde</span>
+    <span class="badge badge-blue">5 Anúncios Vídeo · Saúde</span>
+    <span class="badge badge-blue">5 Anúncios Imagem · Saúde</span>
+    <span class="badge badge-gold">10 Vídeos Orgânicos · Consórcio</span>
+    <span class="badge badge-gold">5 Anúncios Vídeo · Consórcio</span>
+    <span class="badge badge-gold">5 Anúncios Imagem · Consórcio</span>
+  </div>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn saude active" onclick="switchTab('saude', this)">🏥 Plano de Saúde</button>
+  <button class="tab-btn consorcio" onclick="switchTab('consorcio', this)">🏠 Consórcio</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     SAÚDE
+═══════════════════════════════════════════════ -->
+<div id="tab-saude" class="tab-panel active">
+  <div class="section-nav" id="nav-saude">
+    <button class="sec-btn active-blue" onclick="switchSub('saude','organico',this)">📱 Vídeos Orgânicos (10)</button>
+    <button class="sec-btn" onclick="switchSub('saude','videoad',this)">🎬 Anúncios Vídeo (5)</button>
+    <button class="sec-btn" onclick="switchSub('saude','imagead',this)">🖼 Anúncios Imagem + Prompts (5)</button>
+  </div>
+
+  <div class="content-area">
+
+    <!-- SAÚDE: ORGÂNICO -->
+    <div id="saude-organico" class="sub-panel active">
+      <p class="section-title">Vídeos Orgânicos — Plano de Saúde</p>
+      <p class="section-desc">Conteúdo para feed e Reels. Objetivo: educar, gerar autoridade e capturar audiência qualificada. Plataforma principal: Instagram + LinkedIn.</p>
+      <div class="cards-grid">
+
+        <!-- S-O1 -->
+        <div class="card">
+          <div class="card-header">
+            <div><div class="card-title">Você sabe o que pode negociar no seu plano?</div>
+            <div class="card-meta"><span class="tag tag-platform">Reels / TikTok</span><span class="tag tag-duration">30–40s</span><span class="tag tag-format">Talking head</span></div></div>
+            <span class="card-num">S-O1</span>
+          </div>
+          <div class="card-body">
+            <div class="script-block"><div class="script-label"><span class="time-badge">0–3s</span> Hook</div><div class="script-text hook">"Você recebeu a carta de reajuste do plano de saúde. Antes de qualquer coisa, olha isso aqui."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">3–12s</span> Problema</div><div class="script-text">"A maioria dos empresários assina a renovação sem questionar. Mas existe um limite de desconto que as operadoras podem oferecer — e elas só revelam se você souber cobrar."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">12–30s</span> Solução</div><div class="script-text">"Na AVX, toda a equipe veio de cargos de gestão dentro das próprias operadoras. A gente conhece os limites reais de desconto por dentro. Por isso conseguimos negociar o que você não conseguiria sozinho."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">30–40s</span> CTA</div><div class="script-text cta">"Antes de assinar qualquer renovação, faz um diagnóstico gratuito com a gente. 30 minutos. Link na bio."</div></div>
+            <div class="caption-block"><div class="caption-label">Legenda sugerida</div><div class="caption-text">Carta de reajuste não é sentença. É ponto de partida para negociação.
+
+👉 Diagnóstico gratuito na bio.
+#PlanoDeSaúde #BenefíciosCorporativos #RH #PME #AVXCorretora</div></div>
+          </div>
+        </div>
+
+        <!-- S-O2 -->
+        <div class="card">
+          <div class="card-header">
+            <div><div class="card-title">3 coisas que a operadora nunca te conta</div>
+            <div class="card-meta"><span class="tag tag-platform">Reels / TikTok</span><span class="tag tag-duration">45–55s</span><span class="tag tag-format">Lista / câmera</span></div></div>
+            <span class="card-num">S-O2</span>
+          </div>
+          <div class="card-body">
+            <div class="script-block"><div class="script-label"><span class="time-badge">0–3s</span> Hook</div><div class="script-text hook">"3 coisas que a sua operadora de saúde nunca vai te contar:"</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">3–18s</span> Ponto 1</div><div class="script-text">"Primeiro — o reajuste que ela te mandou não é o menor que ela pode oferecer. Existe uma margem de negociação que só quem conhece o mercado por dentro sabe usar."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">18–35s</span> Ponto 2</div><div class="script-text">"Segundo — você pode trocar de plano sem sua equipe perder a carência. Chama portabilidade de carência, é direito garantido pela ANS."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">35–48s</span> Ponto 3</div><div class="script-text">"Terceiro — se você tem CNPJ, paga mais barato no plano empresarial do que no individual. Inclusive pra família."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">48–55s</span> CTA</div><div class="script-text cta">"Diagnóstico gratuito, sem compromisso. Link na bio."</div></div>
+          </div>
+        </div>
+
+        <!-- S-O3 -->
+        <div class="card">
+          <div class="card-header">
+            <div><div class="card-title">O que é portabilidade de carência?</div>
+            <div class="card-meta"><span class="tag tag-platform">Reels / LinkedIn</span><span class="tag tag-duration">40–50s</span><span class="tag tag-format">Educacional</span></div></div>
+            <span class="card-num">S-O3</span>
+          </div>
+          <div class="card-body">
+            <div class="script-block"><div class="script-label"><span class="time-badge">0–3s</span> Hook</div><div class="script-text hook">"Quer trocar de plano de saúde mas tem medo de perder a carência? Vou explicar em 40 segundos."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">3–35s</span> Educação</div><div class="script-text">"A ANS garante o direito de portabilidade de carência. Isso significa: se você já tem 2 anos no plano atual, pode migrar para outro sem começar os prazos do zero. Condição: o plano novo precisa ter cobertura equivalente. A AVX analisa isso pra você — de graça, antes de qualquer decisão."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">35–50s</span> CTA</div><div class="script-text cta">"Não fique preso num contrato ruim por falta de informação. Consulta gratuita, link na bio."</div></div>
+          </div>
+        </div>
+
+        <!-- S-O4 -->
+        <div class="card">
+          <div class="card-header">
+            <div><div class="card-title">Plano individual vs PJ: qual é mais barato?</div>
+            <div class="card-meta"><span class="tag tag-platform">Reels / TikTok</span><span class="tag tag-duration">30s</span><span class="tag tag-format">Revelação</span></div></div>
+            <span class="card-num">S-O4</span>
+          </div>
+          <div class="card-body">
+            <div class="script-block"><div class="script-label"><span class="time-badge">0–3s</span> Hook</div><div class="script-text hook">"Você paga plano individual para sua família. Provavelmente está pagando mais do que deveria."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">3–22s</span> Revelação</div><div class="script-text">"Quem tem CNPJ pode contratar plano empresarial para a família. Em geral, além de mais barato, tem mais operadoras disponíveis e melhor cobertura. O plano individual cobra mais porque o risco é maior para a operadora — no empresarial, o risco é diluído."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">22–30s</span> CTA</div><div class="script-text cta">"Em 30 minutos a AVX te mostra a diferença. Diagnóstico gratuito, sem compromisso. Link na bio."</div></div>
+          </div>
+        </div>
+
+        <!-- S-O5 -->
+        <div class="card">
+          <div class="card-header">
+            <div><div class="card-title">Como funciona a coparticipação?</div>
+            <div class="card-meta"><span class="tag tag-platform">Instagram / LinkedIn</span><span class="tag tag-duration">45s</span><span class="tag tag-format">Educacional</span></div></div>
+            <span class="card-num">S-O5</span>
+          </div>
+          <div class="card-body">
+            <div class="script-block"><div class="script-label"><span class="time-badge">0–3s</span> Hook</div><div class="script-text hook">"Com ou sem coparticipação — o que muda no plano de saúde e quando cada um vale a pena."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">3–35s</span> Educação</div><div class="script-text">"Coparticipação é quando o beneficiário paga uma parte do procedimento na hora do uso. O plano COM coparticipação tem mensalidade menor. O plano SEM tem mensalidade maior, mas custo zero no uso. Para equipes jovens e saudáveis, com coparticipação pode fazer sentido. Para equipes mais velhas ou que usam muito, sem coparticipação é mais vantajoso. Mas isso depende do perfil da sua empresa — e é exatamente o que a AVX analisa."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">35–45s</span> CTA</div><div class="script-text cta">"Análise gratuita. Link na bio."</div></div>
+          </div>
+        </div>
+
+        <!-- S-O6 -->
+        <div class="card">
+          <div class="card-header">
+            <div><div class="card-title">Por que sua empresa perde tempo com plano de saúde</div>
+            <div class="card-meta"><span class="tag tag-platform">LinkedIn / Instagram</span><span class="tag tag-duration">30s</span><span class="tag tag-format">Dor / burocracia</span></div></div>
+            <span class="card-num">S-O6</span>
+          </div>
+          <div class="card-body">
+            <div class="script-block"><div class="script-label"><span class="time-badge">0–3s</span> Hook</div><div class="script-text hook">"Inclusão, exclusão, dependente, reclamação no 0800... quantas horas por mês sua empresa gasta gerenciando o plano de saúde?"</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">3–20s</span> Agitação</div><div class="script-text">"Isso não é trabalho de RH. Não deveria ser trabalho de ninguém da sua empresa. É trabalho da corretora certa — que faz tudo e resolve em até 48 horas."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">20–28s</span> Solução</div><div class="script-text">"Na AVX, cada movimentação tem prazo e responsável. Você avisa. A gente resolve."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">28–30s</span> CTA</div><div class="script-text cta">"Link na bio."</div></div>
+          </div>
+        </div>
+
+        <!-- S-O7 -->
+        <div class="card">
+          <div class="card-header">
+            <div><div class="card-title">Empresarial PME vs Coletivo por Adesão</div>
+            <div class="card-meta"><span class="tag tag-platform">LinkedIn</span><span class="tag tag-duration">55–60s</span><span class="tag tag-format">Educacional</span></div></div>
+            <span class="card-num">S-O7</span>
+          </div>
+          <div class="card-body">
+            <div class="script-block"><div class="script-label"><span class="time-badge">0–3s</span> Hook</div><div class="script-text hook">"Qual a diferença entre plano PME e plano por Adesão? Muita gente confunde — e essa confusão custa dinheiro."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">3–25s</span> PME</div><div class="script-text">"PME é contratado diretamente pela empresa. A empresa é responsável e o plano é sob medida para o CNPJ. Aceita a partir de 2 vidas dependendo da operadora."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">25–45s</span> Adesão</div><div class="script-text">"Coletivo por Adesão é vinculado a uma entidade — sindicato, associação, conselho profissional. Pode ser mais acessível mas tem menos flexibilidade de customização e depende das regras da entidade."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">45–60s</span> CTA</div><div class="script-text cta">"Qual é o certo para sua empresa? A AVX faz essa análise de graça. Link na bio."</div></div>
+          </div>
+        </div>
+
+        <!-- S-O8 -->
+        <div class="card">
+          <div class="card-header">
+            <div><div class="card-title">O que fazer quando a carta de reajuste chega</div>
+            <div class="card-meta"><span class="tag tag-platform">Reels / TikTok</span><span class="tag tag-duration">30s</span><span class="tag tag-format">Passo a passo</span></div></div>
+            <span class="card-num">S-O8</span>
+          </div>
+          <div class="card-body">
+            <div class="script-block"><div class="script-label"><span class="time-badge">0–3s</span> Hook</div><div class="script-text hook">"Carta de reajuste chegou. Antes de assinar: 3 passos."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">3–25s</span> Passos</div><div class="script-text">"Passo 1 — Não assine antes de comparar. Mande a carta para uma corretora especializada analisar. Passo 2 — Verifique o percentual aplicado e se está dentro do teto ANS para PME. Passo 3 — Negocie. Sim, você pode negociar — especialmente se tiver histórico de baixo sinistro."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">25–30s</span> CTA</div><div class="script-text cta">"A AVX faz essa análise de graça. Link na bio."</div></div>
+          </div>
+        </div>
+
+        <!-- S-O9 -->
+        <div class="card">
+          <div class="card-header">
+            <div><div class="card-title">MEI pode ter plano empresarial?</div>
+            <div class="card-meta"><span class="tag tag-platform">Reels / TikTok</span><span class="tag tag-duration">30s</span><span class="tag tag-format">Pergunta / revelação</span></div></div>
+            <span class="card-num">S-O9</span>
+          </div>
+          <div class="card-body">
+            <div class="script-block"><div class="script-label"><span class="time-badge">0–3s</span> Hook</div><div class="script-text hook">"MEI pode ter plano de saúde empresarial? Sim. E é mais barato do que o individual."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">3–22s</span> Revelação</div><div class="script-text">"Com CNPJ ativo — inclusive MEI — você pode contratar um plano empresarial para si e para sua família. A cobertura costuma ser melhor e o custo menor do que o plano individual. A diferença existe porque planos empresariais têm base maior de beneficiários, diluindo o risco para a operadora."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">22–30s</span> CTA</div><div class="script-text cta">"A AVX te mostra os números em 30 minutos. Grátis. Link na bio."</div></div>
+          </div>
+        </div>
+
+        <!-- S-O10 -->
+        <div class="card">
+          <div class="card-header">
+            <div><div class="card-title">O que sua corretora deveria fazer — e provavelmente não faz</div>
+            <div class="card-meta"><span class="tag tag-platform">LinkedIn / Instagram</span><span class="tag tag-duration">45s</span><span class="tag tag-format">Lista / autoridade</span></div></div>
+            <span class="card-num">S-O10</span>
+          </div>
+          <div class="card-body">
+            <div class="script-block"><div class="script-label"><span class="time-badge">0–3s</span> Hook</div><div class="script-text hook">"Uma boa corretora de saúde faz isso por você. Confere se a sua faz:"</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">3–35s</span> Lista</div><div class="script-text">"Um — Inclui e exclui beneficiários em até 48h sem você ligar para a operadora. Dois — Negocia o reajuste anual com histórico e dados da sua sinistralidade. Três — Analisa se o plano atual ainda é o mais adequado para o perfil da equipe. Quatro — Atende pelo WhatsApp, não pelo 0800."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">35–45s</span> CTA</div><div class="script-text cta">"A AVX faz tudo isso, incluso no contrato, sem custo adicional. Link na bio."</div></div>
+          </div>
+        </div>
+
+      </div><!-- /cards-grid organico saude -->
+    </div><!-- /saude-organico -->
+
+    <!-- SAÚDE: ANÚNCIOS VÍDEO -->
+    <div id="saude-videoad" class="sub-panel">
+      <p class="section-title">Anúncios de Vídeo — Plano de Saúde</p>
+      <p class="section-desc">Formato Meta Ads. Estrutura: Hook 0–3s · Problema 3–8s · Solução 8–20s · CTA 20–30s. Inclui copy completa para primary text, headline e description.</p>
+      <div class="cards-grid">
+
+        <!-- S-AV1 -->
+        <div class="card video-ad-card">
+          <div class="card-header">
+            <div><div class="card-title">Reajuste — Antes de assinar</div>
+            <div class="card-meta"><span class="tag tag-platform">Feed 1:1 + Stories 9:16</span><span class="tag tag-duration">15–20s</span><span class="tag tag-format">Câmera direta</span></div></div>
+            <span class="card-num">S-AV1</span>
+          </div>
+          <div class="card-body">
+            <div class="script-block"><div class="script-label"><span class="time-badge">0–3s</span> Hook visual</div><div class="script-text hook">Empresário olhando carta na mão. Voz: "Reajuste do plano chegou? Não assina ainda."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">3–8s</span> Problema</div><div class="script-text">"A maioria das empresas paga mais do que deveria — porque ninguém negociou com quem conhece os limites reais."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">8–17s</span> Solução</div><div class="script-text">"A AVX Corretora foi criada por ex-gestores de operadora. Agora estamos do seu lado. Diagnóstico gratuito em 30 minutos."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">17–20s</span> CTA</div><div class="script-text cta">"Clica no link. Sem compromisso."</div></div>
+            <div class="meta-block">
+              <div class="meta-row"><span class="meta-field">Primary text</span><span class="meta-value">Você recebeu a carta de reajuste do plano de saúde da sua empresa?
+
+Antes de assinar a renovação, saiba que você pode negociar — e provavelmente está pagando mais do que deveria.
+
+A AVX tem quem conhece os limites de desconto por dentro: nossa equipe saiu de cargos de gestão dentro das operadoras para estar do seu lado.
+
+👉 Diagnóstico gratuito. Sem compromisso. 30 minutos.</span></div>
+              <div class="meta-row"><span class="meta-field">Headline</span><span class="meta-value">Negocie antes de renovar o plano <span class="char-count">(32 chars)</span></span></div>
+              <div class="meta-row"><span class="meta-field">Description</span><span class="meta-value">Ex-gestores de operadora no seu lado <span class="char-count">(36 chars)</span></span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- S-AV2 -->
+        <div class="card video-ad-card">
+          <div class="card-header">
+            <div><div class="card-title">Burocracia — Você avisa. A AVX resolve.</div>
+            <div class="card-meta"><span class="tag tag-platform">Feed / Stories</span><span class="tag tag-duration">15s</span><span class="tag tag-format">Lista visual</span></div></div>
+            <span class="card-num">S-AV2</span>
+          </div>
+          <div class="card-body">
+            <div class="script-block"><div class="script-label"><span class="time-badge">0–3s</span> Hook</div><div class="script-text hook">"Admitiu um funcionário. Agora vem o processo de inclusão no plano."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">3–8s</span> Dor</div><div class="script-text">"Formulário. Documento. Prazo. Ligação para o 0800. Mais prazo."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">8–13s</span> Solução</div><div class="script-text">"Com a AVX, você só precisa avisar. Resolvemos em até 48h. Incluso no contrato."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">13–15s</span> CTA</div><div class="script-text cta">"Saiba mais. Link na descrição."</div></div>
+            <div class="meta-block">
+              <div class="meta-row"><span class="meta-field">Primary text</span><span class="meta-value">Admitiu um funcionário novo. Agora vem o processo de inclusão no plano de saúde.
+
+Formulário. Documento. Prazo. Ligação para o 0800. Mais prazo.
+
+Com a AVX, você só precisa avisar. A gente resolve em até 48h.</span></div>
+              <div class="meta-row"><span class="meta-field">Headline</span><span class="meta-value">Plano de saúde sem burocracia <span class="char-count">(29 chars)</span></span></div>
+              <div class="meta-row"><span class="meta-field">Description</span><span class="meta-value">Você avisa. A AVX resolve em 48h <span class="char-count">(31 chars)</span></span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- S-AV3 -->
+        <div class="card video-ad-card">
+          <div class="card-header">
+            <div><div class="card-title">PJ Familiar — Revelação</div>
+            <div class="card-meta"><span class="tag tag-platform">Feed / Stories</span><span class="tag tag-duration">20s</span><span class="tag tag-format">Revelação</span></div></div>
+            <span class="card-num">S-AV3</span>
+          </div>
+          <div class="card-body">
+            <div class="script-block"><div class="script-label"><span class="time-badge">0–3s</span> Hook</div><div class="script-text hook">"Tem CNPJ e paga plano individual para a família?"</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">3–12s</span> Revelação</div><div class="script-text">"Isso é dinheiro jogado fora. Com o CNPJ, você pode contratar cobertura melhor — e pagar menos. Planos empresariais diluem o risco em mais vidas."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">12–17s</span> Prova</div><div class="script-text">"A AVX mostra a diferença em 30 minutos, de graça."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">17–20s</span> CTA</div><div class="script-text cta">"Clica e agenda."</div></div>
+            <div class="meta-block">
+              <div class="meta-row"><span class="meta-field">Primary text</span><span class="meta-value">Você paga plano de saúde individual para sua família?
+
+Provavelmente não precisava — e está pagando mais por uma cobertura menor.
+
+Se você tem CNPJ, pode contratar um plano empresarial para a família. Geralmente mais barato, com melhor cobertura e mais operadoras disponíveis.
+
+A AVX mostra a diferença em 30 minutos. Gratuito.</span></div>
+              <div class="meta-row"><span class="meta-field">Headline</span><span class="meta-value">Plano familiar pelo CNPJ <span class="char-count">(23 chars)</span></span></div>
+              <div class="meta-row"><span class="meta-field">Description</span><span class="meta-value">Muito mais barato que o individual <span class="char-count">(33 chars)</span></span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- S-AV4 -->
+        <div class="card video-ad-card">
+          <div class="card-header">
+            <div><div class="card-title">Portabilidade — Derruba a objeção</div>
+            <div class="card-meta"><span class="tag tag-platform">Feed</span><span class="tag tag-duration">20s</span><span class="tag tag-format">Objeção / revelação</span></div></div>
+            <span class="card-num">S-AV4</span>
+          </div>
+          <div class="card-body">
+            <div class="script-block"><div class="script-label"><span class="time-badge">0–3s</span> Hook (texto na tela)</div><div class="script-text hook">"Não posso trocar de plano — minha equipe vai perder a carência."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">3–12s</span> Reversão</div><div class="script-text">"Esse medo prende muitas empresas em contratos ruins. Mas portabilidade de carência é um direito garantido pela ANS. Dá pra trocar sem recomeçar o prazo."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">12–17s</span> Solução</div><div class="script-text">"A AVX analisa se você é elegível — gratuitamente."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">17–20s</span> CTA</div><div class="script-text cta">"Link na bio."</div></div>
+            <div class="meta-block">
+              <div class="meta-row"><span class="meta-field">Primary text</span><span class="meta-value">"Não posso trocar de plano — minha equipe vai perder a carência."
+
+Esse medo impede muitas empresas de economizar todo ano.
+
+A verdade: a ANS garante o direito de portabilidade de carência. Você pode trocar de operadora sem recomeçar o prazo — desde que o plano novo seja equivalente.
+
+A AVX conduz todo o processo. Gratuitamente.</span></div>
+              <div class="meta-row"><span class="meta-field">Headline</span><span class="meta-value">Troque sem perder a carência <span class="char-count">(27 chars)</span></span></div>
+              <div class="meta-row"><span class="meta-field">Description</span><span class="meta-value">Direito garantido pela ANS <span class="char-count">(26 chars)</span></span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- S-AV5 -->
+        <div class="card video-ad-card">
+          <div class="card-header">
+            <div><div class="card-title">Autoridade — Ex-gestores de operadora</div>
+            <div class="card-meta"><span class="tag tag-platform">Feed</span><span class="tag tag-duration">25s</span><span class="tag tag-format">Institucional</span></div></div>
+            <span class="card-num">S-AV5</span>
+          </div>
+          <div class="card-body">
+            <div class="script-block"><div class="script-label"><span class="time-badge">0–5s</span> Hook</div><div class="script-text hook">"O que diferencia a AVX de qualquer outra corretora:"</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">5–18s</span> Diferencial</div><div class="script-text">"Nossa equipe não veio do mercado de seguros genérico. Viemos de dentro das operadoras — gestão, precificação, sinistro. Sabemos exatamente onde existe margem. E usamos esse conhecimento para te defender."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">18–22s</span> Prova</div><div class="script-text">"Diagnóstico gratuito, sem compromisso de trocar."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge">22–25s</span> CTA</div><div class="script-text cta">"Fala com a gente. Link na descrição."</div></div>
+            <div class="meta-block">
+              <div class="meta-row"><span class="meta-field">Primary text</span><span class="meta-value">A maioria das empresas paga mais no plano de saúde do que precisa.
+
+Não porque o plano é caro. Mas porque ninguém negociou com quem conhece os limites reais de desconto das operadoras.
+
+A AVX foi criada por quem esteve dentro delas — e agora está do seu lado.
+
+Diagnóstico gratuito em 30 minutos. Sem compromisso de trocar.</span></div>
+              <div class="meta-row"><span class="meta-field">Headline</span><span class="meta-value">Do lado certo da negociação <span class="char-count">(27 chars)</span></span></div>
+              <div class="meta-row"><span class="meta-field">Description</span><span class="meta-value">Ex-equipe de operadora de saúde <span class="char-count">(31 chars)</span></span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /saude-videoad -->
+
+    <!-- SAÚDE: ANÚNCIOS IMAGEM -->
+    <div id="saude-imagead" class="sub-panel">
+      <p class="section-title">Anúncios de Imagem — Plano de Saúde</p>
+      <p class="section-desc">Cada card inclui headline, description e prompt JSON detalhado para geração no ChatGPT (DALL·E 3 ou GPT-4o image). Cole o JSON completo no campo de prompt.</p>
+      <div class="cards-grid">
+
+        <!-- S-AI1 -->
+        <div class="card ad-image-card">
+          <div class="card-header">
+            <div><div class="card-title">Reajuste — Empresário com carta</div>
+            <div class="card-meta"><span class="tag tag-platform">Feed 1:1 + Stories</span><span class="tag tag-format">Fotografia corporativa</span></div></div>
+            <span class="card-num">S-AI1</span>
+          </div>
+          <div class="card-body">
+            <div class="meta-block">
+              <div class="meta-row"><span class="meta-field">Headline</span><span class="meta-value">Negocie antes de renovar o plano</span></div>
+              <div class="meta-row"><span class="meta-field">Description</span><span class="meta-value">Ex-gestores de operadora no seu lado</span></div>
+              <div class="meta-row"><span class="meta-field">Texto na arte</span><span class="meta-value">"Reajuste chegou. Antes de assinar."</span></div>
+            </div>
+            <div class="prompt-block">
+              <div class="prompt-header"><span class="prompt-label">Prompt JSON para ChatGPT / DALL·E 3</span><button class="prompt-copy" onclick="copyPrompt(this)">Copiar</button></div>
+              <div class="prompt-code">{
+  <span class="json-key">"style"</span>: <span class="json-str">"Clean corporate photography, realistic, non-stock aesthetic"</span>,
+  <span class="json-key">"subject"</span>: <span class="json-str">"Brazilian male entrepreneur, 38-45 years old, light blue shirt, no tie, seated at a modern office desk, holding a white envelope, looking at it with a focused and analytical expression — not stressed"</span>,
+  <span class="json-key">"setting"</span>: <span class="json-str">"Modern Brazilian city office, neutral tones, natural window light, minimal decor"</span>,
+  <span class="json-key">"composition"</span>: <span class="json-str">"3/4 portrait, space on left for text overlay"</span>,
+  <span class="json-key">"colors"</span>: <span class="json-str">"Background #f8fafc light gray. Deep navy #1c2c4c accents. No warm tones."</span>,
+  <span class="json-key">"text_overlay"</span>: <span class="json-str">"Top left: 'Reajuste chegou. Antes de assinar.' — bold sans-serif, deep navy"</span>,
+  <span class="json-key">"logo_space"</span>: <span class="json-str">"Bottom right corner reserved, 120x48px"</span>,
+  <span class="json-key">"mood"</span>: <span class="json-str">"Trustworthy, consultative, professional — not alarmist"</span>,
+  <span class="json-key">"avoid"</span>: <span class="json-str">"Stock photo aesthetics, exaggerated emotions, health crosses, white lab coats, suits and ties"</span>,
+  <span class="json-key">"format"</span>: <span class="json-str">"1080x1080px square, 9:16 version for Stories"</span>
+}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- S-AI2 -->
+        <div class="card ad-image-card">
+          <div class="card-header">
+            <div><div class="card-title">Burocracia — Antes × Depois em 48h</div>
+            <div class="card-meta"><span class="tag tag-platform">Feed 1:1</span><span class="tag tag-format">Split design / infográfico</span></div></div>
+            <span class="card-num">S-AI2</span>
+          </div>
+          <div class="card-body">
+            <div class="meta-block">
+              <div class="meta-row"><span class="meta-field">Headline</span><span class="meta-value">Plano de saúde sem burocracia</span></div>
+              <div class="meta-row"><span class="meta-field">Description</span><span class="meta-value">Você avisa. A AVX resolve em 48h</span></div>
+              <div class="meta-row"><span class="meta-field">Texto na arte</span><span class="meta-value">"Você avisa. A AVX resolve em 48h."</span></div>
+            </div>
+            <div class="prompt-block">
+              <div class="prompt-header"><span class="prompt-label">Prompt JSON para ChatGPT / DALL·E 3</span><button class="prompt-copy" onclick="copyPrompt(this)">Copiar</button></div>
+              <div class="prompt-code">{
+  <span class="json-key">"style"</span>: <span class="json-str">"Clean minimal split-screen infographic design"</span>,
+  <span class="json-key">"layout"</span>: <span class="json-str">"Two vertical halves side by side"</span>,
+  <span class="json-key">"left_half"</span>: {
+    <span class="json-key">"label"</span>: <span class="json-str">"SEM A AVX"</span>,
+    <span class="json-key">"visual"</span>: <span class="json-str">"Frustrated person at desk surrounded by paperwork, phone, sticky notes — minimal illustration style"</span>,
+    <span class="json-key">"color"</span>: <span class="json-str">"#f0f0f0 light gray with subtle red undertone"</span>
+  },
+  <span class="json-key">"right_half"</span>: {
+    <span class="json-key">"label"</span>: <span class="json-str">"COM A AVX — 48h"</span>,
+    <span class="json-key">"visual"</span>: <span class="json-str">"Clean desk, single chat bubble with green checkmark — calm and resolved"</span>,
+    <span class="json-key">"color"</span>: <span class="json-str">"#f8fafc white-gray with deep navy #1c2c4c and blue #6878b8 accents"</span>
+  },
+  <span class="json-key">"bottom_strip"</span>: <span class="json-str">"'Você avisa. A AVX resolve.' — white text on #1c2c4c navy background"</span>,
+  <span class="json-key">"mood"</span>: <span class="json-str">"Relief, efficiency, clarity"</span>,
+  <span class="json-key">"avoid"</span>: <span class="json-str">"Cheesy stock imagery, clipart, overly complex layouts"</span>,
+  <span class="json-key">"format"</span>: <span class="json-str">"1080x1080px square"</span>
+}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- S-AI3 -->
+        <div class="card ad-image-card">
+          <div class="card-header">
+            <div><div class="card-title">PJ Familiar — Família + CNPJ</div>
+            <div class="card-meta"><span class="tag tag-platform">Feed 1:1 / 4:5</span><span class="tag tag-format">Lifestyle corporativo</span></div></div>
+            <span class="card-num">S-AI3</span>
+          </div>
+          <div class="card-body">
+            <div class="meta-block">
+              <div class="meta-row"><span class="meta-field">Headline</span><span class="meta-value">Plano familiar pelo CNPJ</span></div>
+              <div class="meta-row"><span class="meta-field">Description</span><span class="meta-value">Muito mais barato que o individual</span></div>
+              <div class="meta-row"><span class="meta-field">Texto na arte</span><span class="meta-value">"Tem CNPJ? Proteja sua família gastando menos."</span></div>
+            </div>
+            <div class="prompt-block">
+              <div class="prompt-header"><span class="prompt-label">Prompt JSON para ChatGPT / DALL·E 3</span><button class="prompt-copy" onclick="copyPrompt(this)">Copiar</button></div>
+              <div class="prompt-code">{
+  <span class="json-key">"style"</span>: <span class="json-str">"Warm lifestyle photography, realistic, non-stock"</span>,
+  <span class="json-key">"subject"</span>: <span class="json-str">"Brazilian professional, 35-45 years old, business casual attire, with spouse and 1-2 children in background or alongside — relaxed family moment"</span>,
+  <span class="json-key">"setting"</span>: <span class="json-str">"Modern Brazilian home living room or garden, natural morning light, weekend quality-of-life feeling"</span>,
+  <span class="json-key">"text_overlay"</span>: {
+    <span class="json-key">"main"</span>: <span class="json-str">"Tem CNPJ? Proteja sua família gastando menos."</span>,
+    <span class="json-key">"position"</span>: <span class="json-str">"Bottom third, white text on semi-transparent navy strip #1c2c4c"</span>
+  },
+  <span class="json-key">"colors"</span>: <span class="json-str">"Warm neutrals, natural light, no clinical whites or hospital blues"</span>,
+  <span class="json-key">"composition"</span>: <span class="json-str">"Main subject in focus, family visible in background, face confident and at ease"</span>,
+  <span class="json-key">"avoid"</span>: <span class="json-str">"Hospital imagery, clinical tones, overly perfect stock families, excessive smiling"</span>,
+  <span class="json-key">"mood"</span>: <span class="json-str">"Belonging, financial intelligence, family protection without fear"</span>,
+  <span class="json-key">"format"</span>: <span class="json-str">"1080x1080px square or 1080x1350px 4:5 portrait"</span>
+}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- S-AI4 -->
+        <div class="card ad-image-card">
+          <div class="card-header">
+            <div><div class="card-title">Portabilidade — Tipografia empoderada</div>
+            <div class="card-meta"><span class="tag tag-platform">Feed 1:1</span><span class="tag tag-format">Typography-led / dark</span></div></div>
+            <span class="card-num">S-AI4</span>
+          </div>
+          <div class="card-body">
+            <div class="meta-block">
+              <div class="meta-row"><span class="meta-field">Headline</span><span class="meta-value">Troque sem perder a carência</span></div>
+              <div class="meta-row"><span class="meta-field">Description</span><span class="meta-value">Direito garantido pela ANS</span></div>
+              <div class="meta-row"><span class="meta-field">Texto na arte</span><span class="meta-value">"Pode trocar sem perder a carência." + "A ANS garante. A AVX conduz."</span></div>
+            </div>
+            <div class="prompt-block">
+              <div class="prompt-header"><span class="prompt-label">Prompt JSON para ChatGPT / DALL·E 3</span><button class="prompt-copy" onclick="copyPrompt(this)">Copiar</button></div>
+              <div class="prompt-code">{
+  <span class="json-key">"style"</span>: <span class="json-str">"Minimal dark typography-led design, premium brand feel"</span>,
+  <span class="json-key">"background"</span>: <span class="json-str">"Deep navy #1c2c4c, full bleed"</span>,
+  <span class="json-key">"text_hierarchy"</span>: [
+    {<span class="json-key">"text"</span>: <span class="json-str">"VOCÊ PODE TROCAR DE PLANO"</span>, <span class="json-key">"style"</span>: <span class="json-str">"Large bold white, centered top 1/3"</span>},
+    {<span class="json-key">"text"</span>: <span class="json-str">"sem perder a carência"</span>, <span class="json-key">"style"</span>: <span class="json-str">"Medium blue-purple #6878b8, italic, center"</span>},
+    {<span class="json-key">"text"</span>: <span class="json-str">"Portabilidade de carência é um direito garantido pela ANS"</span>, <span class="json-key">"style"</span>: <span class="json-str">"Small white body, center"</span>},
+    {<span class="json-key">"text"</span>: <span class="json-str">"A AVX analisa sua elegibilidade — gratuitamente"</span>, <span class="json-key">"style"</span>: <span class="json-str">"Underlined or highlighted blue #6878b8"</span>}
+  ],
+  <span class="json-key">"graphic_element"</span>: <span class="json-str">"Subtle chevron or directional arrow in blue-purple, right side, 15% opacity"</span>,
+  <span class="json-key">"mood"</span>: <span class="json-str">"Clarity, empowerment, legal authority"</span>,
+  <span class="json-key">"avoid"</span>: <span class="json-str">"Medical imagery, cluttered layout, generic insurance visuals"</span>,
+  <span class="json-key">"format"</span>: <span class="json-str">"1080x1080px square"</span>
+}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- S-AI5 -->
+        <div class="card ad-image-card">
+          <div class="card-header">
+            <div><div class="card-title">Autoridade — Do lado certo</div>
+            <div class="card-meta"><span class="tag tag-platform">Feed 1:1 + Stories</span><span class="tag tag-format">Fotografia corporativa premium</span></div></div>
+            <span class="card-num">S-AI5</span>
+          </div>
+          <div class="card-body">
+            <div class="meta-block">
+              <div class="meta-row"><span class="meta-field">Headline</span><span class="meta-value">Do lado certo da negociação</span></div>
+              <div class="meta-row"><span class="meta-field">Description</span><span class="meta-value">Ex-equipe de operadora de saúde</span></div>
+              <div class="meta-row"><span class="meta-field">Texto na arte</span><span class="meta-value">"Do lado certo da negociação." + "Ex-gestores de operadora de saúde"</span></div>
+            </div>
+            <div class="prompt-block">
+              <div class="prompt-header"><span class="prompt-label">Prompt JSON para ChatGPT / DALL·E 3</span><button class="prompt-copy" onclick="copyPrompt(this)">Copiar</button></div>
+              <div class="prompt-code">{
+  <span class="json-key">"style"</span>: <span class="json-str">"Professional corporate photography, premium feel, non-stock"</span>,
+  <span class="json-key">"subject"</span>: <span class="json-str">"Two or three Brazilian professionals, business casual (smart casual, no formal suits), in a modern meeting room or open office, collaborative posture — one explaining something on a laptop to the other"</span>,
+  <span class="json-key">"lighting"</span>: <span class="json-str">"Soft natural light, professional quality, warm neutral tones"</span>,
+  <span class="json-key">"colors"</span>: <span class="json-str">"Deep navy #1c2c4c clothing accents, white walls, neutral office furniture"</span>,
+  <span class="json-key">"text_overlay"</span>: {
+    <span class="json-key">"main"</span>: <span class="json-str">"Do lado certo da negociação."</span>,
+    <span class="json-key">"sub"</span>: <span class="json-str">"Ex-gestores de operadora de saúde"</span>,
+    <span class="json-key">"position"</span>: <span class="json-str">"Bottom third, white text, semi-transparent navy overlay"</span>
+  },
+  <span class="json-key">"composition"</span>: <span class="json-str">"Subjects in left 2/3, space for text on right or bottom"</span>,
+  <span class="json-key">"avoid"</span>: <span class="json-str">"Insurance agent clichés, handshake stock photos, formal suits and ties, stethoscopes"</span>,
+  <span class="json-key">"mood"</span>: <span class="json-str">"Expert, insider knowledge, modern trust, on your side"</span>,
+  <span class="json-key">"format"</span>: <span class="json-str">"1080x1080px feed, also adapt to 1080x1920px Stories"</span>
+}</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /saude-imagead -->
+
+  </div><!-- /content-area saude -->
+</div><!-- /tab-saude -->
+
+<!-- ═══════════════════════════════════════════════
+     CONSÓRCIO
+═══════════════════════════════════════════════ -->
+<div id="tab-consorcio" class="tab-panel">
+  <div class="section-nav" id="nav-consorcio">
+    <button class="sec-btn active-gold" onclick="switchSub('consorcio','organico',this)">📱 Vídeos Orgânicos (10)</button>
+    <button class="sec-btn" onclick="switchSub('consorcio','videoad',this)">🎬 Anúncios Vídeo (5)</button>
+    <button class="sec-btn" onclick="switchSub('consorcio','imagead',this)">🖼 Anúncios Imagem + Prompts (5)</button>
+  </div>
+
+  <div class="content-area">
+
+    <!-- CONSÓRCIO: ORGÂNICO -->
+    <div id="consorcio-organico" class="sub-panel active">
+      <p class="section-title">Vídeos Orgânicos — Consórcio</p>
+      <p class="section-desc">Conteúdo educativo e de autoridade. Objetivo: posicionar a AVX como referência em consórcio para empresários e produtores rurais. Instagram + LinkedIn + Facebook.</p>
+      <div class="cards-grid">
+
+        <!-- C-O1 -->
+        <div class="card consorcio-card">
+          <div class="card-header">
+            <div><div class="card-title">Consórcio não é rifinha</div>
+            <div class="card-meta"><span class="tag tag-platform">Reels / TikTok</span><span class="tag tag-duration">30s</span><span class="tag tag-format">Desmistificação</span></div></div>
+            <span class="card-num">C-O1</span>
+          </div>
+          <div class="card-body">
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">0–3s</span> Hook</div><div class="script-text hook-gold">"Consórcio não é rifinha. Mas a maioria das pessoas ainda acha que é."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">3–22s</span> Educação</div><div class="script-text">"No consórcio, você não depende de sorte para ser contemplado. Existe o sorteio — mas também existe o lance. O lance é quando você adianta parte do seu saldo para ser contemplado mais rápido. E diferente de financiamento, você não paga juros. Só uma taxa de administração."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">22–30s</span> CTA</div><div class="script-text cta">"A AVX explica como funciona sem enrolação. Link na bio."</div></div>
+            <div class="caption-block"><div class="caption-label">Legenda sugerida</div><div class="caption-text">Consórcio ≠ sorte.
+
+É estratégia financeira para quem pensa em patrimônio — não em impulso.
+
+👉 Simulação gratuita no link da bio.
+#Consórcio #Patrimônio #Investimento #AVXCorretora</div></div>
+          </div>
+        </div>
+
+        <!-- C-O2 -->
+        <div class="card consorcio-card">
+          <div class="card-header">
+            <div><div class="card-title">Quanto você paga a mais no financiamento?</div>
+            <div class="card-meta"><span class="tag tag-platform">LinkedIn / Reels</span><span class="tag tag-duration">45s</span><span class="tag tag-format">Dado concreto</span></div></div>
+            <span class="card-num">C-O2</span>
+          </div>
+          <div class="card-body">
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">0–3s</span> Hook</div><div class="script-text hook-gold">"Financiamento vs consórcio. Os números que ninguém te mostra."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">3–20s</span> Dado 1</div><div class="script-text">"Imóvel de R$ 300 mil financiado em 20 anos: você paga entre R$ 480 mil e R$ 540 mil no total. 60% a mais do que o valor do bem — tudo em juros para o banco."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">20–35s</span> Dado 2</div><div class="script-text">"O mesmo imóvel em consórcio de 180 meses: você paga o valor do bem mais a taxa de administração — em torno de 17% total. Sem juros. Sem banco no meio."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">35–45s</span> CTA</div><div class="script-text cta">"Simule no site da AVX, de graça. Link na bio."</div></div>
+          </div>
+        </div>
+
+        <!-- C-O3 -->
+        <div class="card consorcio-card">
+          <div class="card-header">
+            <div><div class="card-title">Como funciona o lance no consórcio?</div>
+            <div class="card-meta"><span class="tag tag-platform">Reels</span><span class="tag tag-duration">45s</span><span class="tag tag-format">Educacional</span></div></div>
+            <span class="card-num">C-O3</span>
+          </div>
+          <div class="card-body">
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">0–3s</span> Hook</div><div class="script-text hook-gold">"Quer ser contemplado mais rápido no consórcio? Entenda o lance."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">3–35s</span> Explicação</div><div class="script-text">"Lance é uma oferta que você faz para antecipar a contemplação. Existem dois tipos: Lance livre — você define o valor; Lance fixo — a administradora define o percentual. O maior lance do mês leva a carta de crédito. Se você não for contemplado, o valor do lance volta pra você. É completamente seguro. A AVX orienta a melhor estratégia de lance para o seu perfil."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">35–45s</span> CTA</div><div class="script-text cta">"Link na bio para simulação gratuita."</div></div>
+          </div>
+        </div>
+
+        <!-- C-O4 -->
+        <div class="card consorcio-card">
+          <div class="card-header">
+            <div><div class="card-title">Consórcio de imóvel: passo a passo</div>
+            <div class="card-meta"><span class="tag tag-platform">LinkedIn / Instagram</span><span class="tag tag-duration">60s</span><span class="tag tag-format">Tutorial</span></div></div>
+            <span class="card-num">C-O4</span>
+          </div>
+          <div class="card-body">
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">0–3s</span> Hook</div><div class="script-text hook-gold">"Como funciona o consórcio de imóvel, do início ao fim."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">3–15s</span> Passo 1</div><div class="script-text">"Você entra no grupo e começa a pagar as parcelas mensais. Não tem entrada e não tem juros."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">15–25s</span> Passo 2</div><div class="script-text">"Todo mês há um sorteio. Você também pode dar um lance para antecipar."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">25–40s</span> Passo 3</div><div class="script-text">"Ao ser contemplado, você recebe a carta de crédito — equivale ao valor do bem. Pode comprar qualquer imóvel, novo ou usado, na planta ou pronto."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">40–55s</span> Passo 4</div><div class="script-text">"Depois da contemplação, você continua pagando as parcelas normalmente até o fim do grupo."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">55–60s</span> CTA</div><div class="script-text cta">"Simule agora. Gratuito. Link na bio."</div></div>
+          </div>
+        </div>
+
+        <!-- C-O5 -->
+        <div class="card consorcio-card">
+          <div class="card-header">
+            <div><div class="card-title">Por que empresário usa consórcio e não financiamento</div>
+            <div class="card-meta"><span class="tag tag-platform">LinkedIn</span><span class="tag tag-duration">45s</span><span class="tag tag-format">Persona / autoridade</span></div></div>
+            <span class="card-num">C-O5</span>
+          </div>
+          <div class="card-body">
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">0–3s</span> Hook</div><div class="script-text hook-gold">"Empresários que pensam em patrimônio não financiam. Consorciam."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">3–35s</span> Raciocínio</div><div class="script-text">"Financiamento é urgência. Você quer o bem agora, custe o que custar. Consórcio é planejamento. Você tem clareza sobre o custo total — o valor do bem mais a taxa de administração — e não abre mão do caixa da empresa por impulso. Para quem pensa em construir patrimônio de forma inteligente, o consórcio é a ferramenta certa."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">35–45s</span> CTA</div><div class="script-text cta">"A AVX explica as opções disponíveis. Sem custo. Link na bio."</div></div>
+          </div>
+        </div>
+
+        <!-- C-O6 -->
+        <div class="card consorcio-card">
+          <div class="card-header">
+            <div><div class="card-title">Consórcio para maquinário: o que todo produtor precisa saber</div>
+            <div class="card-meta"><span class="tag tag-platform">LinkedIn / Facebook</span><span class="tag tag-duration">60s</span><span class="tag tag-format">Segmento agro</span></div></div>
+            <span class="card-num">C-O6</span>
+          </div>
+          <div class="card-body">
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">0–3s</span> Hook</div><div class="script-text hook-gold">"Produtores rurais e industriais: existe uma forma de renovar o maquinário sem comprometer o caixa."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">3–20s</span> Problema</div><div class="script-text">"Comprar máquina financiada significa pagar 40, 50, 60% a mais ao longo dos anos. Isso corrói a margem de operação — especialmente em atividades com sazonalidade."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">20–45s</span> Solução</div><div class="script-text">"O consórcio de equipamentos permite planejar a renovação com custo fixo e previsível. Você paga a parcela dentro do fluxo de caixa, sem surpresa de juros variáveis. A carta de crédito pode ser usada para tratores, colheitadeiras, equipamentos industriais, caminhões."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">45–60s</span> CTA</div><div class="script-text cta">"A AVX tem especialistas em consórcio para o agro. Simulação gratuita. Link na bio."</div></div>
+          </div>
+        </div>
+
+        <!-- C-O7 -->
+        <div class="card consorcio-card">
+          <div class="card-header">
+            <div><div class="card-title">Fui contemplado no consórcio. E agora?</div>
+            <div class="card-meta"><span class="tag tag-platform">Reels / Instagram</span><span class="tag tag-duration">30s</span><span class="tag tag-format">FAQ / continuidade</span></div></div>
+            <span class="card-num">C-O7</span>
+          </div>
+          <div class="card-body">
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">0–3s</span> Hook</div><div class="script-text hook-gold">"Fui contemplado no consórcio. O que faço agora?"</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">3–22s</span> Orientação</div><div class="script-text">"Após a contemplação, você tem um prazo para indicar o bem que quer comprar. A carta de crédito equivale ao valor do crédito contratado, corrigido pelo índice do grupo. Você negocia direto com o vendedor — como pagamento à vista. Depois, segue pagando as parcelas até o fim do grupo."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">22–30s</span> CTA</div><div class="script-text cta">"A AVX acompanha do contrato até a contemplação. Link na bio."</div></div>
+          </div>
+        </div>
+
+        <!-- C-O8 -->
+        <div class="card consorcio-card">
+          <div class="card-header">
+            <div><div class="card-title">Consórcio de veículo: leve ou pesado?</div>
+            <div class="card-meta"><span class="tag tag-platform">Reels / TikTok</span><span class="tag tag-duration">30s</span><span class="tag tag-format">Comparativo</span></div></div>
+            <span class="card-num">C-O8</span>
+          </div>
+          <div class="card-body">
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">0–3s</span> Hook</div><div class="script-text hook-gold">"Consórcio de veículo leve vs pesado. Qual é pra você?"</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">3–22s</span> Comparativo</div><div class="script-text">"Veículo leve — carros, SUVs, pickups para uso pessoal ou frota. Prazos de 60 a 100 meses, parcelas menores. Veículo pesado — caminhões, ônibus, equipamentos. Créditos maiores, até R$ 400 mil, ideais para renovação de frota. Em ambos os casos: sem juros, só taxa de administração."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">22–30s</span> CTA</div><div class="script-text cta">"Simule o seu. Link na bio."</div></div>
+          </div>
+        </div>
+
+        <!-- C-O9 -->
+        <div class="card consorcio-card">
+          <div class="card-header">
+            <div><div class="card-title">Posso usar FGTS no consórcio de imóvel?</div>
+            <div class="card-meta"><span class="tag tag-platform">Reels / TikTok</span><span class="tag tag-duration">30s</span><span class="tag tag-format">FAQ</span></div></div>
+            <span class="card-num">C-O9</span>
+          </div>
+          <div class="card-body">
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">0–3s</span> Hook</div><div class="script-text hook-gold">"FGTS no consórcio de imóvel: sim, dá."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">3–22s</span> Explicação</div><div class="script-text">"Você pode usar o FGTS de três formas: para dar um lance e antecipar a contemplação, para amortizar parcelas após ser contemplado, ou para complementar o valor da carta de crédito na compra do imóvel. As regras são as mesmas do financiamento habitacional — o imóvel precisa ser para moradia própria."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">22–30s</span> CTA</div><div class="script-text cta">"Quer saber se você se enquadra? A AVX analisa sem custo. Link na bio."</div></div>
+          </div>
+        </div>
+
+        <!-- C-O10 -->
+        <div class="card consorcio-card">
+          <div class="card-header">
+            <div><div class="card-title">Qual é a taxa de administração real do consórcio?</div>
+            <div class="card-meta"><span class="tag tag-platform">LinkedIn / Instagram</span><span class="tag tag-duration">45s</span><span class="tag tag-format">Transparência</span></div></div>
+            <span class="card-num">C-O10</span>
+          </div>
+          <div class="card-body">
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">0–3s</span> Hook</div><div class="script-text hook-gold">"Taxa de administração do consórcio: o que é e quanto representa de verdade."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">3–35s</span> Transparência</div><div class="script-text">"A taxa de administração é o único custo do consórcio além do valor do bem. Em média, representa entre 15% e 20% do crédito total — diluída ao longo do prazo. Comparado aos juros do financiamento, que podem chegar a 60%, é uma diferença muito significativa. Na AVX, trabalhamos com administradoras transparentes — e explicamos cada centavo antes de você assinar."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">35–45s</span> CTA</div><div class="script-text cta">"Simulação gratuita. Link na bio."</div></div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /consorcio-organico -->
+
+    <!-- CONSÓRCIO: ANÚNCIOS VÍDEO -->
+    <div id="consorcio-videoad" class="sub-panel">
+      <p class="section-title">Anúncios de Vídeo — Consórcio</p>
+      <p class="section-desc">Formato Meta Ads. Destino: lp-consorcio.html. Foco em comparativo, revelação e personas (empresário e agro).</p>
+      <div class="cards-grid">
+
+        <!-- C-AV1 -->
+        <div class="card consorcio-video-ad">
+          <div class="card-header">
+            <div><div class="card-title">Comparativo Financiamento × Consórcio</div>
+            <div class="card-meta"><span class="tag tag-platform">Feed / Stories</span><span class="tag tag-duration">20s</span><span class="tag tag-format">Dado numérico</span></div></div>
+            <span class="card-num">C-AV1</span>
+          </div>
+          <div class="card-body">
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">0–3s</span> Hook</div><div class="script-text hook-gold">"A diferença entre financiar e consorciar em números reais."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">3–12s</span> Dado</div><div class="script-text">"Financiamento: você paga o bem + até 60% em juros. Consórcio: você paga o bem + 17% de taxa de administração. Só isso."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">12–17s</span> Solução</div><div class="script-text">"Para quem pensa em investimento e não em impulso, os números falam por si. A AVX simula gratuitamente."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">17–20s</span> CTA</div><div class="script-text cta">"Clica no link."</div></div>
+            <div class="meta-block">
+              <div class="meta-row"><span class="meta-field">Primary text</span><span class="meta-value">Financiamento: você paga o bem + até 60% em juros ao longo dos anos.
+Consórcio: você paga o bem + 17% de taxa de administração. Ponto final.
+
+Para quem pensa em investimento e não em impulso, os números falam por si.
+
+Simule sua parcela no site da AVX — é gratuito e sem compromisso.</span></div>
+              <div class="meta-row"><span class="meta-field">Headline</span><span class="meta-value">Invista sem pagar juros <span class="char-count">(22 chars)</span></span></div>
+              <div class="meta-row"><span class="meta-field">Description</span><span class="meta-value">Simulação gratuita na AVX <span class="char-count">(25 chars)</span></span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- C-AV2 -->
+        <div class="card consorcio-video-ad">
+          <div class="card-header">
+            <div><div class="card-title">Revelação — "Sem juros"</div>
+            <div class="card-meta"><span class="tag tag-platform">Feed</span><span class="tag tag-duration">15s</span><span class="tag tag-format">Impacto direto</span></div></div>
+            <span class="card-num">C-AV2</span>
+          </div>
+          <div class="card-body">
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">0–3s</span> Hook</div><div class="script-text hook-gold">"Consórcio não é compra parcelada. É o único investimento em patrimônio sem juros."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">3–10s</span> Fato</div><div class="script-text">"No financiamento, você paga o bem mais os juros do banco — até 60% a mais. No consórcio: o bem + 17% de taxa de administração. Ponto final."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">10–15s</span> CTA</div><div class="script-text cta">"A AVX explica sem enrolação. Link na bio."</div></div>
+            <div class="meta-block">
+              <div class="meta-row"><span class="meta-field">Primary text</span><span class="meta-value">Consórcio não é compra parcelada. É o único investimento em patrimônio sem juros.
+
+No financiamento, você paga o bem + os juros do banco — até 60% a mais ao longo do prazo.
+
+No consórcio, você paga o bem + uma taxa de administração de 17%. Só isso.
+
+A AVX explica como funciona, sem enrolação.</span></div>
+              <div class="meta-row"><span class="meta-field">Headline</span><span class="meta-value">Patrimônio sem juros, sem pressa <span class="char-count">(31 chars)</span></span></div>
+              <div class="meta-row"><span class="meta-field">Description</span><span class="meta-value">Consórcio para empresários <span class="char-count">(26 chars)</span></span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- C-AV3 -->
+        <div class="card consorcio-video-ad">
+          <div class="card-header">
+            <div><div class="card-title">Persona Empresário — Patrimônio de longo prazo</div>
+            <div class="card-meta"><span class="tag tag-platform">Feed</span><span class="tag tag-duration">20s</span><span class="tag tag-format">Identidade / câmera</span></div></div>
+            <span class="card-num">C-AV3</span>
+          </div>
+          <div class="card-body">
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">0–4s</span> Hook</div><div class="script-text hook-gold">"Empresário que pensa no longo prazo não deixa o patrimônio crescer por acaso."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">4–14s</span> Desenvolvimento</div><div class="script-text">"Consórcio de imóvel, veículo ou maquinário pela AVX — sem juros, sem pressão de entrar agora. Você escolhe o crédito, o prazo e o momento certo."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">14–20s</span> CTA</div><div class="script-text cta">"Fale com um consultor AVX. Link na bio."</div></div>
+            <div class="meta-block">
+              <div class="meta-row"><span class="meta-field">Primary text</span><span class="meta-value">Empresário que pensa no longo prazo não deixa o patrimônio crescer por acaso.
+
+Consórcio de imóvel, veículo ou maquinário pela AVX — sem juros, sem pressão para entrar agora.</span></div>
+              <div class="meta-row"><span class="meta-field">Headline</span><span class="meta-value">Planejamento patrimonial sem juros <span class="char-count">(34 chars)</span></span></div>
+              <div class="meta-row"><span class="meta-field">Description</span><span class="meta-value">Fale com um consultor AVX <span class="char-count">(25 chars)</span></span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- C-AV4 -->
+        <div class="card consorcio-video-ad">
+          <div class="card-header">
+            <div><div class="card-title">Agro — Maquinário sem comprometer o caixa</div>
+            <div class="card-meta"><span class="tag tag-platform">Feed / Stories</span><span class="tag tag-duration">20s</span><span class="tag tag-format">Segmento rural</span></div></div>
+            <span class="card-num">C-AV4</span>
+          </div>
+          <div class="card-body">
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">0–3s</span> Hook</div><div class="script-text hook-gold">"Produtor rural: renovar o maquinário sem comprometer o caixa é possível."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">3–14s</span> Dados</div><div class="script-text">"Pelo consórcio agrícola da AVX, você planeja a compra com parcela fixa, sem juros, sem surpresa. Créditos de até R$ 400 mil para tratores, colheitadeiras e equipamentos."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">14–20s</span> CTA</div><div class="script-text cta">"Simulação gratuita. Link na bio."</div></div>
+            <div class="meta-block">
+              <div class="meta-row"><span class="meta-field">Primary text</span><span class="meta-value">Renovar o maquinário sem comprometer o caixa da fazenda é possível.
+
+Com o consórcio agrícola pela AVX, você planeja a compra com parcela fixa e sem juros — ideal para quem tem sazonalidade no fluxo de caixa.
+
+Créditos de até R$ 400 mil para tratores, colheitadeiras e equipamentos pesados.</span></div>
+              <div class="meta-row"><span class="meta-field">Headline</span><span class="meta-value">Maquinário novo sem juros <span class="char-count">(25 chars)</span></span></div>
+              <div class="meta-row"><span class="meta-field">Description</span><span class="meta-value">Consórcio agrícola · AVX Corretora <span class="char-count">(34 chars)</span></span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- C-AV5 -->
+        <div class="card consorcio-video-ad">
+          <div class="card-header">
+            <div><div class="card-title">Simulação — "Quanto fica a parcela?"</div>
+            <div class="card-meta"><span class="tag tag-platform">Feed / Stories</span><span class="tag tag-duration">15s</span><span class="tag tag-format">Curiosidade / ferramenta</span></div></div>
+            <span class="card-num">C-AV5</span>
+          </div>
+          <div class="card-body">
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">0–3s</span> Hook</div><div class="script-text hook-gold">"Quanto ficaria a parcela de um consórcio de R$ 200 mil?"</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">3–10s</span> Resposta</div><div class="script-text">"Depende do prazo — mas geralmente menos do que você imagina. E sem juros."</div></div>
+            <div class="script-block"><div class="script-label"><span class="time-badge gold">10–15s</span> CTA</div><div class="script-text cta">"Simule agora no site da AVX. É gratuito. Link na bio."</div></div>
+            <div class="meta-block">
+              <div class="meta-row"><span class="meta-field">Primary text</span><span class="meta-value">Simule sua parcela no site da AVX — é gratuito e sem compromisso.
+
+Escolha o tipo de bem (imóvel, veículo, maquinário), o valor do crédito e o prazo. Veja o resultado em segundos.</span></div>
+              <div class="meta-row"><span class="meta-field">Headline</span><span class="meta-value">Ver Quanto Economizo <span class="char-count">(19 chars)</span></span></div>
+              <div class="meta-row"><span class="meta-field">Description</span><span class="meta-value">Calcular Consórcio Grátis <span class="char-count">(25 chars)</span></span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /consorcio-videoad -->
+
+    <!-- CONSÓRCIO: ANÚNCIOS IMAGEM -->
+    <div id="consorcio-imagead" class="sub-panel">
+      <p class="section-title">Anúncios de Imagem — Consórcio</p>
+      <p class="section-desc">Prompts JSON otimizados para DALL·E 3 / GPT-4o image generation. Cada prompt inclui composição, paleta, texto de overlay e instruções de evitar.</p>
+      <div class="cards-grid">
+
+        <!-- C-AI1 -->
+        <div class="card consorcio-img-ad">
+          <div class="card-header">
+            <div><div class="card-title">Comparativo Numérico: 60% vs 17%</div>
+            <div class="card-meta"><span class="tag tag-platform">Feed 1:1</span><span class="tag tag-format">Infográfico tipográfico</span></div></div>
+            <span class="card-num">C-AI1</span>
+          </div>
+          <div class="card-body">
+            <div class="meta-block">
+              <div class="meta-row"><span class="meta-field">Headline</span><span class="meta-value">Invista sem pagar juros</span></div>
+              <div class="meta-row"><span class="meta-field">Description</span><span class="meta-value">Simulação gratuita na AVX</span></div>
+            </div>
+            <div class="prompt-block">
+              <div class="prompt-header"><span class="prompt-label">Prompt JSON para ChatGPT / DALL·E 3</span><button class="prompt-copy" onclick="copyPrompt(this)">Copiar</button></div>
+              <div class="prompt-code">{
+  <span class="json-key">"style"</span>: <span class="json-str">"Bold typographic data visualization ad, premium minimal design"</span>,
+  <span class="json-key">"layout"</span>: <span class="json-str">"Two-column vertical split"</span>,
+  <span class="json-key">"left_column"</span>: {
+    <span class="json-key">"label"</span>: <span class="json-str">"FINANCIAMENTO"</span>,
+    <span class="json-key">"main_number"</span>: <span class="json-str">"+60%"</span>,
+    <span class="json-key">"sublabel"</span>: <span class="json-str">"em juros ao longo do prazo"</span>,
+    <span class="json-key">"background"</span>: <span class="json-str">"#1c2c4c deep navy"</span>,
+    <span class="json-key">"accent_color"</span>: <span class="json-str">"#ff6b6b red on the number"</span>
+  },
+  <span class="json-key">"right_column"</span>: {
+    <span class="json-key">"label"</span>: <span class="json-str">"CONSÓRCIO"</span>,
+    <span class="json-key">"main_number"</span>: <span class="json-str">"+17%"</span>,
+    <span class="json-key">"sublabel"</span>: <span class="json-str">"taxa de administração — só isso"</span>,
+    <span class="json-key">"background"</span>: <span class="json-str">"#f8fafc off-white"</span>,
+    <span class="json-key">"accent_color"</span>: <span class="json-str">"#c9961b gold on the number"</span>
+  },
+  <span class="json-key">"bottom_strip"</span>: <span class="json-str">"'A AVX explica a diferença. Simulação gratuita.' — white text on #6878b8 blue-purple"</span>,
+  <span class="json-key">"avoid"</span>: <span class="json-str">"3D effects, gradients that distract, charts with too many elements"</span>,
+  <span class="json-key">"mood"</span>: <span class="json-str">"Data-confident, clear, trustworthy financial brand"</span>,
+  <span class="json-key">"format"</span>: <span class="json-str">"1080x1080px square"</span>
+}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- C-AI2 -->
+        <div class="card consorcio-img-ad">
+          <div class="card-header">
+            <div><div class="card-title">Imóvel — Chaves / Patrimônio</div>
+            <div class="card-meta"><span class="tag tag-platform">Feed 1:1 + Stories</span><span class="tag tag-format">Lifestyle aspiracional</span></div></div>
+            <span class="card-num">C-AI2</span>
+          </div>
+          <div class="card-body">
+            <div class="meta-block">
+              <div class="meta-row"><span class="meta-field">Headline</span><span class="meta-value">Patrimônio sem juros, sem pressa</span></div>
+              <div class="meta-row"><span class="meta-field">Description</span><span class="meta-value">Consórcio para empresários</span></div>
+            </div>
+            <div class="prompt-block">
+              <div class="prompt-header"><span class="prompt-label">Prompt JSON para ChatGPT / DALL·E 3</span><button class="prompt-copy" onclick="copyPrompt(this)">Copiar</button></div>
+              <div class="prompt-code">{
+  <span class="json-key">"style"</span>: <span class="json-str">"Premium lifestyle photography, minimal text overlay, aspirational but grounded"</span>,
+  <span class="json-key">"subject"</span>: <span class="json-str">"Close-up of a male professional hand holding house keys with a modern key fob, soft focus background showing modern Brazilian mid-to-high-end property exterior"</span>,
+  <span class="json-key">"setting"</span>: <span class="json-str">"Modern property, clean architecture, daylight, warm natural light"</span>,
+  <span class="json-key">"colors"</span>: <span class="json-str">"Warm neutrals — beige, white, concrete gray. Deep navy #1c2c4c for text overlay."</span>,
+  <span class="json-key">"text_overlay"</span>: {
+    <span class="json-key">"main"</span>: <span class="json-str">"Patrimônio sem juros."</span>,
+    <span class="json-key">"sub"</span>: <span class="json-str">"Consórcio de imóvel pela AVX."</span>,
+    <span class="json-key">"position"</span>: <span class="json-str">"Bottom left, large bold white text on semi-transparent navy strip"</span>
+  },
+  <span class="json-key">"composition"</span>: <span class="json-str">"Close crop on keys in foreground, architectural element softly blurred behind"</span>,
+  <span class="json-key">"avoid"</span>: <span class="json-str">"Cheesy real estate stock photos, 'sold' signs, smiling agent with clipboard, clichés"</span>,
+  <span class="json-key">"mood"</span>: <span class="json-str">"Achievement, financial intelligence, calm confidence"</span>,
+  <span class="json-key">"format"</span>: <span class="json-str">"1080x1080px square and 1080x1920px 9:16 Stories"</span>
+}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- C-AI3 -->
+        <div class="card consorcio-img-ad">
+          <div class="card-header">
+            <div><div class="card-title">Veículo — Empresário e frota</div>
+            <div class="card-meta"><span class="tag tag-platform">Feed 1:1</span><span class="tag tag-format">Lifestyle corporativo</span></div></div>
+            <span class="card-num">C-AI3</span>
+          </div>
+          <div class="card-body">
+            <div class="meta-block">
+              <div class="meta-row"><span class="meta-field">Headline</span><span class="meta-value">Invista sem pagar juros</span></div>
+              <div class="meta-row"><span class="meta-field">Description</span><span class="meta-value">Consórcio de veículos · AVX</span></div>
+            </div>
+            <div class="prompt-block">
+              <div class="prompt-header"><span class="prompt-label">Prompt JSON para ChatGPT / DALL·E 3</span><button class="prompt-copy" onclick="copyPrompt(this)">Copiar</button></div>
+              <div class="prompt-code">{
+  <span class="json-key">"style"</span>: <span class="json-str">"Aspirational automotive meets business lifestyle photography"</span>,
+  <span class="json-key">"subject"</span>: <span class="json-str">"Brazilian male entrepreneur, 35-50, business casual attire, standing near a modern pickup truck or SUV — the vehicle is a business asset, not a status symbol"</span>,
+  <span class="json-key">"setting"</span>: <span class="json-str">"Commercial building exterior or modern logistics environment, golden hour lighting"</span>,
+  <span class="json-key">"composition"</span>: <span class="json-str">"Person in mid-ground, vehicle prominent, space for text on left side"</span>,
+  <span class="json-key">"text_overlay"</span>: {
+    <span class="json-key">"main"</span>: <span class="json-str">"Renovar a frota sem juros é possível."</span>,
+    <span class="json-key">"sub"</span>: <span class="json-str">"Consórcio de veículos · AVX Corretora"</span>,
+    <span class="json-key">"style"</span>: <span class="json-str">"White bold on deep navy strip at bottom"</span>
+  },
+  <span class="json-key">"avoid"</span>: <span class="json-str">"Luxury car showrooms, exotic cars, flashy lifestyle, sports cars"</span>,
+  <span class="json-key">"mood"</span>: <span class="json-str">"Practical ambition, smart investment, business growth"</span>,
+  <span class="json-key">"format"</span>: <span class="json-str">"1080x1080px square"</span>
+}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- C-AI4 -->
+        <div class="card consorcio-img-ad">
+          <div class="card-header">
+            <div><div class="card-title">Agro — Maquinário em campo</div>
+            <div class="card-meta"><span class="tag tag-platform">Feed 1:1 + 16:9</span><span class="tag tag-format">Fotografia rural documental</span></div></div>
+            <span class="card-num">C-AI4</span>
+          </div>
+          <div class="card-body">
+            <div class="meta-block">
+              <div class="meta-row"><span class="meta-field">Headline</span><span class="meta-value">Maquinário novo sem comprometer o caixa</span></div>
+              <div class="meta-row"><span class="meta-field">Description</span><span class="meta-value">Consórcio agrícola · AVX Corretora</span></div>
+            </div>
+            <div class="prompt-block">
+              <div class="prompt-header"><span class="prompt-label">Prompt JSON para ChatGPT / DALL·E 3</span><button class="prompt-copy" onclick="copyPrompt(this)">Copiar</button></div>
+              <div class="prompt-code">{
+  <span class="json-key">"style"</span>: <span class="json-str">"Documentary-style agricultural photography, real farm environment"</span>,
+  <span class="json-key">"subject"</span>: <span class="json-str">"Modern agricultural machinery in operation or parked — tractor, harvester, or planting equipment — in a Brazilian agricultural setting (soy field, sugarcane, or corn)"</span>,
+  <span class="json-key">"setting"</span>: <span class="json-str">"Brazilian cerrado or agricultural land, golden morning or late afternoon light, vast open field"</span>,
+  <span class="json-key">"composition"</span>: <span class="json-str">"Machinery in 2/3 of frame, open sky in 1/3 — conveys scale and ambition"</span>,
+  <span class="json-key">"text_overlay"</span>: {
+    <span class="json-key">"main"</span>: <span class="json-str">"Renovar o maquinário sem comprometer o caixa."</span>,
+    <span class="json-key">"sub"</span>: <span class="json-str">"Consórcio agrícola · AVX Corretora"</span>,
+    <span class="json-key">"background"</span>: <span class="json-str">"#1a3d24 dark forest green strip"</span>,
+    <span class="json-key">"text_color"</span>: <span class="json-str">"white"</span>
+  },
+  <span class="json-key">"avoid"</span>: <span class="json-str">"City settings, generic industrial imagery, cartoon farm elements"</span>,
+  <span class="json-key">"mood"</span>: <span class="json-str">"Scale, productivity, smart investment, rural pride"</span>,
+  <span class="json-key">"format"</span>: <span class="json-str">"1080x1080px square and 1920x1080px 16:9 for Facebook"</span>
+}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- C-AI5 -->
+        <div class="card consorcio-img-ad">
+          <div class="card-header">
+            <div><div class="card-title">Institucional AVX — Marca / Autoridade</div>
+            <div class="card-meta"><span class="tag tag-platform">Feed 1:1 + Stories</span><span class="tag tag-format">Typography / brand dark</span></div></div>
+            <span class="card-num">C-AI5</span>
+          </div>
+          <div class="card-body">
+            <div class="meta-block">
+              <div class="meta-row"><span class="meta-field">Headline</span><span class="meta-value">Planejamento patrimonial sem juros</span></div>
+              <div class="meta-row"><span class="meta-field">Description</span><span class="meta-value">Fale com um consultor AVX</span></div>
+            </div>
+            <div class="prompt-block">
+              <div class="prompt-header"><span class="prompt-label">Prompt JSON para ChatGPT / DALL·E 3</span><button class="prompt-copy" onclick="copyPrompt(this)">Copiar</button></div>
+              <div class="prompt-code">{
+  <span class="json-key">"style"</span>: <span class="json-str">"Premium brand/institutional typography-led design, dark and authoritative"</span>,
+  <span class="json-key">"background"</span>: <span class="json-str">"Deep navy #1c2c4c, full bleed"</span>,
+  <span class="json-key">"text_elements"</span>: [
+    {<span class="json-key">"text"</span>: <span class="json-str">"Patrimônio sem juros."</span>, <span class="json-key">"style"</span>: <span class="json-str">"Large white bold, top area, serif or elegant sans-serif"</span>},
+    {<span class="json-key">"text"</span>: <span class="json-str">"Consórcio de imóvel, veículo e maquinário."</span>, <span class="json-key">"style"</span>: <span class="json-str">"Medium white, secondary weight"</span>},
+    {<span class="json-key">"text"</span>: <span class="json-str">"AVX CORRETORA"</span>, <span class="json-key">"style"</span>: <span class="json-str">"Spaced caps, gold #c9961b, bottom"</span>}
+  ],
+  <span class="json-key">"graphic_element"</span>: <span class="json-str">"Abstract chevron/X mark in gold #c9961b, large and subtle in background at 12% opacity"</span>,
+  <span class="json-key">"optional_bg"</span>: <span class="json-str">"Blurred city skyline or architectural element visible through dark overlay"</span>,
+  <span class="json-key">"avoid"</span>: <span class="json-str">"Stock charts, piggy banks, busy layouts, competing focal points, generic finance clichés"</span>,
+  <span class="json-key">"mood"</span>: <span class="json-str">"Premium, trustworthy, established, modern Brazilian business"</span>,
+  <span class="json-key">"format"</span>: <span class="json-str">"1080x1080px square and 1080x1920px Stories version"</span>
+}</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /consorcio-imagead -->
+
+  </div><!-- /content-area consorcio -->
+</div><!-- /tab-consorcio -->
+
+<script>
+function switchTab(tab, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  btn.classList.add('active');
+}
+
+function switchSub(tab, sub, btn) {
+  const panel = document.getElementById('tab-' + tab);
+  panel.querySelectorAll('.sub-panel').forEach(p => p.classList.remove('active'));
+  panel.querySelectorAll('.sec-btn').forEach(b => {
+    b.classList.remove('active-blue', 'active-gold');
+  });
+  document.getElementById(tab + '-' + sub).classList.add('active');
+  const isConsorcio = tab === 'consorcio';
+  btn.classList.add(isConsorcio ? 'active-gold' : 'active-blue');
+}
+
+function copyPrompt(btn) {
+  const code = btn.closest('.prompt-block').querySelector('.prompt-code').innerText;
+  navigator.clipboard.writeText(code).then(() => {
+    btn.textContent = 'Copiado!';
+    setTimeout(() => btn.textContent = 'Copiar', 2000);
+  });
+}
+</script>
+</body>
+</html>

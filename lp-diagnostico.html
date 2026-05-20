@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+  <title>AVX Corretora — Diagnóstico Gratuito de Plano de Saúde Empresarial</title>
+  <meta name="description" content="Descubra se sua empresa está pagando o preço justo no plano de saúde. Diagnóstico gratuito feito por quem trabalhou dentro das operadoras.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:          #181d26;
+      --avx-blue:      #1b61c9;
+      --avx-blue-mid:  #254fad;
+      --avx-blue-soft: rgba(27,97,201,0.10);
+      --avx-gold:      #c9961b;
+      --avx-gold-soft: rgba(201,150,27,0.12);
+      --avx-green:     #1a7a3c;
+      --avx-green-soft:rgba(26,122,60,0.10);
+      --white:         #ffffff;
+      --surface:       #f8fafc;
+      --text:          #181d26;
+      --text-muted:    rgba(4,14,32,0.60);
+      --border:        #e0e2e6;
+      --success:       #006400;
+
+      --radius-sm:  6px;
+      --radius:     12px;
+      --radius-lg:  16px;
+      --radius-xl:  24px;
+
+      --shadow:      rgba(0,0,0,0.32) 0px 0px 1px,
+                     rgba(0,0,0,0.08) 0px 0px 2px,
+                     rgba(45,127,249,0.18) 0px 1px 3px,
+                     rgba(0,0,0,0.06) 0px 0px 0px 0.5px inset;
+      --shadow-soft: rgba(15,48,106,0.05) 0px 0px 20px;
+
+      --font:   'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --max-w:  1080px;
+      --transition: .18s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    img, svg { display: block; }
+    a { color: var(--avx-blue); text-decoration: none; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--white); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 28px; }
+
+    /* ── Nav ── */
+    .nav { position: sticky; top: 0; z-index: 100; background: var(--white); border-bottom: 1px solid var(--border); box-shadow: var(--shadow-soft); }
+    .nav-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 28px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-mark { width: 36px; height: 36px; background: var(--navy); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 800; color: var(--white); letter-spacing: -0.5px; }
+    .nav-logo-mark span { color: var(--avx-blue); }
+    .nav-logo-name { font-size: 15px; font-weight: 700; color: var(--navy); letter-spacing: 0.05px; }
+    .nav-cta { display: inline-flex; align-items: center; gap: 8px; background: var(--avx-blue); color: var(--white); border: none; border-radius: var(--radius); padding: 10px 20px; font-family: var(--font); font-size: 14px; font-weight: 600; letter-spacing: 0.08px; cursor: pointer; transition: background var(--transition), transform var(--transition); text-decoration: none; }
+    .nav-cta:hover { background: var(--avx-blue-mid); transform: translateY(-1px); }
+
+    /* ── Botões ── */
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--avx-blue); color: var(--white); border: none; border-radius: var(--radius); padding: 14px 28px; font-family: var(--font); font-size: 16px; font-weight: 600; letter-spacing: 0.08px; cursor: pointer; transition: background var(--transition), transform var(--transition), box-shadow var(--transition); text-decoration: none; }
+    .btn-primary:hover { background: var(--avx-blue-mid); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(27,97,201,0.30); }
+    .btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--navy); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 24px; font-family: var(--font); font-size: 15px; font-weight: 500; cursor: pointer; transition: border-color var(--transition), box-shadow var(--transition); text-decoration: none; }
+    .btn-secondary:hover { border-color: var(--avx-blue); box-shadow: var(--shadow); }
+    .btn-gold { display: inline-flex; align-items: center; gap: 8px; background: var(--avx-gold); color: var(--white); border: none; border-radius: var(--radius); padding: 13px 26px; font-family: var(--font); font-size: 15px; font-weight: 600; letter-spacing: 0.08px; cursor: pointer; transition: background var(--transition), transform var(--transition), box-shadow var(--transition); text-decoration: none; }
+    .btn-gold:hover { background: #b8881a; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,150,27,0.35); }
+    .btn-green { display: inline-flex; align-items: center; gap: 8px; background: var(--avx-green); color: var(--white); border: none; border-radius: var(--radius); padding: 13px 26px; font-family: var(--font); font-size: 15px; font-weight: 600; letter-spacing: 0.08px; cursor: pointer; transition: background var(--transition), transform var(--transition), box-shadow var(--transition); text-decoration: none; }
+    .btn-green:hover { background: #166234; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,122,60,0.35); }
+
+    /* ── Hero ── */
+    .hero { background: var(--white); padding: 96px 0 80px; text-align: center; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; background: var(--avx-blue-soft); color: var(--avx-blue); font-size: 12px; font-weight: 600; letter-spacing: 0.40px; text-transform: uppercase; padding: 4px 12px; border-radius: 50px; margin-bottom: 24px; }
+    .hero-eyebrow::before { content: ''; width: 6px; height: 6px; background: var(--avx-blue); border-radius: 50%; }
+    .hero h1 { font-size: clamp(36px, 5vw, 52px); font-weight: 700; line-height: 1.15; color: var(--navy); max-width: 760px; margin: 0 auto 20px; letter-spacing: -0.5px; }
+    .hero h1 em { font-style: normal; color: var(--avx-blue); }
+    .hero-sub { font-size: 18px; font-weight: 400; color: var(--text-muted); max-width: 560px; margin: 0 auto 40px; line-height: 1.6; letter-spacing: 0.08px; }
+    .hero-actions { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
+    .hero-trust { margin-top: 56px; display: flex; align-items: center; justify-content: center; gap: 32px; flex-wrap: wrap; }
+    .trust-item { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; color: var(--text-muted); letter-spacing: 0.10px; }
+    .trust-item svg { color: var(--success); flex-shrink: 0; }
+
+    /* ── Problema ── */
+    .problem { background: var(--navy); padding: 80px 0; }
+    .problem .container { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .problem-text h2 { font-size: 32px; font-weight: 700; color: var(--white); line-height: 1.25; margin-bottom: 20px; letter-spacing: -0.3px; }
+    .problem-text h2 em { font-style: normal; color: var(--avx-gold); }
+    .problem-text p { font-size: 16px; color: rgba(255,255,255,0.70); line-height: 1.65; letter-spacing: 0.08px; margin-bottom: 28px; }
+    .problem-list { display: flex; flex-direction: column; gap: 16px; }
+    .problem-item { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); border-radius: var(--radius-lg); padding: 20px 24px; display: flex; align-items: flex-start; gap: 16px; }
+    .problem-item-icon { width: 36px; height: 36px; background: rgba(201,150,27,0.18); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--avx-gold); }
+    .problem-item-text strong { display: block; font-size: 14px; font-weight: 600; color: var(--white); margin-bottom: 4px; }
+    .problem-item-text span { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.5; letter-spacing: 0.08px; }
+
+    /* ── Diferenciais ── */
+    .differentials { background: var(--surface); padding: 96px 0; }
+    .section-header { text-align: center; margin-bottom: 56px; }
+    .section-label { display: inline-block; font-size: 11px; font-weight: 600; color: var(--avx-blue); letter-spacing: 0.50px; text-transform: uppercase; margin-bottom: 12px; }
+    .section-header h2 { font-size: clamp(28px, 3.5vw, 38px); font-weight: 700; color: var(--navy); line-height: 1.20; letter-spacing: -0.3px; margin-bottom: 16px; }
+    .section-header p { font-size: 17px; color: var(--text-muted); max-width: 520px; margin: 0 auto; line-height: 1.60; letter-spacing: 0.08px; }
+    .diff-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .diff-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px 24px; transition: box-shadow var(--transition), border-color var(--transition), transform var(--transition); }
+    .diff-card:hover { border-color: var(--avx-blue); box-shadow: var(--shadow); transform: translateY(-2px); }
+    .diff-icon { width: 44px; height: 44px; background: var(--avx-blue-soft); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--avx-blue); margin-bottom: 20px; }
+    .diff-card h3 { font-size: 17px; font-weight: 600; color: var(--navy); margin-bottom: 10px; letter-spacing: 0.08px; line-height: 1.30; }
+    .diff-card p { font-size: 14px; color: var(--text-muted); line-height: 1.65; letter-spacing: 0.08px; }
+    .diff-card.featured { border-color: var(--avx-blue); background: linear-gradient(135deg, rgba(27,97,201,0.04) 0%, var(--white) 100%); }
+    .diff-card.featured .diff-icon { background: var(--avx-blue); color: var(--white); }
+
+    /* ── Produtos ── */
+    .products { background: var(--white); padding: 96px 0; }
+    .products-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .product-card { border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 36px 32px; transition: box-shadow var(--transition), transform var(--transition); }
+    .product-card:hover { box-shadow: var(--shadow-soft); transform: translateY(-2px); }
+    .product-card.blue { background: var(--navy); border-color: transparent; }
+    .product-card.gold { background: linear-gradient(135deg, #faf6ed 0%, #fff9f0 100%); border-color: rgba(201,150,27,0.25); }
+    .product-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; letter-spacing: 0.40px; text-transform: uppercase; padding: 4px 10px; border-radius: var(--radius-sm); margin-bottom: 20px; }
+    .product-badge.blue-badge { background: rgba(27,97,201,0.15); color: #6fa3e8; }
+    .product-badge.gold-badge { background: var(--avx-gold-soft); color: var(--avx-gold); }
+    .product-card h3 { font-size: 24px; font-weight: 700; line-height: 1.25; margin-bottom: 12px; letter-spacing: -0.2px; }
+    .product-card.blue h3 { color: var(--white); }
+    .product-card.gold h3 { color: var(--navy); }
+    .product-card p { font-size: 15px; line-height: 1.65; margin-bottom: 28px; letter-spacing: 0.08px; }
+    .product-card.blue p { color: rgba(255,255,255,0.65); }
+    .product-card.gold p { color: var(--text-muted); }
+    .product-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+    .product-features li { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 500; }
+    .product-card.blue .product-features li { color: rgba(255,255,255,0.80); }
+    .product-card.gold .product-features li { color: var(--navy); }
+    .product-features li::before { content: ''; width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0; background-size: 10px; background-repeat: no-repeat; background-position: center; }
+    .product-card.blue .product-features li::before { background-color: rgba(27,97,201,0.35); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpolyline points='2,6 5,9 10,3' fill='none' stroke='%236fa3e8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+    .product-card.gold .product-features li::before { background-color: var(--avx-gold-soft); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpolyline points='2,6 5,9 10,3' fill='none' stroke='%23c9961b' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+
+    /* ── Agro ── */
+    .agro { background: linear-gradient(135deg, #0d2b1a 0%, #1a3d24 60%, #0f2d1c 100%); padding: 80px 0; }
+    .agro-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .agro-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.90); font-size: 11px; font-weight: 700; letter-spacing: 0.50px; text-transform: uppercase; padding: 5px 14px; border-radius: 50px; margin-bottom: 20px; }
+    .agro-badge::before { content: '🌱'; font-size: 13px; }
+    .agro h2 { font-size: clamp(28px, 3.5vw, 38px); font-weight: 700; color: var(--white); line-height: 1.20; margin-bottom: 16px; letter-spacing: -0.3px; }
+    .agro h2 em { font-style: normal; color: #7ec68a; }
+    .agro-lead { font-size: 16px; color: rgba(255,255,255,0.70); line-height: 1.65; margin-bottom: 32px; }
+    .agro-items { display: flex; flex-direction: column; gap: 14px; }
+    .agro-item { display: flex; align-items: flex-start; gap: 14px; }
+    .agro-item-dot { width: 8px; height: 8px; border-radius: 50%; background: #7ec68a; flex-shrink: 0; margin-top: 6px; }
+    .agro-item-text { font-size: 14px; color: rgba(255,255,255,0.80); line-height: 1.55; }
+    .agro-item-text strong { color: var(--white); font-weight: 600; }
+    .agro-card { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius-xl); padding: 36px 32px; }
+    .agro-voce-sabia { font-size: 10px; font-weight: 700; letter-spacing: 0.60px; text-transform: uppercase; color: #7ec68a; margin-bottom: 16px; }
+    .agro-stat { font-size: 42px; font-weight: 800; color: var(--white); line-height: 1; margin-bottom: 8px; letter-spacing: -1px; }
+    .agro-stat span { color: #7ec68a; }
+    .agro-stat-desc { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.55; margin-bottom: 28px; }
+    .agro-divider { height: 1px; background: rgba(255,255,255,0.10); margin: 24px 0; }
+    .agro-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .agro-compare-item { text-align: center; padding: 16px 12px; border-radius: var(--radius); }
+    .agro-compare-item.bad { background: rgba(255,100,100,0.10); border: 1px solid rgba(255,100,100,0.20); }
+    .agro-compare-item.good { background: rgba(126,198,138,0.12); border: 1px solid rgba(126,198,138,0.25); }
+    .agro-compare-label { font-size: 10px; font-weight: 600; letter-spacing: 0.40px; text-transform: uppercase; margin-bottom: 6px; }
+    .agro-compare-item.bad .agro-compare-label { color: rgba(255,100,100,0.80); }
+    .agro-compare-item.good .agro-compare-label { color: #7ec68a; }
+    .agro-compare-value { font-size: 20px; font-weight: 700; }
+    .agro-compare-item.bad .agro-compare-value { color: rgba(255,180,180,0.90); }
+    .agro-compare-item.good .agro-compare-value { color: #a8e0b2; }
+    .agro-compare-sub { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 3px; }
+
+    /* ── Simulador ── */
+    .simulator { background: var(--surface); padding: 96px 0; }
+    .simulator-wrapper { display: grid; grid-template-columns: 1fr 480px; gap: 64px; align-items: start; }
+    .simulator-pitch h2 { font-size: clamp(26px, 3vw, 36px); font-weight: 700; color: var(--navy); line-height: 1.20; letter-spacing: -0.3px; margin-bottom: 12px; }
+    .simulator-pitch h2 em { font-style: normal; color: var(--avx-gold); }
+    .simulator-pitch p { font-size: 15px; color: var(--text-muted); line-height: 1.65; margin-bottom: 28px; }
+    .sim-explainer { display: flex; flex-direction: column; gap: 12px; }
+    .sim-explain-item { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--navy); font-weight: 500; }
+    .sim-explain-icon { width: 28px; height: 28px; background: var(--avx-gold-soft); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--avx-gold); flex-shrink: 0; }
+    .sim-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 36px; box-shadow: var(--shadow); }
+    .sim-card h3 { font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .sim-card > p { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+    .sim-type-tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 20px; }
+    .sim-tab { padding: 8px 4px; border: 1px solid var(--border); border-radius: var(--radius-sm); text-align: center; font-size: 11px; font-weight: 600; color: var(--text-muted); cursor: pointer; transition: all var(--transition); background: var(--white); }
+    .sim-tab:hover { border-color: var(--avx-gold); color: var(--avx-gold); }
+    .sim-tab.active { background: var(--avx-gold); border-color: var(--avx-gold); color: var(--white); }
+    .sim-group { margin-bottom: 20px; }
+    .sim-group label { display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: 600; color: var(--navy); margin-bottom: 10px; }
+    .sim-group label span { font-size: 15px; font-weight: 700; color: var(--avx-blue); }
+    .sim-slider { width: 100%; -webkit-appearance: none; appearance: none; height: 4px; background: var(--border); border-radius: 4px; outline: none; }
+    .sim-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--avx-blue); cursor: pointer; box-shadow: 0 2px 6px rgba(27,97,201,0.35); }
+    .sim-slider::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: var(--avx-blue); cursor: pointer; border: none; }
+    .sim-range-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+    .sim-select { width: 100%; height: 44px; border: 1px solid var(--border); border-radius: var(--radius); padding: 0 14px; font-family: var(--font); font-size: 14px; color: var(--navy); background: var(--white); -webkit-appearance: none; cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23181d26' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 16px; padding-right: 36px; transition: border-color var(--transition); }
+    .sim-select:focus { outline: none; border-color: var(--avx-gold); }
+    .sim-result { background: var(--navy); border-radius: var(--radius-lg); padding: 24px; margin-top: 8px; }
+    .sim-result-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+    .sim-result-row:last-child { margin-bottom: 0; }
+    .sim-result-label { font-size: 12px; color: rgba(255,255,255,0.55); letter-spacing: 0.10px; }
+    .sim-result-value { font-size: 14px; font-weight: 600; color: var(--white); }
+    .sim-result-main { border-top: 1px solid rgba(255,255,255,0.10); border-bottom: 1px solid rgba(255,255,255,0.10); padding: 16px 0; margin: 12px 0; display: flex; justify-content: space-between; align-items: center; }
+    .sim-result-main-label { font-size: 13px; color: rgba(255,255,255,0.70); }
+    .sim-result-main-value { font-size: 28px; font-weight: 800; color: var(--white); letter-spacing: -0.5px; }
+    .sim-saving { display: flex; align-items: center; gap: 8px; background: rgba(126,198,138,0.15); border: 1px solid rgba(126,198,138,0.25); border-radius: var(--radius-sm); padding: 10px 14px; margin-top: 12px; }
+    .sim-saving svg { color: #7ec68a; flex-shrink: 0; }
+    .sim-saving span { font-size: 13px; color: #a8e0b2; line-height: 1.4; }
+    .sim-saving strong { color: #c8f0d0; }
+    .sim-disclaimer { font-size: 11px; color: var(--text-muted); margin-top: 12px; text-align: center; line-height: 1.5; }
+    .sim-cta { margin-top: 16px; width: 100%; }
+
+    /* ── Como Funciona ── */
+    .how { background: var(--white); padding: 96px 0; }
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+    .steps::before { content: ''; position: absolute; top: 22px; left: calc(12.5% + 22px); right: calc(12.5% + 22px); height: 1px; background: linear-gradient(90deg, var(--avx-blue) 0%, var(--avx-gold) 100%); }
+    .step { text-align: center; padding: 0 20px; position: relative; }
+    .step-num { width: 44px; height: 44px; border-radius: 50%; background: var(--avx-blue); color: var(--white); font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; position: relative; z-index: 1; box-shadow: 0 0 0 4px var(--white); }
+    .step:last-child .step-num { background: var(--avx-gold); }
+    .step h3 { font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 8px; line-height: 1.30; }
+    .step p { font-size: 13px; color: var(--text-muted); line-height: 1.55; letter-spacing: 0.08px; }
+
+    /* ── Formulário ── */
+    .form-section { background: var(--surface); padding: 96px 0; }
+    .form-wrapper { display: grid; grid-template-columns: 1fr 480px; gap: 64px; align-items: start; }
+    .form-pitch h2 { font-size: clamp(28px, 3vw, 38px); font-weight: 700; color: var(--navy); line-height: 1.20; letter-spacing: -0.3px; margin-bottom: 16px; }
+    .form-pitch h2 em { font-style: normal; color: var(--avx-blue); }
+    .form-pitch p { font-size: 16px; color: var(--text-muted); line-height: 1.65; margin-bottom: 32px; letter-spacing: 0.08px; }
+    .form-guarantees { display: flex; flex-direction: column; gap: 14px; }
+    .guarantee-item { display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 500; color: var(--navy); }
+    .guarantee-icon { width: 28px; height: 28px; background: var(--avx-blue-soft); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--avx-blue); flex-shrink: 0; }
+    .form-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 36px; box-shadow: var(--shadow); }
+    .form-card h3 { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .form-card > p { font-size: 14px; color: var(--text-muted); margin-bottom: 28px; letter-spacing: 0.08px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--navy); margin-bottom: 6px; letter-spacing: 0.08px; }
+    .form-group input, .form-group select { width: 100%; height: 44px; border: 1px solid var(--border); border-radius: var(--radius); padding: 0 14px; font-family: var(--font); font-size: 14px; color: var(--navy); background: var(--white); transition: border-color var(--transition), box-shadow var(--transition); -webkit-appearance: none; }
+    .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--avx-blue); box-shadow: 0 0 0 3px rgba(27,97,201,0.12); }
+    .form-group input::placeholder { color: var(--text-muted); }
+    .form-group select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23181d26' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 16px; padding-right: 36px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .form-submit { width: 100%; height: 52px; background: var(--avx-blue); color: var(--white); border: none; border-radius: var(--radius); font-family: var(--font); font-size: 16px; font-weight: 600; letter-spacing: 0.08px; cursor: pointer; margin-top: 8px; transition: background var(--transition), transform var(--transition), box-shadow var(--transition); display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .form-submit:hover { background: var(--avx-blue-mid); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(27,97,201,0.30); }
+    .form-disclaimer { font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 12px; letter-spacing: 0.05px; line-height: 1.5; }
+
+    /* ── Quem Somos ── */
+    .team { background: var(--white); padding: 96px 0; }
+    .expertise-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; margin-bottom: 64px; }
+    .expertise-text h2 { font-size: clamp(28px, 3.5vw, 38px); font-weight: 700; color: var(--navy); line-height: 1.20; margin-bottom: 16px; letter-spacing: -0.3px; }
+    .expertise-text h2 em { font-style: normal; color: var(--avx-blue); }
+    .expertise-text p { font-size: 16px; color: var(--text-muted); line-height: 1.70; }
+    .expertise-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .expertise-stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px 20px; text-align: center; }
+    .expertise-stat-num { font-size: 36px; font-weight: 800; color: var(--avx-blue); letter-spacing: -1px; line-height: 1; margin-bottom: 6px; }
+    .expertise-stat-num span { color: var(--avx-gold); }
+    .expertise-stat-label { font-size: 12px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.10px; line-height: 1.4; }
+    .expertise-pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .pillar-card { border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px 24px; transition: box-shadow var(--transition), border-color var(--transition), transform var(--transition); }
+    .pillar-card:hover { border-color: var(--avx-blue); box-shadow: var(--shadow); transform: translateY(-2px); }
+    .pillar-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
+    .pillar-icon.blue { background: var(--avx-blue-soft); color: var(--avx-blue); }
+    .pillar-icon.gold { background: var(--avx-gold-soft); color: var(--avx-gold); }
+    .pillar-icon.green { background: var(--avx-green-soft); color: var(--avx-green); }
+    .pillar-card h3 { font-size: 16px; font-weight: 600; color: var(--navy); margin-bottom: 10px; line-height: 1.30; }
+    .pillar-card p { font-size: 13px; color: var(--text-muted); line-height: 1.65; }
+
+    /* ── Final CTA ── */
+    .final-cta { background: var(--navy); padding: 96px 0; text-align: center; }
+    .final-cta h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 700; color: var(--white); line-height: 1.20; letter-spacing: -0.4px; margin-bottom: 16px; }
+    .final-cta h2 em { font-style: normal; color: var(--avx-gold); }
+    .final-cta p { font-size: 17px; color: rgba(255,255,255,0.65); max-width: 500px; margin: 0 auto 40px; line-height: 1.60; letter-spacing: 0.08px; }
+    .final-cta .btn-primary { font-size: 17px; padding: 16px 36px; }
+    .final-cta-trust { margin-top: 28px; font-size: 13px; color: rgba(255,255,255,0.40); letter-spacing: 0.10px; }
+
+    /* ── Footer ── */
+    .footer { background: var(--white); border-top: 1px solid var(--border); padding: 32px 28px; }
+    .footer-inner { max-width: var(--max-w); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+    .footer-left { display: flex; align-items: center; gap: 12px; }
+    .footer-logo-mark { width: 28px; height: 28px; background: var(--navy); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; color: var(--white); }
+    .footer-logo-mark span { color: var(--avx-blue); }
+    .footer-name { font-size: 14px; font-weight: 700; color: var(--navy); }
+    .footer-tagline { font-size: 13px; color: var(--text-muted); }
+    .footer-right { font-size: 12px; color: var(--text-muted); letter-spacing: 0.08px; }
+    .footer-right a { color: var(--avx-blue); }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .problem .container, .agro-inner, .simulator-wrapper, .form-wrapper, .expertise-intro { grid-template-columns: 1fr; gap: 40px; }
+      .diff-grid, .products-grid, .expertise-pillars { grid-template-columns: 1fr 1fr; }
+      .steps { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .steps::before { display: none; }
+      .step-num { box-shadow: 0 0 0 4px var(--surface); }
+    }
+    @media (max-width: 600px) {
+      .container { padding: 0 20px; }
+      .nav-inner { padding: 0 20px; }
+      .hero { padding: 64px 0 56px; }
+      .hero-trust { gap: 20px; flex-direction: column; }
+      .diff-grid, .products-grid, .form-grid, .expertise-pillars, .expertise-stats, .sim-type-tabs { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr; }
+      .agro-compare { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <div class="nav-logo-mark">AV<span>X</span></div>
+        <span class="nav-logo-name">AVX Corretora</span>
+      </a>
+      <a href="#cotacao" class="nav-cta">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.35 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6.06 6.06l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Faça sua cotação agora!
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-eyebrow">Planos de Saúde · Consórcios · Seguros</div>
+      <h1>Sua empresa no <em>melhor plano</em> do mercado — negociado por quem conhece o jogo por dentro.</h1>
+      <p class="hero-sub">A AVX assume a negociação, a gestão e a burocracia dos seus benefícios. Você só precisa tomar as melhores decisões.</p>
+      <div class="hero-actions">
+        <a href="#cotacao" class="btn-primary">
+          Faça sua cotação agora!
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="#como-funciona" class="btn-secondary">Ver como funciona</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Sem compromisso de troca
+        </div>
+        <div class="trust-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          30 minutos
+        </div>
+        <div class="trust-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          100% gratuito
+        </div>
+        <div class="trust-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Equipe com histórico dentro das operadoras
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEMA -->
+  <section class="problem">
+    <div class="container">
+      <div class="problem-text">
+        <h2>A maioria das empresas paga mais do que deveria no plano de saúde. <em>E não sabe disso.</em></h2>
+        <p>Não porque o plano é caro. Mas porque ninguém negociou com quem conhece os limites reais de desconto das operadoras. A carta de reajuste chega, a empresa assina — e o ciclo se repete.</p>
+        <a href="#cotacao" class="btn-gold">
+          Faça sua cotação agora!
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+      <div class="problem-list">
+        <div class="problem-item">
+          <div class="problem-item-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <div class="problem-item-text">
+            <strong>Reajuste sem negociação</strong>
+            <span>A operadora envia a carta. A empresa assina. Ninguém pergunta o que é negociável.</span>
+          </div>
+        </div>
+        <div class="problem-item">
+          <div class="problem-item-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div class="problem-item-text">
+            <strong>Burocracia que consome tempo</strong>
+            <span>Cada admissão, demissão ou inclusão de dependente vira uma novela no 0800 da operadora.</span>
+          </div>
+        </div>
+        <div class="problem-item">
+          <div class="problem-item-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="problem-item-text">
+            <strong>Sem representação quando importa</strong>
+            <span>Quando o funcionário tem um problema no plano, o empresário fica sem saber com quem falar.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIFERENCIAIS -->
+  <section class="differentials">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Por que a AVX</span>
+        <h2>Quem conhece o jogo por dentro, negocia diferente.</h2>
+        <p>Nossa equipe saiu de dentro das operadoras para estar do lado de quem realmente importa: a sua empresa.</p>
+      </div>
+      <div class="diff-grid">
+        <div class="diff-card featured">
+          <div class="diff-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Insider nas negociações</h3>
+          <p>Nossa equipe carrega histórico em cargos de gestão e coordenação comercial dentro de grandes operadoras de plano de saúde. Conhecemos os limites reais de desconto — e negociamos com precisão que corretoras convencionais não têm.</p>
+        </div>
+        <div class="diff-card">
+          <div class="diff-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </div>
+          <h3>Gestão administrativa inclusa</h3>
+          <p>Todas as movimentações — admissões, demissões, inclusões, exclusões — são feitas pela AVX. Sua empresa só precisa avisar.</p>
+        </div>
+        <div class="diff-card">
+          <div class="diff-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </div>
+          <h3>Domínio regulatório ANS</h3>
+          <p>Conhecimento profundo da regulamentação da Agência Nacional de Saúde Suplementar. Garantia de que nenhuma cláusula abusiva passa despercebida.</p>
+        </div>
+        <div class="diff-card">
+          <div class="diff-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3>Assessoria vitalícia</h3>
+          <p>Nosso modelo é de relacionamento contínuo, não de venda única. Enquanto o contrato existir, a AVX estará presente.</p>
+        </div>
+        <div class="diff-card">
+          <div class="diff-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          </div>
+          <h3>Comparativo de mercado</h3>
+          <p>Antes de qualquer recomendação, mapeamos todas as opções disponíveis na sua cidade e apresentamos um comparativo transparente.</p>
+        </div>
+        <div class="diff-card">
+          <div class="diff-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Parcerias estratégicas</h3>
+          <p>Vinculados a associações comerciais e entidades de classe — para que você tenha sempre acesso às melhores condições coletivas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUTOS -->
+  <section class="products">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Produtos</span>
+        <h2>Benefícios certos para cada momento da sua empresa.</h2>
+      </div>
+      <div class="products-grid">
+        <div class="product-card blue">
+          <div class="product-badge blue-badge">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Carro-chefe
+          </div>
+          <h3>Plano de Saúde Empresarial</h3>
+          <p>Da negociação inicial à gestão diária do contrato. Para empresas que querem o melhor custo-benefício sem abrir mão da qualidade — e sem precisar de um profissional interno só para isso.</p>
+          <ul class="product-features">
+            <li>Comparativo completo de operadoras da região</li>
+            <li>Negociação com insider knowledge das operadoras</li>
+            <li>Gestão de movimentações inclusa sem custo extra</li>
+            <li>Suporte ANS e atendimento contínuo vitalício</li>
+            <li>Plano PJ Familiar disponível (CNPJ para família)</li>
+            <li>Portabilidade de carência assessorada</li>
+          </ul>
+          <a href="#cotacao" class="btn-primary" style="width:100%; justify-content:center;">
+            Faça sua cotação agora!
+          </a>
+        </div>
+        <div class="product-card gold">
+          <div class="product-badge gold-badge">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            Investimento Inteligente
+          </div>
+          <h3>Consórcio como Instrumento de Patrimônio</h3>
+          <p>Para o empresário que quer imóvel, veículo ou maquinário sem pagar juros de banco e sem comprometer o caixa. O único investimento em patrimônio com custo previsível e sem taxa de juros.</p>
+          <ul class="product-features">
+            <li>Consórcio de imóvel residencial e comercial</li>
+            <li>Consórcio de veículo leve, pesado e frotas</li>
+            <li>Consórcio de maquinário e implementos</li>
+            <li>Sem juros — apenas taxa de administração</li>
+            <li>Carta de crédito liberada em lances ou sorteios</li>
+            <li>Regulado pelo Banco Central do Brasil</li>
+          </ul>
+          <a href="#simulador" class="btn-gold" style="width:100%; justify-content:center;">
+            Simular minha parcela
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AGRO -->
+  <section class="agro">
+    <div class="container">
+      <div class="agro-inner">
+        <div>
+          <div class="agro-badge">Você Sabia?</div>
+          <h2>O consórcio virou a <em>principal ferramenta financeira</em> do agronegócio brasileiro.</h2>
+          <p class="agro-lead">Produtores rurais e empresas do agro estão abandonando o financiamento bancário e migrando para o consórcio como estratégia de crescimento patrimonial sem endividamento.</p>
+          <div class="agro-items">
+            <div class="agro-item">
+              <div class="agro-item-dot"></div>
+              <div class="agro-item-text"><strong>Maquinário e implementos agrícolas</strong> — tratores, colheitadeiras, pulverizadores e equipamentos de irrigação financiados sem juros de banco.</div>
+            </div>
+            <div class="agro-item">
+              <div class="agro-item-dot"></div>
+              <div class="agro-item-text"><strong>Imóveis rurais e galpões</strong> — aquisição de propriedade, expansão de área e construção de infraestrutura produtiva.</div>
+            </div>
+            <div class="agro-item">
+              <div class="agro-item-dot"></div>
+              <div class="agro-item-text"><strong>Veículos para operação</strong> — caminhões, pickups e frotas de apoio à produção sem comprometer a linha de crédito rural.</div>
+            </div>
+            <div class="agro-item">
+              <div class="agro-item-dot"></div>
+              <div class="agro-item-text"><strong>Planejamento de safra em safra</strong> — renovar equipamentos de forma previsível e sem surpresas no custo financeiro.</div>
+            </div>
+          </div>
+          <div style="margin-top: 32px;">
+            <a href="#cotacao" class="btn-green">
+              Quero saber mais sobre consórcio agro
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="agro-card">
+          <div class="agro-voce-sabia">Comparativo real</div>
+          <div class="agro-stat">R$ <span>40.000</span></div>
+          <div class="agro-stat-desc">é a economia média em juros ao adquirir um trator de R$ 300.000 via consórcio em vez de financiamento bancário rural.</div>
+          <div class="agro-divider"></div>
+          <div class="agro-compare">
+            <div class="agro-compare-item bad">
+              <div class="agro-compare-label">Financiamento</div>
+              <div class="agro-compare-value">+15%</div>
+              <div class="agro-compare-sub">custo total sobre o bem</div>
+            </div>
+            <div class="agro-compare-item good">
+              <div class="agro-compare-label">Consórcio</div>
+              <div class="agro-compare-value">~1,5%</div>
+              <div class="agro-compare-sub">ao ano (taxa adm.)</div>
+            </div>
+          </div>
+          <div style="margin-top: 20px; font-size: 12px; color: rgba(255,255,255,0.40); line-height: 1.5;">
+            Simulação ilustrativa. Taxas e condições variam conforme administradora e prazo. Consulte a AVX para uma análise personalizada.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIMULADOR -->
+  <section class="simulator" id="simulador">
+    <div class="container">
+      <div class="simulator-wrapper">
+        <div class="simulator-pitch">
+          <span class="section-label">Simulador de Consórcio</span>
+          <h2>Descubra sua <em>parcela estimada</em> agora.</h2>
+          <p>Simule o consórcio ideal para o seu objetivo. Sem juros, sem surpresas — só a parcela real que você precisa planejar.</p>
+          <div class="sim-explainer">
+            <div class="sim-explain-item">
+              <div class="sim-explain-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              Sem juros — apenas taxa de administração
+            </div>
+            <div class="sim-explain-item">
+              <div class="sim-explain-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              Regulado pelo Banco Central do Brasil
+            </div>
+            <div class="sim-explain-item">
+              <div class="sim-explain-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              Carta de crédito com poder de compra à vista
+            </div>
+            <div class="sim-explain-item">
+              <div class="sim-explain-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              Lance antecipado para contemplação mais rápida
+            </div>
+          </div>
+        </div>
+        <div class="sim-card">
+          <h3>Simule seu Consórcio</h3>
+          <p>Resultado estimado — valores reais na cotação com a AVX.</p>
+
+          <div class="sim-type-tabs">
+            <div class="sim-tab active" onclick="setType('imovel', this)">🏠 Imóvel</div>
+            <div class="sim-tab" onclick="setType('veiculo', this)">🚗 Veículo</div>
+            <div class="sim-tab" onclick="setType('agro', this)">🌱 Agro</div>
+            <div class="sim-tab" onclick="setType('servicos', this)">⭐ Serviços</div>
+          </div>
+
+          <div class="sim-group">
+            <label>Valor da Carta de Crédito <span id="credit-display">R$ 300.000</span></label>
+            <input type="range" class="sim-slider" id="credit-slider" min="0" max="100" value="30" oninput="updateSim()">
+            <div class="sim-range-labels">
+              <span id="sim-min-label">R$ 50 mil</span>
+              <span id="sim-max-label">R$ 2 milhões</span>
+            </div>
+          </div>
+
+          <div class="sim-group">
+            <label>Prazo</label>
+            <select class="sim-select" id="prazo-select" onchange="updateSim()">
+              <option value="60">60 meses (5 anos)</option>
+              <option value="120" selected>120 meses (10 anos)</option>
+              <option value="180">180 meses (15 anos)</option>
+              <option value="200">200 meses (16,6 anos)</option>
+            </select>
+          </div>
+
+          <div class="sim-result">
+            <div class="sim-result-row">
+              <span class="sim-result-label">Carta de crédito</span>
+              <span class="sim-result-value" id="r-credit">R$ 300.000</span>
+            </div>
+            <div class="sim-result-row">
+              <span class="sim-result-label">Prazo</span>
+              <span class="sim-result-value" id="r-prazo">120 meses</span>
+            </div>
+            <div class="sim-result-main">
+              <span class="sim-result-main-label">Parcela estimada / mês</span>
+              <span class="sim-result-main-value" id="r-parcela">R$ 2.925</span>
+            </div>
+            <div class="sim-result-row">
+              <span class="sim-result-label">Total pago estimado</span>
+              <span class="sim-result-value" id="r-total">R$ 351.000</span>
+            </div>
+            <div class="sim-result-row">
+              <span class="sim-result-label">Taxa adm. estimada (total)</span>
+              <span class="sim-result-value" id="r-taxa">R$ 51.000 (17%)</span>
+            </div>
+            <div class="sim-saving">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              <span>Economia estimada vs. financiamento: <strong id="r-economia">R$ 87.000</strong></span>
+            </div>
+          </div>
+          <p class="sim-disclaimer">Simulação estimada para referência. Taxas e condições variam por administradora e perfil. Solicite uma cotação personalizada com a AVX.</p>
+          <a href="#cotacao" class="btn-gold sim-cta" style="justify-content:center;">
+            Faça sua cotação agora!
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMO FUNCIONA -->
+  <section class="how" id="como-funciona">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Como funciona</span>
+        <h2>Simples. Do diagnóstico ao contrato — sem burocracia no meio.</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>Cotação gratuita</h3>
+          <p>30 minutos. Entendemos o que sua empresa tem hoje e o que realmente precisa.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>Comparativo de mercado</h3>
+          <p>Mapeamos todas as opções disponíveis na sua cidade com análise real de custo-benefício.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>Negociação com a operadora</h3>
+          <p>A AVX negocia por você com quem conhece os limites. Você aprova a melhor oferta.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <h3>Gestão contínua inclusa</h3>
+          <p>Contrato assinado, a AVX cuida de tudo. Você só precisa avisar quando algo mudar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMULÁRIO / COTAÇÃO -->
+  <section class="form-section" id="cotacao">
+    <div class="container">
+      <div class="form-wrapper">
+        <div class="form-pitch">
+          <h2>Sua empresa está pagando o <em>preço justo</em> no plano de saúde?</h2>
+          <p>Em 30 minutos, a AVX analisa seu contrato atual, apresenta as opções do mercado e diz com precisão o que é possível negociar. Sem compromisso de trocar.</p>
+          <div class="form-guarantees">
+            <div class="guarantee-item">
+              <div class="guarantee-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              100% gratuito e sem compromisso
+            </div>
+            <div class="guarantee-item">
+              <div class="guarantee-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Equipe com histórico dentro de grandes operadoras
+            </div>
+            <div class="guarantee-item">
+              <div class="guarantee-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Respondemos em até 24 horas
+            </div>
+            <div class="guarantee-item">
+              <div class="guarantee-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Mesmo que não troque, você saberá se está no preço certo
+            </div>
+          </div>
+        </div>
+        <div class="form-card">
+          <h3>Faça sua cotação agora!</h3>
+          <p>Preencha abaixo e entraremos em contato em até 24 horas.</p>
+          <form id="lead-form" onsubmit="handleSubmit(event)">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="nome">Seu nome *</label>
+                <input type="text" id="nome" name="nome" placeholder="Ex: Carlos Andrade" required>
+              </div>
+              <div class="form-group">
+                <label for="empresa">Nome da empresa *</label>
+                <input type="text" id="empresa" name="empresa" placeholder="Ex: Andrade &amp; Associados" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="whatsapp">WhatsApp *</label>
+              <input type="tel" id="whatsapp" name="whatsapp" placeholder="(00) 90000-0000" required>
+            </div>
+            <div class="form-group">
+              <label for="email">E-mail</label>
+              <input type="email" id="email" name="email" placeholder="seu@email.com.br">
+            </div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="funcionarios">Nº de funcionários *</label>
+                <select id="funcionarios" name="funcionarios" required>
+                  <option value="" disabled selected>Selecione</option>
+                  <option value="1-5">1 a 5</option>
+                  <option value="6-20">6 a 20</option>
+                  <option value="21-50">21 a 50</option>
+                  <option value="51-100">51 a 100</option>
+                  <option value="100+">Mais de 100</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="interesse">Interesse principal *</label>
+                <select id="interesse" name="interesse" required>
+                  <option value="" disabled selected>Selecione</option>
+                  <option value="saude-pj">Plano de Saúde PJ</option>
+                  <option value="saude-familiar">Plano PJ Familiar</option>
+                  <option value="consorcio">Consórcio</option>
+                  <option value="agro">Consórcio Agro</option>
+                  <option value="ambos">Saúde + Consórcio</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" class="form-submit">
+              Faça sua cotação agora!
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+            <p class="form-disclaimer">Seus dados são usados apenas para entrar em contato. Sem spam, sem lista de e-mail.</p>
+          </form>
+          <div id="form-success" style="display:none; text-align:center; padding: 24px 0;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#006400" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto 16px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <h3 style="font-size:18px; color:#181d26; margin-bottom:8px;">Solicitação recebida!</h3>
+            <p style="font-size:14px; color:rgba(4,14,32,0.60); line-height:1.6;">Entraremos em contato pelo WhatsApp em até 24 horas. Obrigado pela confiança na AVX.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUEM SOMOS -->
+  <section class="team">
+    <div class="container">
+      <div class="expertise-intro">
+        <div class="expertise-text">
+          <span class="section-label">Quem somos</span>
+          <h2>Uma equipe formada por quem <em>esteve do outro lado.</em></h2>
+          <p>A AVX nasceu da decisão de um grupo de profissionais com histórico dentro das maiores operadoras de plano de saúde do país — gestores, coordenadores e especialistas comerciais que decidiram mudar de lado. Em vez de representar as operadoras, passaram a representar as empresas. O resultado é uma corretora com conhecimento técnico e regulatório que nenhum corretor convencional consegue replicar: sabemos exatamente o que é negociável, o que é cláusula abusiva e o que garante o melhor contrato para sua equipe.</p>
+        </div>
+        <div class="expertise-stats">
+          <div class="expertise-stat">
+            <div class="expertise-stat-num">+10<span>anos</span></div>
+            <div class="expertise-stat-label">de experiência combinada em operadoras de saúde</div>
+          </div>
+          <div class="expertise-stat">
+            <div class="expertise-stat-num">3<span>+</span></div>
+            <div class="expertise-stat-label">especialistas com histórico em cargos gerenciais</div>
+          </div>
+          <div class="expertise-stat">
+            <div class="expertise-stat-num">ANS</div>
+            <div class="expertise-stat-label">Domínio regulatório profundo da Agência Nacional de Saúde</div>
+          </div>
+          <div class="expertise-stat">
+            <div class="expertise-stat-num">360<span>°</span></div>
+            <div class="expertise-stat-label">Visão completa — Saúde, Consórcio e Seguros</div>
+          </div>
+        </div>
+      </div>
+      <div class="expertise-pillars">
+        <div class="pillar-card">
+          <div class="pillar-icon blue">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Especialistas em Saúde Suplementar</h3>
+          <p>Nossa equipe acumulou anos em funções comerciais dentro de operadoras — e conhece por dentro as regras que determinam o que pode ou não ser negociado. Essa transparência é o nosso maior diferencial.</p>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-icon gold">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          </div>
+          <h3>Consultores de Consórcio e Investimento</h3>
+          <p>Especialistas em consórcio de imóveis, veículos, maquinário agro e serviços — com foco em planejamento patrimonial para empresários que pensam no longo prazo.</p>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-icon green">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Equipe de Atendimento Dedicado</h3>
+          <p>Cada cliente AVX tem um responsável de atendimento — não um 0800. Todas as movimentações, problemas e dúvidas têm uma pessoa real como ponto de contato, sempre.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="container">
+      <h2>Chega de renovar no automático. <em>Comece a ter o contrato que você negociou.</em></h2>
+      <p>30 minutos de cotação podem mudar o que sua empresa paga em benefícios pelos próximos anos.</p>
+      <a href="#cotacao" class="btn-primary">
+        Faça sua cotação agora!
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <p class="final-cta-trust">Gratuito · Sem compromisso · Respondemos em até 24h</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <div class="footer-logo-mark">AV<span>X</span></div>
+        <div>
+          <div class="footer-name">AVX Corretora</div>
+          <div class="footer-tagline">Quem conhece o jogo por dentro, negocia diferente.</div>
+        </div>
+      </div>
+      <div class="footer-right">
+        Planos de Saúde · Consórcios · Seguros<br>
+        <a href="mailto:contato@avxcorretora.com.br">contato@avxcorretora.com.br</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ── Simulador de Consórcio ── */
+    const TYPES = {
+      imovel:   { min: 100000, max: 2000000, adminRate: 0.17, financRate: 0.0075, label: 'imóvel',   prazos: [60,120,180,200] },
+      veiculo:  { min: 30000,  max: 500000,  adminRate: 0.20, financRate: 0.0155, label: 'veículo',  prazos: [36,60,84,100] },
+      agro:     { min: 50000,  max: 1500000, adminRate: 0.17, financRate: 0.0065, label: 'agro',     prazos: [60,120,180,200] },
+      servicos: { min: 10000,  max: 150000,  adminRate: 0.22, financRate: 0.0180, label: 'serviços', prazos: [30,48,60,72] },
+    };
+    let currentType = 'imovel';
+
+    function setType(type, el) {
+      currentType = type;
+      document.querySelectorAll('.sim-tab').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+      const cfg = TYPES[type];
+      const slider = document.getElementById('credit-slider');
+      document.getElementById('sim-min-label').textContent = fmt(cfg.min);
+      document.getElementById('sim-max-label').textContent = fmt(cfg.max);
+      slider.value = 30;
+      const prazoSel = document.getElementById('prazo-select');
+      prazoSel.innerHTML = cfg.prazos.map(p => `<option value="${p}"${p===cfg.prazos[1]?' selected':''}>${p} meses (${(p/12).toFixed(1)} anos)</option>`).join('');
+      updateSim();
+    }
+
+    function fmt(n) {
+      if (n >= 1000000) return 'R$ ' + (n/1000000).toFixed(n%1000000===0?0:1) + ' mi';
+      if (n >= 1000) return 'R$ ' + (n/1000).toFixed(0) + ' mil';
+      return 'R$ ' + n;
+    }
+    function fmtFull(n) {
+      return 'R$ ' + Math.round(n).toLocaleString('pt-BR');
+    }
+    function pmt(rate, nper, pv) {
+      if (rate === 0) return pv / nper;
+      return pv * rate * Math.pow(1+rate, nper) / (Math.pow(1+rate, nper) - 1);
+    }
+
+    function updateSim() {
+      const cfg = TYPES[currentType];
+      const pct = parseFloat(document.getElementById('credit-slider').value) / 100;
+      const credit = Math.round(cfg.min + pct * (cfg.max - cfg.min) / 1000) * 1000;
+      const prazo = parseInt(document.getElementById('prazo-select').value);
+
+      const adminTotal = credit * cfg.adminRate;
+      const totalConsorcio = credit + adminTotal;
+      const parcela = totalConsorcio / prazo;
+      const totalFinanc = pmt(cfg.financRate, prazo, credit) * prazo;
+      const economia = totalFinanc - totalConsorcio;
+
+      document.getElementById('credit-display').textContent = fmtFull(credit);
+      document.getElementById('r-credit').textContent = fmtFull(credit);
+      document.getElementById('r-prazo').textContent = prazo + ' meses';
+      document.getElementById('r-parcela').textContent = fmtFull(parcela);
+      document.getElementById('r-total').textContent = fmtFull(totalConsorcio);
+      document.getElementById('r-taxa').textContent = fmtFull(adminTotal) + ' (' + (cfg.adminRate * 100).toFixed(0) + '%)';
+      document.getElementById('r-economia').textContent = fmtFull(Math.max(0, economia));
+    }
+
+    /* ── Formulário ── */
+    function handleSubmit(e) {
+      e.preventDefault();
+      const data = {
+        nome: document.getElementById('nome').value,
+        empresa: document.getElementById('empresa').value,
+        whatsapp: document.getElementById('whatsapp').value,
+        email: document.getElementById('email').value,
+        funcionarios: document.getElementById('funcionarios').value,
+        interesse: document.getElementById('interesse').value,
+        timestamp: new Date().toISOString(),
+      };
+      console.log('Lead capturado:', data);
+      const labels = { 'saude-pj':'Plano de Saúde PJ', 'saude-familiar':'Plano PJ Familiar', 'consorcio':'Consórcio', 'agro':'Consórcio Agro', 'ambos':'Saúde + Consórcio' };
+      const msg = encodeURIComponent(`Olá! Sou ${data.nome} da empresa ${data.empresa}. Tenho interesse em ${labels[data.interesse]||data.interesse} e gostaria de fazer uma cotação gratuita.`);
+      const waUrl = `https://wa.me/5500000000000?text=${msg}`;
+      document.getElementById('lead-form').style.display = 'none';
+      document.getElementById('form-success').style.display = 'block';
+      setTimeout(() => { window.open(waUrl, '_blank'); }, 1200);
+    }
+
+    /* ── Smooth Scroll ── */
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      });
+    });
+
+    /* ── Máscara WhatsApp ── */
+    document.getElementById('whatsapp').addEventListener('input', function() {
+      let v = this.value.replace(/\D/g, '').slice(0, 11);
+      if (v.length >= 7) v = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
+      else if (v.length >= 3) v = `(${v.slice(0,2)}) ${v.slice(2)}`;
+      this.value = v;
+    });
+
+    /* ── Init simulador ── */
+    updateSim();
+  </script>
+</body>
+</html>

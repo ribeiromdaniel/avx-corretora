@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+  <title>AVX Corretora — Consórcio como Investimento Patrimonial para Empresários</title>
+  <meta name="description" content="Consórcio de imóvel, veículo, maquinário agro e serviços sem juros. Patrimônio crescendo sem comprometer o caixa da empresa. Consultoria gratuita AVX.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:          #181d26;
+      --avx-blue:      #1b61c9;
+      --avx-blue-mid:  #254fad;
+      --avx-blue-soft: rgba(27,97,201,0.10);
+      --avx-gold:      #c9961b;
+      --avx-gold-mid:  #b8881a;
+      --avx-gold-soft: rgba(201,150,27,0.12);
+      --avx-green:     #1a7a3c;
+      --avx-green-soft:rgba(26,122,60,0.10);
+      --white:         #ffffff;
+      --surface:       #f8fafc;
+      --text:          #181d26;
+      --text-muted:    rgba(4,14,32,0.60);
+      --border:        #e0e2e6;
+      --success:       #006400;
+      --radius-sm:  6px;
+      --radius:     12px;
+      --radius-lg:  16px;
+      --radius-xl:  24px;
+      --shadow:      rgba(0,0,0,0.32) 0px 0px 1px, rgba(0,0,0,0.08) 0px 0px 2px, rgba(45,127,249,0.18) 0px 1px 3px, rgba(0,0,0,0.06) 0px 0px 0px 0.5px inset;
+      --shadow-soft: rgba(15,48,106,0.05) 0px 0px 20px;
+      --font:   'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --max-w:  1080px;
+      --transition: .18s ease;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    img, svg { display: block; }
+    a { color: var(--avx-gold); text-decoration: none; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--white); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 28px; }
+
+    /* Nav */
+    .nav { position: sticky; top: 0; z-index: 100; background: var(--white); border-bottom: 1px solid var(--border); box-shadow: var(--shadow-soft); }
+    .nav-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 28px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-mark { width: 36px; height: 36px; background: var(--navy); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 800; color: var(--white); letter-spacing: -0.5px; }
+    .nav-logo-mark span { color: var(--avx-gold); }
+    .nav-logo-name { font-size: 15px; font-weight: 700; color: var(--navy); }
+    .nav-cta { display: inline-flex; align-items: center; gap: 8px; background: var(--avx-gold); color: var(--white); border: none; border-radius: var(--radius); padding: 10px 20px; font-family: var(--font); font-size: 14px; font-weight: 600; cursor: pointer; transition: background var(--transition), transform var(--transition); text-decoration: none; }
+    .nav-cta:hover { background: var(--avx-gold-mid); transform: translateY(-1px); }
+
+    /* Botões */
+    .btn-gold { display: inline-flex; align-items: center; gap: 8px; background: var(--avx-gold); color: var(--white); border: none; border-radius: var(--radius); padding: 14px 28px; font-family: var(--font); font-size: 16px; font-weight: 600; cursor: pointer; transition: background var(--transition), transform var(--transition), box-shadow var(--transition); text-decoration: none; }
+    .btn-gold:hover { background: var(--avx-gold-mid); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,150,27,0.35); }
+    .btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--navy); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 24px; font-family: var(--font); font-size: 15px; font-weight: 500; cursor: pointer; transition: border-color var(--transition), box-shadow var(--transition); text-decoration: none; }
+    .btn-secondary:hover { border-color: var(--avx-gold); box-shadow: var(--shadow); }
+    .btn-navy { display: inline-flex; align-items: center; gap: 8px; background: var(--navy); color: var(--white); border: none; border-radius: var(--radius); padding: 13px 26px; font-family: var(--font); font-size: 15px; font-weight: 600; cursor: pointer; transition: background var(--transition), transform var(--transition); text-decoration: none; }
+    .btn-navy:hover { background: #0f1520; transform: translateY(-2px); }
+    .btn-green { display: inline-flex; align-items: center; gap: 8px; background: var(--avx-green); color: var(--white); border: none; border-radius: var(--radius); padding: 13px 26px; font-family: var(--font); font-size: 15px; font-weight: 600; cursor: pointer; transition: background var(--transition), transform var(--transition); text-decoration: none; }
+    .btn-green:hover { background: #166234; transform: translateY(-2px); }
+
+    /* Hero */
+    .hero { background: var(--navy); padding: 96px 0 80px; text-align: center; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; background: rgba(201,150,27,0.15); color: var(--avx-gold); font-size: 12px; font-weight: 600; letter-spacing: 0.40px; text-transform: uppercase; padding: 4px 12px; border-radius: 50px; margin-bottom: 24px; }
+    .hero-eyebrow::before { content: ''; width: 6px; height: 6px; background: var(--avx-gold); border-radius: 50%; }
+    .hero h1 { font-size: clamp(36px, 5vw, 52px); font-weight: 700; line-height: 1.15; color: var(--white); max-width: 800px; margin: 0 auto 20px; letter-spacing: -0.5px; }
+    .hero h1 em { font-style: normal; color: var(--avx-gold); }
+    .hero-sub { font-size: 18px; font-weight: 400; color: rgba(255,255,255,0.65); max-width: 580px; margin: 0 auto 40px; line-height: 1.6; }
+    .hero-actions { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
+    .hero-trust { margin-top: 56px; display: flex; align-items: center; justify-content: center; gap: 32px; flex-wrap: wrap; }
+    .trust-item { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.50); }
+    .trust-item svg { color: var(--avx-gold); flex-shrink: 0; }
+
+    /* Section header */
+    .section-header { text-align: center; margin-bottom: 56px; }
+    .section-label { display: inline-block; font-size: 11px; font-weight: 600; color: var(--avx-gold); letter-spacing: 0.50px; text-transform: uppercase; margin-bottom: 12px; }
+    .section-header h2 { font-size: clamp(28px, 3.5vw, 38px); font-weight: 700; color: var(--navy); line-height: 1.20; letter-spacing: -0.3px; margin-bottom: 16px; }
+    .section-header h2 em { font-style: normal; color: var(--avx-gold); }
+    .section-header p { font-size: 17px; color: var(--text-muted); max-width: 560px; margin: 0 auto; line-height: 1.60; }
+
+    /* Comparação: financiamento vs consórcio */
+    .compare-section { background: var(--surface); padding: 80px 0; }
+    .compare-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .compare-text h2 { font-size: clamp(26px, 3.5vw, 38px); font-weight: 700; color: var(--navy); line-height: 1.20; margin-bottom: 16px; letter-spacing: -0.3px; }
+    .compare-text h2 em { font-style: normal; color: var(--avx-gold); }
+    .compare-text p { font-size: 16px; color: var(--text-muted); line-height: 1.70; margin-bottom: 24px; }
+    .compare-cards { display: flex; flex-direction: column; gap: 16px; }
+    .compare-card { border-radius: var(--radius-lg); padding: 24px; }
+    .compare-card.bad { background: rgba(192,57,43,0.06); border: 1px solid rgba(192,57,43,0.18); }
+    .compare-card.good { background: rgba(201,150,27,0.08); border: 1px solid rgba(201,150,27,0.25); }
+    .compare-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .compare-card-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .compare-card.bad .compare-card-icon { background: rgba(192,57,43,0.12); color: #c0392b; }
+    .compare-card.good .compare-card-icon { background: var(--avx-gold-soft); color: var(--avx-gold); }
+    .compare-card h4 { font-size: 16px; font-weight: 700; }
+    .compare-card.bad h4 { color: #c0392b; }
+    .compare-card.good h4 { color: var(--avx-gold-mid); }
+    .compare-card p { font-size: 14px; line-height: 1.60; }
+    .compare-card.bad p { color: rgba(192,57,43,0.80); }
+    .compare-card.good p { color: rgba(150,100,10,0.90); }
+    .compare-items { list-style: none; margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+    .compare-items li { font-size: 13px; display: flex; align-items: flex-start; gap: 8px; }
+    .compare-card.bad .compare-items li { color: rgba(150,40,30,0.75); }
+    .compare-card.good .compare-items li { color: rgba(120,80,5,0.90); }
+    .compare-card.bad .compare-items li::before { content: '✕'; color: #c0392b; font-weight: 700; }
+    .compare-card.good .compare-items li::before { content: '✓'; color: var(--avx-gold); font-weight: 700; }
+
+    /* O que é consórcio */
+    .what { background: var(--white); padding: 96px 0; }
+    .what-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .what-text h2 { font-size: clamp(26px, 3vw, 36px); font-weight: 700; color: var(--navy); line-height: 1.20; margin-bottom: 16px; letter-spacing: -0.3px; }
+    .what-text h2 em { font-style: normal; color: var(--avx-gold); }
+    .what-text p { font-size: 16px; color: var(--text-muted); line-height: 1.70; margin-bottom: 18px; }
+    .what-points { display: flex; flex-direction: column; gap: 16px; }
+    .what-point { display: flex; align-items: flex-start; gap: 14px; padding: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+    .what-point-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--avx-gold-soft); display: flex; align-items: center; justify-content: center; color: var(--avx-gold); flex-shrink: 0; }
+    .what-point-text strong { display: block; font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 3px; }
+    .what-point-text span { font-size: 13px; color: var(--text-muted); line-height: 1.50; }
+    .what-visual { background: var(--navy); border-radius: var(--radius-xl); padding: 40px; }
+    .what-visual-label { font-size: 11px; font-weight: 700; letter-spacing: 0.50px; text-transform: uppercase; color: rgba(255,255,255,0.40); margin-bottom: 24px; }
+    .what-flow { display: flex; flex-direction: column; gap: 0; }
+    .what-flow-step { display: flex; align-items: flex-start; gap: 16px; position: relative; padding-bottom: 24px; }
+    .what-flow-step:last-child { padding-bottom: 0; }
+    .what-flow-step::before { content: ''; position: absolute; left: 15px; top: 32px; bottom: 0; width: 1px; background: rgba(201,150,27,0.30); }
+    .what-flow-step:last-child::before { display: none; }
+    .what-flow-num { width: 32px; height: 32px; border-radius: 50%; background: var(--avx-gold); color: var(--white); font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; z-index: 1; }
+    .what-flow-content strong { display: block; font-size: 14px; font-weight: 600; color: var(--white); margin-bottom: 4px; }
+    .what-flow-content span { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.50; }
+    .what-flow-badge { display: inline-flex; align-items: center; gap: 4px; background: rgba(201,150,27,0.18); color: var(--avx-gold); font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: var(--radius-sm); margin-top: 4px; }
+
+    /* Tipos de consórcio */
+    .types { background: var(--surface); padding: 96px 0; }
+    .types-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .type-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 32px; transition: box-shadow var(--transition), border-color var(--transition), transform var(--transition); }
+    .type-card:hover { border-color: var(--avx-gold); box-shadow: var(--shadow); transform: translateY(-2px); }
+    .type-card-header { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+    .type-card-emoji { width: 48px; height: 48px; border-radius: 12px; background: var(--avx-gold-soft); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+    .type-card-header-text h3 { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 2px; }
+    .type-card-header-text span { font-size: 13px; color: var(--text-muted); }
+    .type-card p { font-size: 14px; color: var(--text-muted); line-height: 1.65; margin-bottom: 20px; }
+    .type-specs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
+    .type-spec { background: var(--surface); border-radius: var(--radius-sm); padding: 10px 8px; text-align: center; }
+    .type-spec-label { font-size: 10px; font-weight: 600; letter-spacing: 0.30px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+    .type-spec-value { font-size: 13px; font-weight: 700; color: var(--navy); line-height: 1.3; }
+    .type-highlight { background: rgba(201,150,27,0.08); border: 1px solid rgba(201,150,27,0.20); border-radius: var(--radius-sm); padding: 10px 14px; font-size: 13px; color: var(--avx-gold-mid); font-weight: 500; }
+
+    /* Agro */
+    .agro { background: linear-gradient(135deg, #0d2b1a 0%, #1a3d24 60%, #0f2d1c 100%); padding: 88px 0; }
+    .agro-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .agro-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.90); font-size: 11px; font-weight: 700; letter-spacing: 0.50px; text-transform: uppercase; padding: 5px 14px; border-radius: 50px; margin-bottom: 20px; }
+    .agro-badge::before { content: '🌱'; font-size: 13px; }
+    .agro h2 { font-size: clamp(28px, 3.5vw, 38px); font-weight: 700; color: var(--white); line-height: 1.20; margin-bottom: 16px; letter-spacing: -0.3px; }
+    .agro h2 em { font-style: normal; color: #7ec68a; }
+    .agro-lead { font-size: 16px; color: rgba(255,255,255,0.70); line-height: 1.65; margin-bottom: 32px; }
+    .agro-items { display: flex; flex-direction: column; gap: 14px; }
+    .agro-item { display: flex; align-items: flex-start; gap: 14px; }
+    .agro-item-dot { width: 8px; height: 8px; border-radius: 50%; background: #7ec68a; flex-shrink: 0; margin-top: 6px; }
+    .agro-item-text { font-size: 14px; color: rgba(255,255,255,0.80); line-height: 1.55; }
+    .agro-item-text strong { color: var(--white); font-weight: 600; }
+    .agro-card { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius-xl); padding: 36px 32px; }
+    .agro-voce-sabia { font-size: 10px; font-weight: 700; letter-spacing: 0.60px; text-transform: uppercase; color: #7ec68a; margin-bottom: 16px; }
+    .agro-stat { font-size: 42px; font-weight: 800; color: var(--white); line-height: 1; margin-bottom: 8px; letter-spacing: -1px; }
+    .agro-stat span { color: #7ec68a; }
+    .agro-stat-desc { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.55; margin-bottom: 28px; }
+    .agro-divider { height: 1px; background: rgba(255,255,255,0.10); margin: 24px 0; }
+    .agro-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .agro-compare-item { text-align: center; padding: 16px 12px; border-radius: var(--radius); }
+    .agro-compare-item.bad { background: rgba(255,100,100,0.10); border: 1px solid rgba(255,100,100,0.20); }
+    .agro-compare-item.good { background: rgba(126,198,138,0.12); border: 1px solid rgba(126,198,138,0.25); }
+    .agro-compare-label { font-size: 10px; font-weight: 600; letter-spacing: 0.40px; text-transform: uppercase; margin-bottom: 6px; }
+    .agro-compare-item.bad .agro-compare-label { color: rgba(255,100,100,0.80); }
+    .agro-compare-item.good .agro-compare-label { color: #7ec68a; }
+    .agro-compare-value { font-size: 20px; font-weight: 700; }
+    .agro-compare-item.bad .agro-compare-value { color: rgba(255,180,180,0.90); }
+    .agro-compare-item.good .agro-compare-value { color: #a8e0b2; }
+    .agro-compare-sub { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 3px; }
+
+    /* Simulador */
+    .simulator { background: var(--white); padding: 96px 0; }
+    .simulator-wrapper { display: grid; grid-template-columns: 1fr 480px; gap: 64px; align-items: start; }
+    .simulator-pitch h2 { font-size: clamp(26px, 3vw, 36px); font-weight: 700; color: var(--navy); line-height: 1.20; letter-spacing: -0.3px; margin-bottom: 12px; }
+    .simulator-pitch h2 em { font-style: normal; color: var(--avx-gold); }
+    .simulator-pitch p { font-size: 15px; color: var(--text-muted); line-height: 1.65; margin-bottom: 28px; }
+    .sim-explainer { display: flex; flex-direction: column; gap: 12px; }
+    .sim-explain-item { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--navy); font-weight: 500; }
+    .sim-explain-icon { width: 28px; height: 28px; background: var(--avx-gold-soft); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--avx-gold); flex-shrink: 0; }
+    .sim-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 36px; box-shadow: var(--shadow); }
+    .sim-card h3 { font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .sim-card > p { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+    .sim-type-tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 20px; }
+    .sim-tab { padding: 8px 4px; border: 1px solid var(--border); border-radius: var(--radius-sm); text-align: center; font-size: 11px; font-weight: 600; color: var(--text-muted); cursor: pointer; transition: all var(--transition); background: var(--white); }
+    .sim-tab:hover { border-color: var(--avx-gold); color: var(--avx-gold); }
+    .sim-tab.active { background: var(--avx-gold); border-color: var(--avx-gold); color: var(--white); }
+    .sim-group { margin-bottom: 20px; }
+    .sim-group label { display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: 600; color: var(--navy); margin-bottom: 10px; }
+    .sim-group label span { font-size: 15px; font-weight: 700; color: var(--avx-gold); }
+    .sim-slider { width: 100%; -webkit-appearance: none; appearance: none; height: 4px; background: var(--border); border-radius: 4px; outline: none; }
+    .sim-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--avx-gold); cursor: pointer; box-shadow: 0 2px 6px rgba(201,150,27,0.40); }
+    .sim-slider::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: var(--avx-gold); cursor: pointer; border: none; }
+    .sim-range-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+    .sim-select { width: 100%; height: 44px; border: 1px solid var(--border); border-radius: var(--radius); padding: 0 14px; font-family: var(--font); font-size: 14px; color: var(--navy); background: var(--white); -webkit-appearance: none; cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23181d26' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 16px; padding-right: 36px; }
+    .sim-select:focus { outline: none; border-color: var(--avx-gold); }
+    .sim-result { background: var(--navy); border-radius: var(--radius-lg); padding: 24px; margin-top: 8px; }
+    .sim-result-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+    .sim-result-row:last-child { margin-bottom: 0; }
+    .sim-result-label { font-size: 12px; color: rgba(255,255,255,0.55); }
+    .sim-result-value { font-size: 14px; font-weight: 600; color: var(--white); }
+    .sim-result-main { border-top: 1px solid rgba(255,255,255,0.10); border-bottom: 1px solid rgba(255,255,255,0.10); padding: 16px 0; margin: 12px 0; display: flex; justify-content: space-between; align-items: center; }
+    .sim-result-main-label { font-size: 13px; color: rgba(255,255,255,0.70); }
+    .sim-result-main-value { font-size: 28px; font-weight: 800; color: var(--white); letter-spacing: -0.5px; }
+    .sim-saving { display: flex; align-items: center; gap: 8px; background: rgba(126,198,138,0.15); border: 1px solid rgba(126,198,138,0.25); border-radius: var(--radius-sm); padding: 10px 14px; margin-top: 12px; }
+    .sim-saving svg { color: #7ec68a; flex-shrink: 0; }
+    .sim-saving span { font-size: 13px; color: #a8e0b2; line-height: 1.4; }
+    .sim-saving strong { color: #c8f0d0; }
+    .sim-disclaimer { font-size: 11px; color: var(--text-muted); margin-top: 12px; text-align: center; line-height: 1.5; }
+
+    /* Como funciona (consórcio) */
+    .how { background: var(--surface); padding: 96px 0; }
+    .how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 48px; }
+    .how-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px 24px; }
+    .how-card-num { font-size: 11px; font-weight: 700; letter-spacing: 0.50px; text-transform: uppercase; color: var(--avx-gold); margin-bottom: 14px; }
+    .how-card h3 { font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 10px; line-height: 1.30; }
+    .how-card p { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
+    .how-glossary { background: var(--navy); border-radius: var(--radius-xl); padding: 36px; }
+    .how-glossary h3 { font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 24px; }
+    .glossary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .glossary-item strong { display: block; font-size: 13px; font-weight: 700; color: var(--avx-gold); margin-bottom: 4px; }
+    .glossary-item span { font-size: 13px; color: rgba(255,255,255,0.60); line-height: 1.55; }
+
+    /* Formulário */
+    .form-section { background: var(--white); padding: 96px 0; }
+    .form-wrapper { display: grid; grid-template-columns: 1fr 480px; gap: 64px; align-items: start; }
+    .form-pitch h2 { font-size: clamp(28px, 3vw, 38px); font-weight: 700; color: var(--navy); line-height: 1.20; letter-spacing: -0.3px; margin-bottom: 16px; }
+    .form-pitch h2 em { font-style: normal; color: var(--avx-gold); }
+    .form-pitch p { font-size: 16px; color: var(--text-muted); line-height: 1.65; margin-bottom: 32px; }
+    .form-guarantees { display: flex; flex-direction: column; gap: 14px; }
+    .guarantee-item { display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 500; color: var(--navy); }
+    .guarantee-icon { width: 28px; height: 28px; background: var(--avx-gold-soft); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--avx-gold); flex-shrink: 0; }
+    .form-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 36px; box-shadow: var(--shadow); }
+    .form-card h3 { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .form-card > p { font-size: 14px; color: var(--text-muted); margin-bottom: 28px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
+    .form-group input, .form-group select { width: 100%; height: 44px; border: 1px solid var(--border); border-radius: var(--radius); padding: 0 14px; font-family: var(--font); font-size: 14px; color: var(--navy); background: var(--white); transition: border-color var(--transition), box-shadow var(--transition); -webkit-appearance: none; }
+    .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--avx-gold); box-shadow: 0 0 0 3px rgba(201,150,27,0.12); }
+    .form-group input::placeholder { color: var(--text-muted); }
+    .form-group select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23181d26' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 16px; padding-right: 36px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .form-submit { width: 100%; height: 52px; background: var(--avx-gold); color: var(--white); border: none; border-radius: var(--radius); font-family: var(--font); font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 8px; transition: background var(--transition), transform var(--transition), box-shadow var(--transition); display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .form-submit:hover { background: var(--avx-gold-mid); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(201,150,27,0.30); }
+    .form-disclaimer { font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 12px; line-height: 1.5; }
+
+    /* Quem Somos */
+    .team { background: var(--surface); padding: 96px 0; }
+    .expertise-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; margin-bottom: 48px; }
+    .expertise-text h2 { font-size: clamp(26px, 3vw, 34px); font-weight: 700; color: var(--navy); line-height: 1.20; margin-bottom: 16px; letter-spacing: -0.3px; }
+    .expertise-text h2 em { font-style: normal; color: var(--avx-gold); }
+    .expertise-text p { font-size: 16px; color: var(--text-muted); line-height: 1.70; }
+    .expertise-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .expertise-stat { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px 20px; text-align: center; }
+    .expertise-stat-num { font-size: 36px; font-weight: 800; color: var(--avx-gold); letter-spacing: -1px; line-height: 1; margin-bottom: 6px; }
+    .expertise-stat-num span { color: var(--avx-gold-mid); font-size: 22px; }
+    .expertise-stat-label { font-size: 12px; font-weight: 600; color: var(--text-muted); line-height: 1.4; }
+
+    /* Final CTA */
+    .final-cta { background: var(--navy); padding: 96px 0; text-align: center; }
+    .final-cta h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 700; color: var(--white); line-height: 1.20; letter-spacing: -0.4px; margin-bottom: 16px; }
+    .final-cta h2 em { font-style: normal; color: var(--avx-gold); }
+    .final-cta p { font-size: 17px; color: rgba(255,255,255,0.65); max-width: 500px; margin: 0 auto 40px; line-height: 1.60; }
+    .final-cta-trust { margin-top: 28px; font-size: 13px; color: rgba(255,255,255,0.40); }
+
+    /* Footer */
+    .footer { background: var(--white); border-top: 1px solid var(--border); padding: 32px 28px; }
+    .footer-inner { max-width: var(--max-w); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+    .footer-left { display: flex; align-items: center; gap: 12px; }
+    .footer-logo-mark { width: 28px; height: 28px; background: var(--navy); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; color: var(--white); }
+    .footer-logo-mark span { color: var(--avx-gold); }
+    .footer-name { font-size: 14px; font-weight: 700; color: var(--navy); }
+    .footer-tagline { font-size: 13px; color: var(--text-muted); }
+    .footer-right { font-size: 12px; color: var(--text-muted); }
+    .footer-right a { color: var(--avx-gold); }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .compare-inner, .what-inner, .agro-inner, .simulator-wrapper, .form-wrapper, .expertise-intro { grid-template-columns: 1fr; gap: 40px; }
+      .types-grid, .how-grid, .glossary-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .container { padding: 0 20px; }
+      .nav-inner { padding: 0 20px; }
+      .hero { padding: 64px 0 56px; }
+      .hero-trust { gap: 20px; flex-direction: column; }
+      .types-grid, .how-grid, .glossary-grid, .form-grid, .expertise-stats, .sim-type-tabs, .agro-compare { grid-template-columns: 1fr; }
+      .type-specs { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ── WhatsApp Float ─────────────────────────────────── */
+    .wa-float { position: fixed; bottom: 28px; right: 28px; z-index: 9999; }
+    .wa-btn {
+      width: 60px; height: 60px; background: #25D366; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.45); cursor: pointer;
+      border: none; transition: transform .2s, box-shadow .2s;
+      animation: wa-pulse 2.8s ease-in-out infinite;
+    }
+    .wa-btn:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(37,211,102,0.60); }
+    @keyframes wa-pulse {
+      0%,100% { box-shadow: 0 4px 20px rgba(37,211,102,0.45), 0 0 0 0 rgba(37,211,102,0.30); }
+      55%      { box-shadow: 0 4px 20px rgba(37,211,102,0.45), 0 0 0 12px rgba(37,211,102,0); }
+    }
+    .wa-popup {
+      position: absolute; bottom: 72px; right: 0; width: 300px;
+      background: #fff; border-radius: 16px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.18); padding: 24px;
+      display: none; transform-origin: bottom right;
+    }
+    .wa-popup.open { display: block; animation: wa-in .22s ease; }
+    @keyframes wa-in {
+      from { opacity: 0; transform: scale(.93) translateY(8px); }
+      to   { opacity: 1; transform: scale(1)  translateY(0); }
+    }
+    .wa-popup-close {
+      position: absolute; top: 12px; right: 14px; background: none; border: none;
+      font-size: 22px; color: #94a3b8; cursor: pointer; line-height: 1; padding: 2px 4px;
+    }
+    .wa-popup-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .wa-popup-avatar { width: 44px; height: 44px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .wa-popup-info-title { font-size: 14px; font-weight: 700; color: #181d26; margin-bottom: 2px; }
+    .wa-popup-info-sub { font-size: 12px; color: #64748b; }
+    .wa-popup input {
+      width: 100%; border: 1.5px solid #e0e2e6; border-radius: 8px;
+      padding: 10px 12px; font-size: 14px; font-family: inherit;
+      margin-bottom: 10px; outline: none; box-sizing: border-box;
+      transition: border-color .2s; color: #181d26;
+    }
+    .wa-popup input:focus { border-color: #25D366; }
+    .wa-submit-btn {
+      width: 100%; background: #25D366; color: #fff; border: none;
+      border-radius: 8px; padding: 12px; font-size: 14px; font-weight: 700;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      gap: 8px; transition: background .2s; box-sizing: border-box; font-family: inherit;
+    }
+    .wa-submit-btn:hover { background: #1dbc5a; }
+    .wa-disclaimer { font-size: 11px; color: #94a3b8; text-align: center; margin-top: 8px; line-height: 1.5; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <div class="nav-logo-mark">AV<span>X</span></div>
+        <span class="nav-logo-name">AVX Corretora</span>
+      </a>
+      <a href="#cotacao" class="nav-cta">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        Faça sua cotação agora!
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-eyebrow">Consórcio para Empresários · AVX Corretora</div>
+      <h1>Patrimônio crescendo <em>sem pagar juros.</em> Sem comprometer o caixa da empresa.</h1>
+      <p class="hero-sub">Consórcio não é sorte — é planejamento. Para o empresário que quer imóvel, veículo ou maquinário sem financiamento bancário, a AVX apresenta o caminho certo.</p>
+      <div class="hero-actions">
+        <a href="#cotacao" class="btn-gold">
+          Faça sua cotação agora!
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="#simulador" class="btn-secondary" style="color:rgba(255,255,255,0.80); border-color:rgba(255,255,255,0.25);">Simular minha parcela</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Sem juros — apenas taxa de administração
+        </div>
+        <div class="trust-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Regulado pelo Banco Central do Brasil
+        </div>
+        <div class="trust-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Consultoria gratuita e sem pressão
+        </div>
+        <div class="trust-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Carta de crédito com poder de compra à vista
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARAÇÃO -->
+  <section class="compare-section">
+    <div class="container">
+      <div class="compare-inner">
+        <div class="compare-text">
+          <span class="section-label">Financiamento vs. Consórcio</span>
+          <h2>Você paga pelo bem — <em>ou pelo bem mais os juros?</em></h2>
+          <p>No financiamento bancário, você paga o valor do bem mais os juros compostos ao longo dos anos. No consórcio, você paga apenas o valor do bem mais uma taxa de administração transparente e muito menor.</p>
+          <p>Para quem pensa com estratégia, a diferença é clara. A AVX mostra os números reais para o seu caso antes de qualquer decisão.</p>
+          <a href="#cotacao" class="btn-gold" style="margin-top:8px;">
+            Faça sua cotação agora!
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+        <div class="compare-cards">
+          <div class="compare-card bad">
+            <div class="compare-card-header">
+              <div class="compare-card-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </div>
+              <h4>Financiamento bancário</h4>
+            </div>
+            <p>Você usa o bem imediatamente, mas paga muito mais ao longo do prazo.</p>
+            <ul class="compare-items">
+              <li>Juros compostos de 8% a 20% ao ano dependendo do perfil</li>
+              <li>Custo total pode ser 30% a 60% acima do valor do bem</li>
+              <li>Compromete limite de crédito e capacidade de endividamento</li>
+              <li>Parcelas maiores impactam o fluxo de caixa da empresa</li>
+            </ul>
+          </div>
+          <div class="compare-card good">
+            <div class="compare-card-header">
+              <div class="compare-card-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <h4>Consórcio AVX</h4>
+            </div>
+            <p>Você paga o valor do bem. Sem juros — só a taxa de administração transparente.</p>
+            <ul class="compare-items">
+              <li>Taxa de administração: 0,15% a 0,22% ao mês (dependendo do tipo)</li>
+              <li>Custo total entre 17% e 22% acima do valor — e previsível desde o início</li>
+              <li>Carta de crédito com poder de compra à vista — poder de negociação real</li>
+              <li>Lance permite contemplação antecipada para quem tem capital disponível</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- O QUE É CONSÓRCIO -->
+  <section class="what">
+    <div class="container">
+      <div class="what-inner">
+        <div class="what-text">
+          <span class="section-label">Entenda o mecanismo</span>
+          <h2>Consórcio <em>não é sorte.</em> É planejamento com regras claras.</h2>
+          <p>Um consórcio é um grupo de pessoas ou empresas que contribuem mensalmente para um fundo comum. Todo mês, uma ou mais cotas são liberadas — por sorteio ou por lance (oferta antecipada de parcelas). Quem é contemplado recebe a carta de crédito e compra o bem à vista.</p>
+          <p>A administradora do consórcio é regulamentada e fiscalizada pelo Banco Central do Brasil. Não há improvisação nem risco de desvio: as regras são contratuais e auditáveis.</p>
+          <div class="what-points">
+            <div class="what-point">
+              <div class="what-point-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </div>
+              <div class="what-point-text">
+                <strong>Regulado pelo Banco Central</strong>
+                <span>Administradoras autorizadas e auditadas. O dinheiro do grupo é protegido por lei.</span>
+              </div>
+            </div>
+            <div class="what-point">
+              <div class="what-point-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              </div>
+              <div class="what-point-text">
+                <strong>Carta de crédito = compra à vista</strong>
+                <span>Quando contemplado, você recebe o valor total para negociar com poder de compra à vista.</span>
+              </div>
+            </div>
+            <div class="what-point">
+              <div class="what-point-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div class="what-point-text">
+                <strong>Lance antecipa a contemplação</strong>
+                <span>Quem tem capital disponível pode ofertar um lance e ser contemplado mais cedo, sem esperar o sorteio.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="what-visual">
+          <div class="what-visual-label">Como funciona na prática</div>
+          <div class="what-flow">
+            <div class="what-flow-step">
+              <div class="what-flow-num">1</div>
+              <div class="what-flow-content">
+                <strong>Você entra no grupo</strong>
+                <span>Escolhe o valor da carta de crédito e o prazo. Passa a contribuir mensalmente.</span>
+              </div>
+            </div>
+            <div class="what-flow-step">
+              <div class="what-flow-num">2</div>
+              <div class="what-flow-content">
+                <strong>Assembleias mensais</strong>
+                <span>Todo mês acontecem sorteios entre os participantes. Lances também são aceitos nas assembleias.</span>
+                <div class="what-flow-badge">Você pode acelerar com lance</div>
+              </div>
+            </div>
+            <div class="what-flow-step">
+              <div class="what-flow-num">3</div>
+              <div class="what-flow-content">
+                <strong>Contemplação — carta de crédito</strong>
+                <span>Sorteado ou vencedor de lance, você recebe a carta de crédito com poder de compra à vista.</span>
+              </div>
+            </div>
+            <div class="what-flow-step">
+              <div class="what-flow-num">4</div>
+              <div class="what-flow-content">
+                <strong>Você compra o bem</strong>
+                <span>Negocia o imóvel, veículo ou maquinário como pagador à vista — mais desconto, mais poder.</span>
+              </div>
+            </div>
+            <div class="what-flow-step">
+              <div class="what-flow-num">5</div>
+              <div class="what-flow-content">
+                <strong>Continua contribuindo até o fim</strong>
+                <span>Mesmo após contemplado, as parcelas continuam até o prazo encerrar. O bem já é seu.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIPOS DE CONSÓRCIO -->
+  <section class="types">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Modalidades disponíveis</span>
+        <h2>Para cada objetivo, <em>um consórcio diferente.</em></h2>
+        <p>A AVX oferece assessoria completa nas quatro principais modalidades de consórcio — com parceiros administradores regulados pelo Banco Central.</p>
+      </div>
+      <div class="types-grid">
+
+        <div class="type-card">
+          <div class="type-card-header">
+            <div class="type-card-emoji">🏠</div>
+            <div class="type-card-header-text">
+              <h3>Consórcio de Imóvel</h3>
+              <span>Residencial, comercial ou terreno</span>
+            </div>
+          </div>
+          <p>A alternativa sem juros para quem quer comprar, construir ou reformar imóvel residencial ou comercial — sem comprometer o limite de crédito da empresa.</p>
+          <div class="type-specs">
+            <div class="type-spec">
+              <div class="type-spec-label">Crédito</div>
+              <div class="type-spec-value">R$ 100k a R$ 2 mi</div>
+            </div>
+            <div class="type-spec">
+              <div class="type-spec-label">Prazo</div>
+              <div class="type-spec-value">60 a 200 meses</div>
+            </div>
+            <div class="type-spec">
+              <div class="type-spec-label">Taxa adm.</div>
+              <div class="type-spec-value">~17% total</div>
+            </div>
+          </div>
+          <div class="type-highlight">Pode ser usado para comprar, construir, reformar ou quitar financiamento existente.</div>
+        </div>
+
+        <div class="type-card">
+          <div class="type-card-header">
+            <div class="type-card-emoji">🚗</div>
+            <div class="type-card-header-text">
+              <h3>Consórcio de Veículo</h3>
+              <span>Leve, pesado, frotas ou motocicletas</span>
+            </div>
+          </div>
+          <p>Para empresas que precisam renovar ou expandir frota sem pagar os juros do financiamento de leasing convencional. Inclui veículos leves, pesados e motocicletas.</p>
+          <div class="type-specs">
+            <div class="type-spec">
+              <div class="type-spec-label">Crédito</div>
+              <div class="type-spec-value">R$ 30k a R$ 500k</div>
+            </div>
+            <div class="type-spec">
+              <div class="type-spec-label">Prazo</div>
+              <div class="type-spec-value">36 a 100 meses</div>
+            </div>
+            <div class="type-spec">
+              <div class="type-spec-label">Taxa adm.</div>
+              <div class="type-spec-value">~20% total</div>
+            </div>
+          </div>
+          <div class="type-highlight">Aceita veículos novos e seminovos. Pode ser usado para frotas de empresa com múltiplas cotas.</div>
+        </div>
+
+        <div class="type-card">
+          <div class="type-card-header">
+            <div class="type-card-emoji">🌱</div>
+            <div class="type-card-header-text">
+              <h3>Consórcio Agro</h3>
+              <span>Maquinário, implementos e imóveis rurais</span>
+            </div>
+          </div>
+          <p>Especialmente desenvolvido para o produtor rural e empresas do agronegócio. Cobre tratores, colheitadeiras, implementos, silos, galpões e propriedades rurais.</p>
+          <div class="type-specs">
+            <div class="type-spec">
+              <div class="type-spec-label">Crédito</div>
+              <div class="type-spec-value">R$ 50k a R$ 1,5 mi</div>
+            </div>
+            <div class="type-spec">
+              <div class="type-spec-label">Prazo</div>
+              <div class="type-spec-value">60 a 200 meses</div>
+            </div>
+            <div class="type-spec">
+              <div class="type-spec-label">Taxa adm.</div>
+              <div class="type-spec-value">~17% total</div>
+            </div>
+          </div>
+          <div class="type-highlight">Alternativa ao crédito rural bancário — sem encargos financeiros, custo previsível safra a safra.</div>
+        </div>
+
+        <div class="type-card">
+          <div class="type-card-header">
+            <div class="type-card-emoji">⭐</div>
+            <div class="type-card-header-text">
+              <h3>Consórcio de Serviços</h3>
+              <span>Educação, viagens, reforma e mais</span>
+            </div>
+          </div>
+          <p>Uma modalidade versátil para quem quer planejar gastos maiores de forma previsível — sem comprometer o caixa de uma vez. Reformas, cursos, intercâmbios, festas, procedimentos estéticos.</p>
+          <div class="type-specs">
+            <div class="type-spec">
+              <div class="type-spec-label">Crédito</div>
+              <div class="type-spec-value">R$ 10k a R$ 150k</div>
+            </div>
+            <div class="type-spec">
+              <div class="type-spec-label">Prazo</div>
+              <div class="type-spec-value">30 a 72 meses</div>
+            </div>
+            <div class="type-spec">
+              <div class="type-spec-label">Taxa adm.</div>
+              <div class="type-spec-value">~22% total</div>
+            </div>
+          </div>
+          <div class="type-highlight">Ideal para despesas planejadas que você não quer pagar de uma vez — com ou sem urgência de prazo.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- AGRO -->
+  <section class="agro">
+    <div class="container">
+      <div class="agro-inner">
+        <div>
+          <div class="agro-badge">Você Sabia?</div>
+          <h2>O consórcio virou a <em>principal ferramenta financeira</em> do agronegócio brasileiro.</h2>
+          <p class="agro-lead">Produtores rurais e empresas do agro estão abandonando o financiamento bancário e migrando para o consórcio como estratégia de crescimento patrimonial sem endividamento.</p>
+          <div class="agro-items">
+            <div class="agro-item">
+              <div class="agro-item-dot"></div>
+              <div class="agro-item-text"><strong>Maquinário e implementos agrícolas</strong> — tratores, colheitadeiras, pulverizadores e equipamentos de irrigação adquiridos sem juros de banco.</div>
+            </div>
+            <div class="agro-item">
+              <div class="agro-item-dot"></div>
+              <div class="agro-item-text"><strong>Imóveis rurais, galpões e silos</strong> — aquisição de propriedade, expansão de área e construção de infraestrutura produtiva sem comprometer a lavoura.</div>
+            </div>
+            <div class="agro-item">
+              <div class="agro-item-dot"></div>
+              <div class="agro-item-text"><strong>Veículos de apoio à operação</strong> — caminhões, pickups e frotas sem comprometer a linha de crédito rural disponível para custeio.</div>
+            </div>
+            <div class="agro-item">
+              <div class="agro-item-dot"></div>
+              <div class="agro-item-text"><strong>Planejamento de safra em safra</strong> — renovar equipamentos de forma previsível, com parcela fixa que não surpreende no custo financeiro.</div>
+            </div>
+          </div>
+          <div style="margin-top: 32px;">
+            <a href="#cotacao" class="btn-green">
+              Quero saber mais sobre consórcio agro
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="agro-card">
+          <div class="agro-voce-sabia">Comparativo real — Trator R$ 300.000</div>
+          <div class="agro-stat">R$ <span>40.000</span></div>
+          <div class="agro-stat-desc">é a economia estimada em encargos ao adquirir um trator de R$ 300.000 via consórcio em vez de financiamento bancário rural em 120 meses.</div>
+          <div class="agro-divider"></div>
+          <div class="agro-compare">
+            <div class="agro-compare-item bad">
+              <div class="agro-compare-label">Financiamento rural</div>
+              <div class="agro-compare-value">+15%</div>
+              <div class="agro-compare-sub">custo total sobre o bem</div>
+            </div>
+            <div class="agro-compare-item good">
+              <div class="agro-compare-label">Consórcio Agro</div>
+              <div class="agro-compare-value">~1,5%</div>
+              <div class="agro-compare-sub">ao ano (taxa adm.)</div>
+            </div>
+          </div>
+          <div style="margin-top: 20px; font-size: 12px; color: rgba(255,255,255,0.40); line-height: 1.5;">
+            Simulação ilustrativa. Taxas e condições variam conforme administradora e prazo. Consulte a AVX para uma análise personalizada.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIMULADOR -->
+  <section class="simulator" id="simulador">
+    <div class="container">
+      <div class="simulator-wrapper">
+        <div class="simulator-pitch">
+          <span class="section-label">Simulador de Consórcio</span>
+          <h2>Descubra sua <em>parcela estimada</em> agora.</h2>
+          <p>Simule o consórcio ideal para o seu objetivo. Sem juros, sem surpresas — só a parcela real que você precisa planejar.</p>
+          <div class="sim-explainer">
+            <div class="sim-explain-item">
+              <div class="sim-explain-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              Sem juros — apenas taxa de administração
+            </div>
+            <div class="sim-explain-item">
+              <div class="sim-explain-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              Regulado pelo Banco Central do Brasil
+            </div>
+            <div class="sim-explain-item">
+              <div class="sim-explain-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              Carta de crédito com poder de compra à vista
+            </div>
+            <div class="sim-explain-item">
+              <div class="sim-explain-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              Lance antecipado para contemplação mais rápida
+            </div>
+          </div>
+        </div>
+        <div class="sim-card">
+          <h3>Simule seu Consórcio</h3>
+          <p>Resultado estimado — valores reais na cotação com a AVX.</p>
+          <div class="sim-type-tabs">
+            <div class="sim-tab active" onclick="setType('imovel', this)">🏠 Imóvel</div>
+            <div class="sim-tab" onclick="setType('veiculo', this)">🚗 Veículo</div>
+            <div class="sim-tab" onclick="setType('agro', this)">🌱 Agro</div>
+            <div class="sim-tab" onclick="setType('servicos', this)">⭐ Serviços</div>
+          </div>
+          <div class="sim-group">
+            <label>Valor da Carta de Crédito <span id="credit-display">R$ 300.000</span></label>
+            <input type="range" class="sim-slider" id="credit-slider" min="0" max="100" value="30" oninput="updateSim()">
+            <div class="sim-range-labels">
+              <span id="sim-min-label">R$ 100 mil</span>
+              <span id="sim-max-label">R$ 2 milhões</span>
+            </div>
+          </div>
+          <div class="sim-group">
+            <label>Prazo</label>
+            <select class="sim-select" id="prazo-select" onchange="updateSim()">
+              <option value="60">60 meses (5 anos)</option>
+              <option value="120" selected>120 meses (10 anos)</option>
+              <option value="180">180 meses (15 anos)</option>
+              <option value="200">200 meses (16,6 anos)</option>
+            </select>
+          </div>
+          <div class="sim-result">
+            <div class="sim-result-row">
+              <span class="sim-result-label">Carta de crédito</span>
+              <span class="sim-result-value" id="r-credit">R$ 300.000</span>
+            </div>
+            <div class="sim-result-row">
+              <span class="sim-result-label">Prazo</span>
+              <span class="sim-result-value" id="r-prazo">120 meses</span>
+            </div>
+            <div class="sim-result-main">
+              <span class="sim-result-main-label">Parcela estimada / mês</span>
+              <span class="sim-result-main-value" id="r-parcela">R$ 2.925</span>
+            </div>
+            <div class="sim-result-row">
+              <span class="sim-result-label">Total pago estimado</span>
+              <span class="sim-result-value" id="r-total">R$ 351.000</span>
+            </div>
+            <div class="sim-result-row">
+              <span class="sim-result-label">Taxa adm. estimada (total)</span>
+              <span class="sim-result-value" id="r-taxa">R$ 51.000 (17%)</span>
+            </div>
+            <div class="sim-saving">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              <span>Economia estimada vs. financiamento: <strong id="r-economia">R$ 87.000</strong></span>
+            </div>
+          </div>
+          <p class="sim-disclaimer">Simulação estimada para referência. Taxas e condições variam por administradora e perfil. Solicite uma cotação personalizada com a AVX.</p>
+          <a href="#cotacao" class="btn-gold" style="margin-top:16px; width:100%; justify-content:center;">
+            Faça sua cotação agora!
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMO FUNCIONA -->
+  <section class="how">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Como funciona com a AVX</span>
+        <h2>Do planejamento à carta de crédito — sem deixar você sozinho.</h2>
+      </div>
+      <div class="how-grid">
+        <div class="how-card">
+          <div class="how-card-num">Passo 01</div>
+          <h3>Consultoria gratuita</h3>
+          <p>A AVX entende seu objetivo, o prazo que faz sentido e o valor da carta de crédito ideal para o seu momento — sem pressão para entrar agora.</p>
+        </div>
+        <div class="how-card">
+          <div class="how-card-num">Passo 02</div>
+          <h3>Seleção da administradora</h3>
+          <p>Indicamos a administradora mais adequada ao seu perfil — segura, regulada pelo Banco Central, com histórico de contemplação compatível com seu objetivo.</p>
+        </div>
+        <div class="how-card">
+          <div class="how-card-num">Passo 03</div>
+          <h3>Ingresso no grupo</h3>
+          <p>Você entra no grupo, começa a contribuir e participa das assembleias mensais. A AVX acompanha cada ciclo com você — inclusive lances estratégicos.</p>
+        </div>
+        <div class="how-card">
+          <div class="how-card-num">Passo 04</div>
+          <h3>Estratégia de lance</h3>
+          <p>Para quem quer ser contemplado antes do sorteio, analisamos o histórico do grupo e definimos o lance competitivo — maximizando sua chance de antecipação.</p>
+        </div>
+        <div class="how-card">
+          <div class="how-card-num">Passo 05</div>
+          <h3>Contemplação e uso da carta</h3>
+          <p>Com a carta de crédito em mãos, a AVX assessora a negociação com o vendedor — aproveitando o poder de compra à vista para extrair o melhor preço.</p>
+        </div>
+        <div class="how-card">
+          <div class="how-card-num">Passo 06</div>
+          <h3>Acompanhamento até o encerramento</h3>
+          <p>Nossa assessoria não termina na contemplação. Acompanhamos o contrato até o fim do prazo — e já planejamos o próximo ciclo se fizer sentido.</p>
+        </div>
+      </div>
+      <div class="how-glossary">
+        <h3>Glossário rápido do consórcio</h3>
+        <div class="glossary-grid">
+          <div class="glossary-item">
+            <strong>Carta de Crédito</strong>
+            <span>O valor que você recebe ao ser contemplado. É usado para comprar o bem diretamente, com poder de compra à vista.</span>
+          </div>
+          <div class="glossary-item">
+            <strong>Lance</strong>
+            <span>Oferta de parcelas antecipadas que aumenta a chance de contemplação antes do sorteio mensal.</span>
+          </div>
+          <div class="glossary-item">
+            <strong>Contemplação</strong>
+            <span>O momento em que você é sorteado ou vence um lance e recebe a carta de crédito para usar.</span>
+          </div>
+          <div class="glossary-item">
+            <strong>Taxa de Administração</strong>
+            <span>Custo cobrado pela administradora para gerir o grupo. Não é juro — é transparente e definido no contrato.</span>
+          </div>
+          <div class="glossary-item">
+            <strong>Assembleia</strong>
+            <span>Reunião mensal do grupo onde acontecem os sorteios e são validados os lances. Regulada pelo Banco Central.</span>
+          </div>
+          <div class="glossary-item">
+            <strong>Fundo de Reserva</strong>
+            <span>Percentual arrecadado para cobrir inadimplência no grupo. Protege os participantes adimplentes.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMULÁRIO -->
+  <section class="form-section" id="cotacao">
+    <div class="container">
+      <div class="form-wrapper">
+        <div class="form-pitch">
+          <h2>Patrimônio sem juros começa com <em>uma conversa gratuita.</em></h2>
+          <p>A AVX entende o seu objetivo — imóvel, veículo, maquinário agro ou qualquer outro — e apresenta a simulação real com a administradora mais adequada para o seu perfil. Sem pressão. No seu tempo.</p>
+          <div class="form-guarantees">
+            <div class="guarantee-item">
+              <div class="guarantee-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Consultoria gratuita e sem compromisso de entrada
+            </div>
+            <div class="guarantee-item">
+              <div class="guarantee-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Só indicamos administradoras reguladas pelo Banco Central
+            </div>
+            <div class="guarantee-item">
+              <div class="guarantee-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Estratégia de lance personalizada ao seu perfil
+            </div>
+            <div class="guarantee-item">
+              <div class="guarantee-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Respondemos em até 24 horas pelo WhatsApp
+            </div>
+          </div>
+        </div>
+        <div class="form-card">
+          <h3>Faça sua cotação agora!</h3>
+          <p>Preencha abaixo e entraremos em contato em até 24 horas.</p>
+          <form id="lead-form" onsubmit="handleSubmit(event)">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="nome">Seu nome *</label>
+                <input type="text" id="nome" name="nome" placeholder="Ex: Roberto Lima" required>
+              </div>
+              <div class="form-group">
+                <label for="empresa">Empresa (opcional)</label>
+                <input type="text" id="empresa" name="empresa" placeholder="Ex: Lima Agro">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="whatsapp">WhatsApp *</label>
+              <input type="tel" id="whatsapp" name="whatsapp" placeholder="(00) 90000-0000" required>
+            </div>
+            <div class="form-group">
+              <label for="email">E-mail</label>
+              <input type="email" id="email" name="email" placeholder="seu@email.com.br">
+            </div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="tipo-consorcio">Tipo de consórcio *</label>
+                <select id="tipo-consorcio" name="tipo-consorcio" required>
+                  <option value="" disabled selected>Selecione</option>
+                  <option value="imovel">Imóvel</option>
+                  <option value="veiculo">Veículo</option>
+                  <option value="agro">Agro / Maquinário</option>
+                  <option value="servicos">Serviços</option>
+                  <option value="nao-sei">Ainda não sei</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="valor">Valor aproximado</label>
+                <select id="valor" name="valor">
+                  <option value="" disabled selected>Selecione</option>
+                  <option value="ate100k">Até R$ 100 mil</option>
+                  <option value="100-300k">R$ 100k a R$ 300k</option>
+                  <option value="300-700k">R$ 300k a R$ 700k</option>
+                  <option value="acima700k">Acima de R$ 700k</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" class="form-submit">
+              Faça sua cotação agora!
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+            <p class="form-disclaimer">Seus dados são usados apenas para entrar em contato. Sem spam, sem lista de e-mail.</p>
+          </form>
+          <div id="form-success" style="display:none; text-align:center; padding: 24px 0;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#c9961b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto 16px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <h3 style="font-size:18px; color:#181d26; margin-bottom:8px;">Solicitação recebida!</h3>
+            <p style="font-size:14px; color:rgba(4,14,32,0.60); line-height:1.6;">Entraremos em contato pelo WhatsApp em até 24 horas. Obrigado pela confiança na AVX.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUEM SOMOS -->
+  <section class="team">
+    <div class="container">
+      <div class="expertise-intro">
+        <div class="expertise-text">
+          <span class="section-label">Quem somos</span>
+          <h2>Uma equipe especialista — em saúde, consórcio <em>e no que é melhor para a sua empresa.</em></h2>
+          <p>A AVX Corretora nasceu da reunião de especialistas com histórico em operadoras de saúde, consultores de investimento e especialistas em consórcio. Não vendemos produto — assessoramos estratégia. Para cada cliente, analisamos o momento, o objetivo e o melhor caminho.</p>
+        </div>
+        <div class="expertise-stats">
+          <div class="expertise-stat">
+            <div class="expertise-stat-num">+10<span>anos</span></div>
+            <div class="expertise-stat-label">de experiência combinada do time em mercado financeiro e seguros</div>
+          </div>
+          <div class="expertise-stat">
+            <div class="expertise-stat-num">360<span>°</span></div>
+            <div class="expertise-stat-label">Visão completa — Saúde, Consórcio, Seguros e Patrimônio</div>
+          </div>
+          <div class="expertise-stat">
+            <div class="expertise-stat-num">BCB</div>
+            <div class="expertise-stat-label">Só trabalhamos com administradoras reguladas pelo Banco Central</div>
+          </div>
+          <div class="expertise-stat">
+            <div class="expertise-stat-num">0%</div>
+            <div class="expertise-stat-label">de juros no consórcio — apenas taxa de administração transparente</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="container">
+      <h2>Planejamento patrimonial sem juros. <em>Comece agora.</em></h2>
+      <p>Uma conversa gratuita com a AVX pode mostrar o quanto você economiza escolhendo consórcio em vez de financiamento bancário.</p>
+      <a href="#cotacao" class="btn-gold" style="font-size:17px; padding:16px 36px;">
+        Faça sua cotação agora!
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <p class="final-cta-trust">Gratuito · Sem pressão · Sem compromisso de entrada</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <div class="footer-logo-mark">AV<span>X</span></div>
+        <div>
+          <div class="footer-name">AVX Corretora</div>
+          <div class="footer-tagline">Quem conhece o jogo por dentro, negocia diferente.</div>
+        </div>
+      </div>
+      <div class="footer-right">
+        Planos de Saúde · Consórcios · Seguros<br>
+        <a href="mailto:contato@avxcorretora.com.br">contato@avxcorretora.com.br</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const TYPES = {
+      imovel:   { min: 100000, max: 2000000, adminRate: 0.17, financRate: 0.0075, prazos: [60,120,180,200] },
+      veiculo:  { min: 30000,  max: 500000,  adminRate: 0.20, financRate: 0.0155, prazos: [36,60,84,100] },
+      agro:     { min: 50000,  max: 1500000, adminRate: 0.17, financRate: 0.0065, prazos: [60,120,180,200] },
+      servicos: { min: 10000,  max: 150000,  adminRate: 0.22, financRate: 0.0180, prazos: [30,48,60,72] },
+    };
+    let currentType = 'imovel';
+
+    function setType(type, el) {
+      currentType = type;
+      document.querySelectorAll('.sim-tab').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+      const cfg = TYPES[type];
+      const slider = document.getElementById('credit-slider');
+      document.getElementById('sim-min-label').textContent = fmt(cfg.min);
+      document.getElementById('sim-max-label').textContent = fmt(cfg.max);
+      slider.value = 30;
+      const prazoSel = document.getElementById('prazo-select');
+      prazoSel.innerHTML = cfg.prazos.map(p => `<option value="${p}"${p===cfg.prazos[1]?' selected':''}>${p} meses (${(p/12).toFixed(1)} anos)</option>`).join('');
+      updateSim();
+    }
+
+    function fmt(n) {
+      if (n >= 1000000) return 'R$ ' + (n/1000000).toFixed(n%1000000===0?0:1) + ' mi';
+      if (n >= 1000) return 'R$ ' + (n/1000).toFixed(0) + ' mil';
+      return 'R$ ' + n;
+    }
+    function fmtFull(n) {
+      return 'R$ ' + Math.round(n).toLocaleString('pt-BR');
+    }
+    function pmt(rate, nper, pv) {
+      if (rate === 0) return pv / nper;
+      return pv * rate * Math.pow(1+rate, nper) / (Math.pow(1+rate, nper) - 1);
+    }
+
+    function updateSim() {
+      const cfg = TYPES[currentType];
+      const pct = parseFloat(document.getElementById('credit-slider').value) / 100;
+      const credit = Math.round((cfg.min + pct * (cfg.max - cfg.min)) / 1000) * 1000;
+      const prazo = parseInt(document.getElementById('prazo-select').value);
+      const adminTotal = credit * cfg.adminRate;
+      const totalConsorcio = credit + adminTotal;
+      const parcela = totalConsorcio / prazo;
+      const totalFinanc = pmt(cfg.financRate, prazo, credit) * prazo;
+      const economia = totalFinanc - totalConsorcio;
+      document.getElementById('credit-display').textContent = fmtFull(credit);
+      document.getElementById('r-credit').textContent = fmtFull(credit);
+      document.getElementById('r-prazo').textContent = prazo + ' meses';
+      document.getElementById('r-parcela').textContent = fmtFull(parcela);
+      document.getElementById('r-total').textContent = fmtFull(totalConsorcio);
+      document.getElementById('r-taxa').textContent = fmtFull(adminTotal) + ' (' + (cfg.adminRate * 100).toFixed(0) + '%)';
+      document.getElementById('r-economia').textContent = fmtFull(Math.max(0, economia));
+    }
+
+    function handleSubmit(e) {
+      e.preventDefault();
+      const data = {
+        nome: document.getElementById('nome').value,
+        empresa: document.getElementById('empresa').value,
+        whatsapp: document.getElementById('whatsapp').value,
+        tipo: document.getElementById('tipo-consorcio').value,
+        timestamp: new Date().toISOString(),
+      };
+      const tipos = { 'imovel':'Consórcio de Imóvel', 'veiculo':'Consórcio de Veículo', 'agro':'Consórcio Agro', 'servicos':'Consórcio de Serviços', 'nao-sei':'Consórcio (tipo a definir)' };
+      const msg = encodeURIComponent(`Olá! Sou ${data.nome}${data.empresa?' da empresa '+data.empresa:''}. Tenho interesse em ${tipos[data.tipo]||'Consórcio'} e gostaria de uma consultoria gratuita com a AVX.`);
+      const waUrl = `https://wa.me/5538998025274?text=${msg}`;
+      document.getElementById('lead-form').style.display = 'none';
+      document.getElementById('form-success').style.display = 'block';
+      setTimeout(() => { window.open(waUrl, '_blank'); }, 1200);
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      });
+    });
+
+    document.getElementById('whatsapp').addEventListener('input', function() {
+      let v = this.value.replace(/\D/g, '').slice(0, 11);
+      if (v.length >= 7) v = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
+      else if (v.length >= 3) v = `(${v.slice(0,2)}) ${v.slice(2)}`;
+      this.value = v;
+    });
+
+    updateSim();
+  
+    function waToggle(force) {
+      const p = document.getElementById('wa-popup');
+      const open = force !== undefined ? force : !p.classList.contains('open');
+      p.classList.toggle('open', open);
+      if (open) setTimeout(() => document.getElementById('wa-nome').focus(), 250);
+    }
+    function waSubmit() {
+      const nome = document.getElementById('wa-nome').value.trim();
+      if (!nome) { document.getElementById('wa-nome').focus(); document.getElementById('wa-nome').style.borderColor='#ef4444'; return; }
+      const tel = document.getElementById('wa-tel').value.trim();
+      const msg = encodeURIComponent('Olá! Meu nome é ' + nome + (tel ? ' e meu telefone é ' + tel : '') + '. Gostaria de falar com a AVX Corretora.');
+      window.open('https://wa.me/5538998025274?text=' + msg, '_blank');
+      waToggle(false);
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('wa-tel').addEventListener('input', function() {
+        let v = this.value.replace(/\D/g, '').slice(0, 11);
+        if (v.length >= 7) v = '(' + v.slice(0,2) + ') ' + v.slice(2,7) + '-' + v.slice(7);
+        else if (v.length >= 3) v = '(' + v.slice(0,2) + ') ' + v.slice(2);
+        this.value = v;
+      });
+      document.getElementById('wa-nome').addEventListener('input', function() {
+        this.style.borderColor = '';
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') waToggle(false);
+      });
+    });
+
+  </script>
+
+  <!-- WhatsApp Float Button -->
+  <div class="wa-float">
+    <div class="wa-popup" id="wa-popup">
+      <button class="wa-popup-close" onclick="waToggle(false)" aria-label="Fechar">×</button>
+      <div class="wa-popup-header">
+        <div class="wa-popup-avatar">
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2.003C6.474 2.003 2 6.477 2 12.007a9.979 9.979 0 001.341 5.005L2 22l5.134-1.347A9.953 9.953 0 0012.004 22c5.53 0 10.004-4.474 10.004-10.004 0-5.529-4.474-10.002-10.004-9.993zm0 18.18a8.153 8.153 0 01-4.158-1.139l-.298-.177-3.046.799.813-2.974-.194-.305a8.162 8.162 0 01-1.254-4.378c0-4.514 3.672-8.186 8.187-8.186 4.514 0 8.186 3.672 8.186 8.186 0 4.515-3.672 8.174-8.186 8.174z"/></svg>
+        </div>
+        <div>
+          <div class="wa-popup-info-title">AVX Corretora</div>
+          <div class="wa-popup-info-sub">🟢 Responde em minutos</div>
+        </div>
+      </div>
+      <input type="text" id="wa-nome" placeholder="Seu nome *" autocomplete="name">
+      <input type="tel" id="wa-tel" placeholder="Seu telefone (WhatsApp)">
+      <button class="wa-submit-btn" onclick="waSubmit()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2.003C6.474 2.003 2 6.477 2 12.007a9.979 9.979 0 001.341 5.005L2 22l5.134-1.347A9.953 9.953 0 0012.004 22c5.53 0 10.004-4.474 10.004-10.004 0-5.529-4.474-10.002-10.004-9.993zm0 18.18a8.153 8.153 0 01-4.158-1.139l-.298-.177-3.046.799.813-2.974-.194-.305a8.162 8.162 0 01-1.254-4.378c0-4.514 3.672-8.186 8.187-8.186 4.514 0 8.186 3.672 8.186 8.186 0 4.515-3.672 8.174-8.186 8.174z"/></svg>
+        Fale conosco agora
+      </button>
+      <div class="wa-disclaimer">Nenhum spam. Só atendimento humano.</div>
+    </div>
+    <button class="wa-btn" onclick="waToggle()" aria-label="Fale conosco pelo WhatsApp">
+      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2.003C6.474 2.003 2 6.477 2 12.007a9.979 9.979 0 001.341 5.005L2 22l5.134-1.347A9.953 9.953 0 0012.004 22c5.53 0 10.004-4.474 10.004-10.004 0-5.529-4.474-10.002-10.004-9.993zm0 18.18a8.153 8.153 0 01-4.158-1.139l-.298-.177-3.046.799.813-2.974-.194-.305a8.162 8.162 0 01-1.254-4.378c0-4.514 3.672-8.186 8.187-8.186 4.514 0 8.186 3.672 8.186 8.186 0 4.515-3.672 8.174-8.186 8.174z"/></svg>
+    </button>
+  </div>
+
+</body>
+</html>
