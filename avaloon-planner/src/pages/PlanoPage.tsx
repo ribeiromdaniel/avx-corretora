@@ -6,7 +6,7 @@ import { CamadaEditor, RenderConteudo } from '../components/CamadaEditor'
 import { DemandaExtraButton } from '../components/DemandaExtraButton'
 import { Modal } from '../components/Modal'
 import { StatusBadge } from '../components/StatusBadge'
-import { baixarHtml, gerarHtmlApresentacao } from '../lib/exportHtml'
+import { baixarHtml, gerarApresentacao } from '../lib/apresentacao'
 import { editavelPeloGC, MIN_AJUSTES_GC, podeExportar } from '../lib/status'
 import type {
   Aprovacao,
@@ -136,11 +136,26 @@ export function PlanoPage() {
     setSalvando(false)
   }
 
+  // Apresentação visual: estrutura padrão Avaloon vestida com a marca
+  // do cliente (bloco 'marca' do dossiê: cores, logo).
+  const marcaCliente = (dossie.find((d) => d.bloco_codigo === 'marca')?.conteudo ??
+    {}) as Record<string, unknown>
+  const temMarca = Boolean(marcaCliente.cor_primaria || marcaCliente.logo_url)
+
+  const montarApresentacao = () =>
+    gerarApresentacao(cliente, plano, camadas, configs, marcaCliente)
+
+  const apresentar = () => {
+    const win = window.open('', '_blank')
+    if (!win) return
+    win.document.write(montarApresentacao())
+    win.document.close()
+  }
+
   const exportar = () => {
-    const html = gerarHtmlApresentacao(cliente, plano, camadas, configs)
     baixarHtml(
-      `plano-${cliente.nome.toLowerCase().replace(/\s+/g, '-')}-${plano.periodo_inicio}.html`,
-      html,
+      `apresentacao-${cliente.nome.toLowerCase().replace(/\s+/g, '-')}-${plano.periodo_inicio}.html`,
+      montarApresentacao(),
     )
   }
 
@@ -196,9 +211,14 @@ export function PlanoPage() {
             </button>
           )}
           {podeExportar(plano.status) && (
-            <button className="btn-dark" onClick={exportar}>
-              Exportar HTML
-            </button>
+            <>
+              <button className="btn-primary" onClick={apresentar}>
+                Apresentar
+              </button>
+              <button className="btn-dark" onClick={exportar}>
+                Baixar apresentação
+              </button>
+            </>
           )}
         </div>
       </div>
@@ -206,6 +226,17 @@ export function PlanoPage() {
       {erro && (
         <div className="mb-4 rounded border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
           {erro}
+        </div>
+      )}
+
+      {podeExportar(plano.status) && !temMarca && (
+        <div className="mb-4 rounded border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+          O bloco <strong>Marca e identidade visual</strong> do dossiê está vazio — a
+          apresentação sairá no padrão Avaloon (laranja/preto). Preencha cores e logo
+          do cliente no dossiê para a apresentação usar a identidade dele.{' '}
+          <Link to={`/clientes/${plano.cliente_id}`} className="font-semibold underline">
+            Completar dossiê →
+          </Link>
         </div>
       )}
 

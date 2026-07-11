@@ -29,6 +29,10 @@ supabase db push   # aplica supabase/migrations/000{1,2,3}_*.sql
   tudo; admin gerencia configuração.
 - `0003_seed.sql` — os 7 blocos do briefing, as 4 camadas do plano e os prompts
   v1 (`detectar_lacunas`, `gerar_plano`).
+- `0004_bloco_marca.sql` — bloco 8 do dossiê: **marca e identidade visual**
+  (logo, cores hex, tipografia, tom visual, restrições). A entrevista guiada
+  cobre essas lacunas automaticamente, e a apresentação do plano aprovado usa
+  esses campos.
 
 ### 2. Edge Functions
 
@@ -83,7 +87,12 @@ Regras aplicadas **no banco** (trigger `valida_transicao_plano`):
 - Aprovar/solicitar ajustes é exclusivo de diretores; basta **um** decidir
   (RPC `decidir_plano`, sempre auditada em `aprovacoes`).
 - Solicitar ajustes exige comentário e devolve o plano ao GC.
-- Exportação HTML só a partir de `aprovado`.
+- Apresentação só a partir de `aprovado`: deck de slides HTML autocontido
+  (`src/lib/apresentacao.ts`) na estrutura padrão Avaloon — capa, objetivos do
+  período em destaque, resumo executivo, conceito/ações/metas por camada —
+  vestido com as cores e o logo do cliente (bloco "marca" do dossiê); sem marca
+  preenchida, sai no padrão laranja/preto da Avaloon. Navegação por teclado ou
+  clique, imprimível em PDF (um slide por página).
 - Toda mudança de status vira linha em `eventos` (base para automações futuras).
 - `fechar_ciclo` grava os resultados reais e alimenta automaticamente o bloco
   "Histórico e sazonalidade" do dossiê — memória para o próximo plano.
