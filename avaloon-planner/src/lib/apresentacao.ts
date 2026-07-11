@@ -1,8 +1,12 @@
 import type { CamadaConfig, Cliente, Plano, PlanoCamada } from './types'
 
 // ------------------------------------------------------------
-// Marca do cliente (bloco 'marca' do dossiê) aplicada ao deck.
-// Campos ausentes caem no padrão Avaloon (laranja/preto).
+// Padrão visual Avaloon (calibrado pelo deck real de planejamento):
+// tema claro #F7F7F7, marca d'água do logotipo, gradiente laranja
+// #F09340→#F89843 na borda direita da capa/encerramento, mês/ano
+// rotacionados na lateral, títulos pesados em caixa alta, kicker
+// com letter-spacing largo. A marca do cliente (bloco 'marca' do
+// dossiê) entra como logo na capa e cor de destaque nos cards.
 // ------------------------------------------------------------
 export interface MarcaCliente {
   logo_url?: string
@@ -12,10 +16,12 @@ export interface MarcaCliente {
   tipografia?: string
 }
 
-const PADRAO = {
-  primaria: '#FF5A00',
-  secundaria: '#FFB380',
-  escura: '#111111',
+const AVALOON = {
+  laranja: '#EE8433',
+  laranjaClaro: '#F89843',
+  fundo: '#F7F7F7',
+  carvao: '#2B2A29',
+  cinza: '#8A8A8A',
 }
 
 function hexValido(v: unknown): string | null {
@@ -47,14 +53,45 @@ function fmtData(d: string): string {
   return `${day}/${m}/${y}`
 }
 
+const MESES = [
+  'JANEIRO', 'FEVEREIRO', 'MARÇO', 'ABRIL', 'MAIO', 'JUNHO',
+  'JULHO', 'AGOSTO', 'SETEMBRO', 'OUTUBRO', 'NOVEMBRO', 'DEZEMBRO',
+]
+
+function mesDe(dataIso: string): string {
+  const m = Number(dataIso.split('-')[1])
+  return MESES[m - 1] ?? ''
+}
+
+/** Rótulo lateral do período: "JULHO" ou "JUL – SET". */
+function rotuloPeriodo(plano: Plano): string {
+  const ini = mesDe(plano.periodo_inicio)
+  const fim = mesDe(plano.periodo_fim)
+  if (ini === fim) return ini
+  return `${ini.slice(0, 3)} – ${fim.slice(0, 3)}`
+}
+
 const NOME_PERIODO: Record<string, string> = {
-  mensal: 'Plano mensal',
-  trimestral: 'Plano trimestral',
-  semestral: 'Plano semestral',
+  mensal: 'MENSAL',
+  trimestral: 'TRIMESTRAL',
+  semestral: 'SEMESTRAL',
+}
+
+// Marca d'água: letras do logotipo repetidas em cinza sutil,
+// como no deck de referência.
+function watermarkCss(): string {
+  const svg =
+    `<svg xmlns='http://www.w3.org/2000/svg' width='520' height='400'>` +
+    `<g fill='%23000000' fill-opacity='0.016' font-family='Arial Black,Arial,sans-serif' font-weight='900'>` +
+    `<text x='-30' y='120' font-size='150' transform='rotate(18 100 100)'>AV</text>` +
+    `<text x='240' y='300' font-size='150' transform='rotate(-14 300 260)'>ON</text>` +
+    `<text x='60' y='380' font-size='150' transform='rotate(8 120 340)'>LO</text>` +
+    `</g></svg>`
+  return `url("data:image/svg+xml,${svg}")`
 }
 
 // ------------------------------------------------------------
-// Renderização do conteúdo das camadas
+// Conteúdo das camadas
 // ------------------------------------------------------------
 interface Acao {
   titulo?: string
@@ -77,7 +114,14 @@ function renderAcoes(acoes: Acao[]): string {
     <div class="acao">
       <div class="acao-titulo">${esc(a.titulo)}</div>
       <div class="acao-desc">${esc(a.descricao)}</div>
-      <div class="acao-meta">${[a.responsavel, a.cadencia].filter(Boolean).map(esc).join(' · ')}</div>
+      ${
+        a.responsavel || a.cadencia
+          ? `<div class="acao-chips">${[a.responsavel, a.cadencia]
+              .filter(Boolean)
+              .map((c) => `<span>${esc(c)}</span>`)
+              .join('')}</div>`
+          : ''
+      }
     </div>`,
     )
     .join('')}</div>`
@@ -107,11 +151,12 @@ function slideCamada(
   const observacoes = typeof conteudo.observacoes === 'string' ? conteudo.observacoes : ''
   const acoes = Array.isArray(conteudo.acoes) ? (conteudo.acoes as Acao[]) : []
   const metas = Array.isArray(conteudo.metas) ? (conteudo.metas as Meta[]) : []
+  const tituloCaps = esc(titulo).toUpperCase()
 
   const conceitoSlide = `
   <section class="slide">
-    <div class="tag">Camada 0${numero}</div>
-    <h2>${esc(titulo)}</h2>
+    <div class="kicker">CAMADA 0${numero}</div>
+    <h2>${tituloCaps}</h2>
     ${diagnostico ? `<p class="diagnostico">${esc(diagnostico)}</p>` : ''}
     ${conceito ? `<p class="conceito">${esc(conceito)}</p>` : ''}
   </section>`
@@ -120,8 +165,8 @@ function slideCamada(
     acoes.length > 0
       ? `
   <section class="slide">
-    <div class="tag">Camada 0${numero} · ${esc(titulo)}</div>
-    <h2>O que vamos fazer</h2>
+    <div class="kicker">CAMADA 0${numero} · ${tituloCaps}</div>
+    <h2>O QUE VAMOS FAZER</h2>
     ${renderAcoes(acoes)}
     ${observacoes ? `<p class="obs">${esc(observacoes)}</p>` : ''}
   </section>`
@@ -131,8 +176,8 @@ function slideCamada(
     metas.length > 0
       ? `
   <section class="slide">
-    <div class="tag">Camada 0${numero} · ${esc(titulo)}</div>
-    <h2>Como vamos medir</h2>
+    <div class="kicker">CAMADA 0${numero} · ${tituloCaps}</div>
+    <h2>COMO VAMOS MEDIR</h2>
     ${renderMetas(metas)}
   </section>`
       : ''
@@ -141,9 +186,7 @@ function slideCamada(
 }
 
 // ------------------------------------------------------------
-// Deck completo: HTML autocontido, navegável por teclado/clique,
-// imprimível (cada slide = uma página). Estrutura padrão Avaloon,
-// cores e logo do cliente quando existem no dossiê.
+// Deck completo
 // ------------------------------------------------------------
 export function gerarApresentacao(
   cliente: Cliente,
@@ -152,32 +195,44 @@ export function gerarApresentacao(
   configs: CamadaConfig[],
   marca: Record<string, unknown>,
 ): string {
-  const primaria = hexValido(marca.cor_primaria) ?? PADRAO.primaria
-  const secundaria = hexValido(marca.cor_secundaria) ?? PADRAO.secundaria
-  const escura = hexValido(marca.cor_escura) ?? PADRAO.escura
+  const corCliente = hexValido(marca.cor_primaria) ?? AVALOON.laranja
   const logoUrl = urlSegura(marca.logo_url)
 
   const configPorCodigo = Object.fromEntries(configs.map((c) => [c.codigo, c]))
   const objPerf = plano.objetivo_performance as Record<string, unknown>
   const objMarca = plano.objetivo_marca as Record<string, unknown>
   const resumo = typeof objMarca?.resumo_executivo === 'string' ? objMarca.resumo_executivo : ''
+  const ano = plano.periodo_inicio.slice(0, 4)
+  const periodoLateral = rotuloPeriodo(plano)
+  const nomePeriodo = NOME_PERIODO[plano.periodo_tipo] ?? 'DE CAMPANHA'
 
-  const marcaVisual = logoUrl
-    ? `<img class="logo-cliente" src="${esc(logoUrl)}" alt="${esc(cliente.nome)}" onerror="this.outerHTML='<div class=nome-cliente>${esc(cliente.nome)}</div>'">`
-    : `<div class="nome-cliente">${esc(cliente.nome)}</div>`
+  const clienteNaCapa = logoUrl
+    ? `<img class="logo-cliente" src="${esc(logoUrl)}" alt="${esc(cliente.nome)}" onerror="this.outerHTML='<div class=subtitulo>${esc(cliente.nome).toUpperCase()}</div>'">`
+    : `<div class="subtitulo">${esc(cliente.nome).toUpperCase()}</div>`
+
+  const wordmark = `
+    <div class="wordmark">
+      <span class="wm-nome">AVALOON</span>
+      <span class="wm-sub">MARKETING &amp; TECNOLOGIA</span>
+    </div>`
+
+  const lateral = `
+    <div class="lateral lateral-ano">${esc(ano)}</div>
+    <div class="lateral lateral-mes">${esc(periodoLateral)}</div>`
 
   const cardObjetivo = (
     rotulo: string,
     descricao: unknown,
     destaque: unknown,
     destaqueRotulo: string,
+    cor: string,
   ) =>
     descricao || destaque
       ? `
-    <div class="obj-card">
+    <div class="obj-card" style="border-top-color: ${cor}">
       <div class="obj-tipo">${rotulo}</div>
       <div class="obj-desc">${esc(descricao)}</div>
-      ${destaque ? `<div class="obj-meta"><span>${destaqueRotulo}</span>${esc(destaque)}</div>` : ''}
+      ${destaque ? `<div class="obj-meta" style="color: ${cor}"><span>${destaqueRotulo}</span>${esc(destaque)}</div>` : ''}
     </div>`
       : ''
 
@@ -198,92 +253,136 @@ export function gerarApresentacao(
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(cliente.nome)} — ${NOME_PERIODO[plano.periodo_tipo] ?? 'Plano'} | Avaloon</title>
+<title>${esc(cliente.nome)} — Planejamento ${esc(nomePeriodo.toLowerCase())} | Avaloon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800;900&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --primaria: ${primaria};
-    --secundaria: ${secundaria};
-    --escura: ${escura};
-    --branco: #ffffff;
-    --cinza: #8a8a8a;
+    --laranja: ${AVALOON.laranja};
+    --laranja-claro: ${AVALOON.laranjaClaro};
+    --fundo: ${AVALOON.fundo};
+    --carvao: ${AVALOON.carvao};
+    --cinza: ${AVALOON.cinza};
+    --marca-cliente: ${corCliente};
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body { height: 100%; }
   body {
-    font-family: -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background: #000; color: var(--branco); overflow: hidden;
+    font-family: 'Poppins', -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: var(--carvao); color: var(--carvao); overflow: hidden;
   }
   .slide {
     display: none; position: fixed; inset: 0;
     flex-direction: column; justify-content: center;
-    padding: 7vh 8vw; background: var(--escura);
+    padding: 7vh 9vw 7vh 11vw;
+    background: var(--fundo);
+    background-image: ${watermarkCss()};
   }
   .slide.ativa { display: flex; }
-  .tag {
-    color: var(--primaria); font-size: clamp(11px, 1.4vw, 14px); font-weight: 800;
-    letter-spacing: 0.28em; text-transform: uppercase; margin-bottom: 2vh;
-  }
-  h1 { font-size: clamp(34px, 6.5vw, 88px); font-weight: 800; line-height: 1.04; }
-  h2 { font-size: clamp(26px, 4.2vw, 56px); font-weight: 800; line-height: 1.08; margin-bottom: 3.5vh; }
-  .diagnostico {
-    font-size: clamp(15px, 1.8vw, 22px); color: #c9c9c9;
-    max-width: 62ch; margin-bottom: 3vh;
-  }
-  .conceito {
-    font-size: clamp(20px, 2.8vw, 36px); font-weight: 700; line-height: 1.25;
-    max-width: 50ch; border-left: 6px solid var(--primaria); padding-left: 24px;
-  }
-  .obs { margin-top: 3vh; font-size: clamp(12px, 1.4vw, 15px); color: var(--cinza); max-width: 70ch; }
 
-  /* Capa */
-  .capa { background: var(--escura); }
-  .capa .barra { width: 110px; height: 8px; background: var(--primaria); margin-bottom: 4vh; }
-  .logo-cliente { max-height: 11vh; max-width: 40vw; object-fit: contain; align-self: flex-start; margin-bottom: 4vh; }
-  .nome-cliente { font-size: clamp(20px, 2.6vw, 32px); font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--secundaria); margin-bottom: 4vh; }
-  .capa .periodo { font-size: clamp(15px, 2vw, 24px); color: #bdbdbd; margin-top: 1.5vh; }
-  .assinatura { position: absolute; bottom: 6vh; left: 8vw; font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cinza); }
-  .assinatura b { color: var(--primaria); }
+  .kicker {
+    color: var(--laranja); font-size: clamp(11px, 1.3vw, 15px); font-weight: 700;
+    letter-spacing: 0.32em; text-transform: uppercase; margin-bottom: 2.2vh;
+  }
+  h1, h2 {
+    font-family: 'Montserrat', 'Poppins', sans-serif;
+    color: var(--carvao); text-transform: uppercase; line-height: 1.04;
+  }
+  h1 { font-size: clamp(38px, 7vw, 96px); font-weight: 900; letter-spacing: 0.01em; }
+  h2 { font-size: clamp(24px, 3.8vw, 52px); font-weight: 800; margin-bottom: 3.5vh; }
+
+  /* Capa e encerramento: gradiente laranja na borda direita */
+  .capa::after, .final::after {
+    content: ''; position: absolute; inset: 0 0 0 auto; width: 34vw;
+    background: linear-gradient(90deg, rgba(248,152,67,0) 0%, ${AVALOON.laranjaClaro}cc 55%, ${AVALOON.laranja} 100%);
+    pointer-events: none;
+  }
+  .capa, .final { position: fixed; z-index: 0; }
+  .capa > *, .final > * { position: relative; z-index: 1; }
+
+  .lateral {
+    position: absolute; left: 3.2vw; z-index: 2;
+    writing-mode: vertical-rl; transform: rotate(180deg);
+    font-family: 'Montserrat', sans-serif; font-weight: 600;
+    font-size: clamp(14px, 1.8vw, 24px); letter-spacing: 0.35em; color: var(--carvao);
+  }
+  .lateral-ano { top: 8vh; }
+  .lateral-mes { bottom: 8vh; }
+
+  .wordmark { display: flex; flex-direction: column; gap: 2px; margin-bottom: 2.4vh; }
+  .wm-nome {
+    font-family: 'Montserrat', sans-serif; font-weight: 900;
+    font-size: clamp(16px, 1.9vw, 24px); letter-spacing: 0.14em; color: var(--laranja);
+  }
+  .wm-sub { font-size: clamp(7px, 0.75vw, 10px); letter-spacing: 0.42em; color: var(--laranja); font-weight: 600; }
+
+  .subtitulo {
+    font-size: clamp(16px, 2.4vw, 34px); font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--carvao); margin-top: 2vh;
+  }
+  .logo-cliente { max-height: 9vh; max-width: 34vw; object-fit: contain; align-self: flex-start; margin-top: 2.5vh; }
+  .periodo-capa { font-size: clamp(13px, 1.5vw, 18px); color: var(--cinza); margin-top: 1.6vh; }
+  .seta {
+    margin-top: 4vh; width: 84px; height: 44px; border: 2.5px solid var(--laranja);
+    border-radius: 999px; display: flex; align-items: center; justify-content: center;
+    color: var(--laranja); font-size: 22px; font-weight: 600;
+  }
+
+  .diagnostico { font-size: clamp(14px, 1.7vw, 21px); color: #5a5a5a; max-width: 62ch; margin-bottom: 3vh; }
+  .conceito {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(19px, 2.6vw, 34px); font-weight: 800; line-height: 1.22;
+    color: var(--carvao); max-width: 48ch;
+    border-left: 7px solid var(--laranja); padding-left: 26px;
+  }
+  .obs { margin-top: 3vh; font-size: clamp(11px, 1.3vw, 14px); color: var(--cinza); max-width: 70ch; }
 
   /* Objetivos */
-  .objetivos { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5vw; }
-  .obj-card { background: rgba(255,255,255,0.05); border-top: 6px solid var(--primaria); padding: 3.2vh 2.2vw; border-radius: 6px; }
-  .obj-card:nth-child(2) { border-top-color: var(--secundaria); }
-  .obj-tipo { font-size: 12px; font-weight: 800; letter-spacing: 0.25em; text-transform: uppercase; color: var(--cinza); margin-bottom: 1.4vh; }
-  .obj-desc { font-size: clamp(16px, 2vw, 24px); font-weight: 600; line-height: 1.3; margin-bottom: 2.2vh; }
-  .obj-meta { font-size: clamp(24px, 3.4vw, 46px); font-weight: 800; color: var(--primaria); line-height: 1.1; }
-  .obj-meta span { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--cinza); margin-bottom: 0.6vh; }
+  .objetivos { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.4vw; }
+  .obj-card {
+    background: #fff; border-radius: 10px; border-top: 7px solid var(--laranja);
+    padding: 3.4vh 2.2vw; box-shadow: 0 14px 34px rgba(43, 42, 41, 0.10);
+  }
+  .obj-tipo { font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cinza); margin-bottom: 1.4vh; }
+  .obj-desc { font-size: clamp(15px, 1.9vw, 23px); font-weight: 600; line-height: 1.32; margin-bottom: 2.2vh; }
+  .obj-meta { font-family: 'Montserrat', sans-serif; font-size: clamp(24px, 3.4vw, 46px); font-weight: 900; line-height: 1.08; }
+  .obj-meta span { display: block; font-family: 'Poppins', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: var(--cinza); margin-bottom: 0.6vh; }
 
-  /* Resumo */
-  .resumo-txt { font-size: clamp(19px, 2.6vw, 34px); font-weight: 600; line-height: 1.35; max-width: 55ch; }
+  .resumo-txt { font-size: clamp(18px, 2.4vw, 32px); font-weight: 600; line-height: 1.4; max-width: 56ch; color: var(--carvao); }
 
   /* Ações */
-  .acoes { display: flex; flex-direction: column; gap: 1.6vh; max-height: 62vh; overflow: auto; }
-  .acao { border-left: 4px solid var(--primaria); padding: 0.6vh 0 0.6vh 1.6vw; }
-  .acao-titulo { font-size: clamp(15px, 1.9vw, 23px); font-weight: 700; }
-  .acao-desc { font-size: clamp(13px, 1.5vw, 17px); color: #c9c9c9; max-width: 75ch; }
-  .acao-meta { font-size: clamp(11px, 1.2vw, 13px); color: var(--secundaria); font-weight: 600; margin-top: 0.4vh; text-transform: uppercase; letter-spacing: 0.08em; }
+  .acoes { display: flex; flex-direction: column; gap: 1.6vh; max-height: 62vh; overflow: auto; padding: 4px; }
+  .acao {
+    background: #fff; border-radius: 10px; padding: 2vh 1.8vw;
+    box-shadow: 0 10px 26px rgba(43, 42, 41, 0.08); border-left: 6px solid var(--laranja);
+  }
+  .acao-titulo { font-size: clamp(14px, 1.8vw, 21px); font-weight: 600; color: var(--carvao); }
+  .acao-desc { font-size: clamp(12px, 1.4vw, 16px); color: #5a5a5a; max-width: 80ch; margin-top: 0.3vh; }
+  .acao-chips { margin-top: 1vh; display: flex; flex-wrap: wrap; gap: 8px; }
+  .acao-chips span {
+    font-size: clamp(10px, 1vw, 12px); font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--laranja);
+    border: 1.5px solid var(--laranja); border-radius: 999px; padding: 3px 12px;
+  }
 
   /* Metas */
-  .metas { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.8vw; max-height: 62vh; overflow: auto; }
-  .meta-card { background: rgba(255,255,255,0.05); border-radius: 6px; padding: 2.4vh 1.6vw; }
-  .meta-indicador { font-size: clamp(12px, 1.4vw, 15px); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--cinza); margin-bottom: 1vh; }
-  .meta-valor { font-size: clamp(22px, 3vw, 40px); font-weight: 800; color: var(--primaria); line-height: 1.1; }
-  .meta-base { font-size: clamp(11px, 1.2vw, 13px); color: var(--cinza); margin-top: 0.8vh; }
+  .metas { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1.8vw; max-height: 62vh; overflow: auto; padding: 4px; }
+  .meta-card { background: #fff; border-radius: 10px; padding: 2.6vh 1.6vw; box-shadow: 0 10px 26px rgba(43, 42, 41, 0.08); }
+  .meta-indicador { font-size: clamp(11px, 1.3vw, 14px); font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--cinza); margin-bottom: 1vh; }
+  .meta-valor { font-family: 'Montserrat', sans-serif; font-size: clamp(22px, 2.9vw, 38px); font-weight: 900; color: var(--laranja); line-height: 1.08; }
+  .meta-base { font-size: clamp(10px, 1.2vw, 13px); color: var(--cinza); margin-top: 0.8vh; }
 
   /* Encerramento */
-  .final { background: var(--primaria); }
-  .final h1 { color: var(--branco); }
-  .final .assinatura, .final .tag { color: rgba(255,255,255,0.75); }
-  .final .assinatura b { color: var(--branco); }
+  .final h1 { max-width: 12ch; }
+  .final .cliente-final { margin-top: 3vh; font-size: clamp(12px, 1.4vw, 17px); letter-spacing: 0.22em; text-transform: uppercase; color: var(--cinza); }
 
-  /* Navegação */
   #nav {
-    position: fixed; bottom: 18px; right: 22px; z-index: 10;
-    font-size: 12px; font-weight: 700; color: var(--cinza); letter-spacing: 0.1em;
+    position: fixed; bottom: 16px; right: 20px; z-index: 10;
+    font-size: 12px; font-weight: 600; color: var(--cinza); letter-spacing: 0.12em;
     user-select: none;
   }
   @media print {
-    body { overflow: visible; background: var(--escura); }
+    body { overflow: visible; }
     .slide { display: flex; position: relative; inset: auto; height: 100vh; page-break-after: always; }
     #nav { display: none; }
   }
@@ -292,34 +391,37 @@ export function gerarApresentacao(
 <body>
 
 <section class="slide capa ativa">
-  <div class="barra"></div>
-  ${marcaVisual}
-  <h1>${esc(NOME_PERIODO[plano.periodo_tipo] ?? 'Plano de campanha')}</h1>
-  <div class="periodo">${fmtData(plano.periodo_inicio)} — ${fmtData(plano.periodo_fim)} · ${esc(cliente.cidade)}</div>
-  <div class="assinatura">planejamento <b>Avaloon</b> Marketing</div>
+  ${lateral}
+  <div class="kicker">ESTRATÉGIA ${esc(nomePeriodo)} DE CAMPANHA</div>
+  ${wordmark}
+  <h1>PLANEJAMENTO<br>${esc(nomePeriodo)}</h1>
+  ${clienteNaCapa}
+  <div class="periodo-capa">${fmtData(plano.periodo_inicio)} — ${fmtData(plano.periodo_fim)} · ${esc(cliente.cidade)}</div>
+  <div class="seta">→</div>
 </section>
 
 <section class="slide">
-  <div class="tag">Para onde vamos</div>
-  <h2>Objetivos do período</h2>
+  <div class="kicker">PARA ONDE VAMOS</div>
+  <h2>OBJETIVOS DO PERÍODO</h2>
   <div class="objetivos">
-    ${cardObjetivo('Performance', objPerf?.descricao, objPerf?.meta, 'meta')}
-    ${cardObjetivo('Marca', objMarca?.descricao, objMarca?.indicador, 'indicador')}
+    ${cardObjetivo('Performance', objPerf?.descricao, objPerf?.meta, 'meta', AVALOON.laranja)}
+    ${cardObjetivo('Marca', objMarca?.descricao, objMarca?.indicador, 'indicador', corCliente)}
   </div>
 </section>
 
 ${resumo ? `
 <section class="slide">
-  <div class="tag">Resumo executivo</div>
+  <div class="kicker">RESUMO EXECUTIVO</div>
   <p class="resumo-txt">${esc(resumo)}</p>
 </section>` : ''}
 
 ${slidesCamadas}
 
 <section class="slide final">
-  <div class="tag">Próximo passo</div>
-  <h1>Vamos executar.</h1>
-  <div class="assinatura">planejamento <b>Avaloon</b> Marketing · Montes Claros/MG</div>
+  ${lateral}
+  ${wordmark}
+  <h1>CONECTANDO SOLUÇÕES CRIATIVAS AO MUNDO</h1>
+  <div class="cliente-final">${esc(cliente.nome)} · PLANEJAMENTO ${esc(nomePeriodo)}</div>
 </section>
 
 <div id="nav">1 / 1</div>
