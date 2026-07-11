@@ -33,6 +33,10 @@ supabase db push   # aplica supabase/migrations/000{1,2,3}_*.sql
   (logo, cores hex, tipografia, tom visual, restrições). A entrevista guiada
   cobre essas lacunas automaticamente, e a apresentação do plano aprovado usa
   esses campos.
+- `0005_prompt_grade_posts.sql` — `gerar_plano:v2`: a camada de conteúdo
+  orgânico passa a incluir `grade_posts` (data, hora, formato, criativo e
+  legenda prontos para publicar), que vira um slide por post na apresentação,
+  no formato do deck mensal Avaloon.
 
 ### 2. Edge Functions
 

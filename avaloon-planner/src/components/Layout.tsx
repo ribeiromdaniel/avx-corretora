@@ -110,9 +110,14 @@ export function Layout() {
               Clientes
             </NavLink>
             {ehDiretor && (
-              <NavLink to="/aprovacoes" className={linkClasses}>
-                Aprovações
-              </NavLink>
+              <>
+                <NavLink to="/aprovacoes" className={linkClasses}>
+                  Aprovações
+                </NavLink>
+                <NavLink to="/demandas" className={linkClasses}>
+                  Demandas
+                </NavLink>
+              </>
             )}
             {ehAdmin && (
               <NavLink to="/admin" className={linkClasses}>

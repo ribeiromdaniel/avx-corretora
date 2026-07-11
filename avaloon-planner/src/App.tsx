@@ -3,6 +3,7 @@ import { AuthProvider, useAuth } from './contexts/AuthContext'
 import { Layout } from './components/Layout'
 import { AdminPage } from './pages/AdminPage'
 import { AprovacoesPage } from './pages/AprovacoesPage'
+import { DemandasPage } from './pages/DemandasPage'
 import { ClientePage } from './pages/ClientePage'
 import { Dashboard } from './pages/Dashboard'
 import { GerarPlanoPage } from './pages/GerarPlanoPage'
@@ -41,6 +42,7 @@ export default function App() {
           <Route element={<RotaProtegida exigir="diretor" />}>
             <Route element={<Layout />}>
               <Route path="/aprovacoes" element={<AprovacoesPage />} />
+              <Route path="/demandas" element={<DemandasPage />} />
             </Route>
           </Route>
           <Route element={<RotaProtegida exigir="admin" />}>

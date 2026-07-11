@@ -141,6 +141,70 @@ function renderMetas(metas: Meta[]): string {
     .join('')}</div>`
 }
 
+interface Post {
+  data?: string
+  hora?: string
+  formato?: string
+  titulo?: string
+  descricao_criativo?: string
+  legenda?: string
+}
+
+function fmtDiaMes(dataIso: string): string {
+  const partes = dataIso.split('-')
+  return partes.length === 3 ? `${partes[2]}/${partes[1]}` : dataIso
+}
+
+// Ícones do Instagram (curtir, comentar, compartilhar / salvar) como
+// no deck de referência.
+const IG_ICONES = `
+  <div class="ig-icones">
+    <span>
+      <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.9-10-9.3C.4 8.6 2.2 5 5.7 5c2 0 3.4 1.1 4.3 2.5h4C14.9 6.1 16.3 5 18.3 5c3.5 0 5.3 3.6 3.7 6.7C19.5 16.1 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3.5-7.1L21 4l-.8 3.6A8.9 8.9 0 0 1 21 12z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+    </span>
+    <svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-5-6 5V3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+  </div>`
+
+/** Slide de post no padrão do deck mensal: mockup à esquerda, data/formato/legenda à direita. */
+function slidePost(post: Post, cliente: Cliente, logoUrl: string | null): string {
+  const formato = String(post.formato ?? 'post').toUpperCase().replace('ESTATICO', 'ESTÁTICO')
+  const legenda = esc(post.legenda).replace(/\n/g, '<br>')
+  const marcaMockup = logoUrl
+    ? `<img src="${esc(logoUrl)}" alt="" onerror="this.remove()">`
+    : `<span>${esc(cliente.nome).toUpperCase()}</span>`
+  return `
+  <section class="slide slide-post">
+    <div class="post-mockup ${post.formato === 'carrossel' ? 'largo' : ''}">
+      <div class="mockup-marca">${marcaMockup}</div>
+      <div class="mockup-titulo">${esc(post.titulo)}</div>
+      ${post.descricao_criativo ? `<div class="mockup-criativo">${esc(post.descricao_criativo)}</div>` : ''}
+    </div>
+    <div class="post-info">
+      ${IG_ICONES}
+      <div class="post-data">📍 ${esc(fmtDiaMes(String(post.data ?? '')))}${post.hora ? ` – ${esc(post.hora)}` : ''} – ${esc(formato)}</div>
+      <div class="post-legenda-rotulo">Legenda:</div>
+      <div class="post-legenda">${legenda}</div>
+    </div>
+  </section>`
+}
+
+function slidesGradePosts(
+  posts: Post[],
+  cliente: Cliente,
+  logoUrl: string | null,
+): string {
+  if (posts.length === 0) return ''
+  const divisor = `
+  <section class="slide">
+    <div class="kicker">CONTEÚDO ORGÂNICO</div>
+    <h2>GRADE DE POSTS</h2>
+    <p class="diagnostico">${posts.length} publicações planejadas para o período, todas derivadas do conceito publicitário. Data, formato e legenda prontos para produção.</p>
+  </section>`
+  return divisor + posts.map((p) => slidePost(p, cliente, logoUrl)).join('\n')
+}
+
 function slideCamada(
   numero: number,
   titulo: string,
@@ -236,16 +300,21 @@ export function gerarApresentacao(
     </div>`
       : ''
 
-  const slidesCamadas = [...camadas]
+  const camadasVisiveis = [...camadas]
     .sort((a, b) => a.ordem - b.ordem)
     .filter((c) => c.conteudo && (c.conteudo as Record<string, unknown>).conteudo !== null)
-    .map((c, i) =>
-      slideCamada(
-        i + 1,
-        configPorCodigo[c.camada_codigo]?.titulo ?? c.camada_codigo,
-        c.conteudo as Record<string, unknown>,
-      ),
-    )
+
+  const slidesCamadas = camadasVisiveis
+    .map((c, i) => {
+      const conteudo = c.conteudo as Record<string, unknown>
+      const posts = Array.isArray(conteudo.grade_posts)
+        ? (conteudo.grade_posts as Post[])
+        : []
+      return (
+        slideCamada(i + 1, configPorCodigo[c.camada_codigo]?.titulo ?? c.camada_codigo, conteudo) +
+        slidesGradePosts(posts, cliente, logoUrl)
+      )
+    })
     .join('\n')
 
   return `<!doctype html>
@@ -371,6 +440,32 @@ export function gerarApresentacao(
   .meta-indicador { font-size: clamp(11px, 1.3vw, 14px); font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--cinza); margin-bottom: 1vh; }
   .meta-valor { font-family: 'Montserrat', sans-serif; font-size: clamp(22px, 2.9vw, 38px); font-weight: 900; color: var(--laranja); line-height: 1.08; }
   .meta-base { font-size: clamp(10px, 1.2vw, 13px); color: var(--cinza); margin-top: 0.8vh; }
+
+  /* Grade de posts (padrão do deck mensal) */
+  .slide-post { flex-direction: row; align-items: center; gap: 5vw; padding: 7vh 7vw; }
+  .post-mockup {
+    flex: 0 0 auto; width: min(30vw, 58vh * 0.8); aspect-ratio: 4 / 5;
+    background: linear-gradient(160deg, var(--marca-cliente) 0%, ${AVALOON.carvao} 130%);
+    border-radius: 8px; box-shadow: 0 22px 48px rgba(43, 42, 41, 0.22);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 2.6vh 1.8vw; color: #fff; overflow: hidden;
+  }
+  .post-mockup.largo { aspect-ratio: 16 / 10; width: min(38vw, 60vh * 1.6); }
+  .mockup-marca { margin-bottom: auto; }
+  .mockup-marca img { max-height: 5vh; max-width: 55%; object-fit: contain; }
+  .mockup-marca span { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(10px, 1vw, 13px); letter-spacing: 0.18em; opacity: 0.9; }
+  .mockup-titulo {
+    font-family: 'Montserrat', sans-serif; font-weight: 800;
+    font-size: clamp(16px, 1.9vw, 26px); line-height: 1.15; text-transform: uppercase;
+  }
+  .mockup-criativo { font-size: clamp(10px, 1vw, 13px); opacity: 0.82; margin-top: 1.2vh; line-height: 1.4; }
+  .post-info { flex: 1; max-width: 62ch; }
+  .ig-icones { display: flex; justify-content: space-between; align-items: center; color: var(--laranja); margin-bottom: 3vh; }
+  .ig-icones span { display: flex; gap: 18px; }
+  .ig-icones svg { width: clamp(22px, 2.2vw, 30px); height: clamp(22px, 2.2vw, 30px); }
+  .post-data { font-weight: 700; font-size: clamp(13px, 1.5vw, 18px); letter-spacing: 0.06em; text-transform: uppercase; color: var(--carvao); margin-bottom: 2.2vh; }
+  .post-legenda-rotulo { font-weight: 700; font-size: clamp(12px, 1.4vw, 16px); margin-bottom: 1vh; }
+  .post-legenda { font-size: clamp(12px, 1.35vw, 16px); line-height: 1.65; color: #3d3d3d; max-height: 52vh; overflow: auto; }
 
   /* Encerramento */
   .final h1 { max-width: 12ch; }
