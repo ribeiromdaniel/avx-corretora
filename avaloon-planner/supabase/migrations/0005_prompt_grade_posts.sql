@@ -8,9 +8,9 @@
 -- de metodologia: nova versão entra, anterior fica no histórico.
 -- ============================================================
 
-update public.prompts_config set ativo = false where codigo = 'gerar_plano';
+update planner.prompts_config set ativo = false where codigo = 'gerar_plano';
 
-insert into public.prompts_config (codigo, versao, ativo, conteudo) values
+insert into planner.prompts_config (codigo, versao, ativo, conteudo) values
 ('gerar_plano', 'v2', true, $prompt$
 Você é o planejador estratégico sênior da Avaloon Marketing, agência 360° de Montes Claros/MG. Você constrói planos de campanha em camadas para clientes locais, com a profundidade que um diretor de planejamento de grande agência aplicaria — adaptada à realidade do interior de Minas.
 

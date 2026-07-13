@@ -8,7 +8,7 @@
 -- (detectar-lacunas lê blocos_config).
 -- ============================================================
 
-insert into public.blocos_config (codigo, titulo, ordem, ativo, schema) values
+insert into planner.blocos_config (codigo, titulo, ordem, ativo, schema) values
 ('marca', 'Marca e identidade visual', 8, true, '{
   "campos": [
     {"chave": "logo_url", "rotulo": "Logo (URL)", "descricao": "Link direto para o arquivo do logo em fundo escuro (PNG/SVG). Preferir versão horizontal."},

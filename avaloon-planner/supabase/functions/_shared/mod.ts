@@ -25,7 +25,10 @@ export function supabaseForRequest(req: Request): SupabaseClient {
   return createClient(
     Deno.env.get("SUPABASE_URL")!,
     Deno.env.get("SUPABASE_ANON_KEY")!,
-    { global: { headers: { Authorization: authHeader } } },
+    {
+      db: { schema: Deno.env.get("PLANNER_DB_SCHEMA") ?? "planner" },
+      global: { headers: { Authorization: authHeader } },
+    },
   );
 }
 

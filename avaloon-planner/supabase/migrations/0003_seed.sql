@@ -6,7 +6,7 @@
 -- ------------------------------------------------------------
 -- Blocos do briefing
 -- ------------------------------------------------------------
-insert into public.blocos_config (codigo, titulo, ordem, ativo, schema) values
+insert into planner.blocos_config (codigo, titulo, ordem, ativo, schema) values
 ('identidade', 'Identidade e contexto', 1, true, '{
   "campos": [
     {"chave": "segmento", "rotulo": "Segmento", "descricao": "Ramo de atuação do cliente (ex.: clínica odontológica, varejo de moda, concessionária)"},
@@ -74,7 +74,7 @@ insert into public.blocos_config (codigo, titulo, ordem, ativo, schema) values
 -- ------------------------------------------------------------
 -- Camadas do plano
 -- ------------------------------------------------------------
-insert into public.camadas_config (codigo, titulo, descricao, obrigatoria, ordem, ativo) values
+insert into planner.camadas_config (codigo, titulo, descricao, obrigatoria, ordem, ativo) values
 ('publicitario', 'Planejamento publicitário',
  'Conceito criativo do período, mensagem-chave, mix de mídia (tráfego de alcance, rádio/OOH local, parcerias), frequência e praça. Métricas: alcance, frequência, crescimento de busca pela marca, seguidores qualificados. Publicidade constrói demanda.',
  true, 1, true),
@@ -91,7 +91,7 @@ insert into public.camadas_config (codigo, titulo, descricao, obrigatoria, ordem
 -- ------------------------------------------------------------
 -- Prompts versionados
 -- ------------------------------------------------------------
-insert into public.prompts_config (codigo, versao, ativo, conteudo) values
+insert into planner.prompts_config (codigo, versao, ativo, conteudo) values
 ('detectar_lacunas', 'v1', true, $prompt$
 Você é o assistente de briefing da Avaloon Marketing, agência 360° de Montes Claros/MG. Sua função é auditar o dossiê de um cliente e devolver APENAS as perguntas necessárias para completá-lo — uma entrevista guiada de ~10 minutos, não um interrogatório.
 

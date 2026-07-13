@@ -9,7 +9,7 @@ create extension if not exists "pgcrypto";
 -- ------------------------------------------------------------
 -- profiles (vinculada ao Supabase Auth)
 -- ------------------------------------------------------------
-create table public.profiles (
+create table planner.profiles (
   id uuid primary key references auth.users (id) on delete cascade,
   nome text not null default '',
   email text not null default '',
@@ -21,14 +21,14 @@ create table public.profiles (
 );
 
 -- Cria o profile automaticamente no signup
-create or replace function public.handle_new_user()
+create or replace function planner.handle_new_user()
 returns trigger
 language plpgsql
 security definer
 set search_path = public
 as $$
 begin
-  insert into public.profiles (id, nome, email)
+  insert into planner.profiles (id, nome, email)
   values (
     new.id,
     coalesce(new.raw_user_meta_data ->> 'nome', split_part(new.email, '@', 1)),
@@ -39,32 +39,32 @@ begin
 end;
 $$;
 
-create trigger on_auth_user_created
+create trigger on_auth_user_created_planner
   after insert on auth.users
-  for each row execute function public.handle_new_user();
+  for each row execute function planner.handle_new_user();
 
 -- ------------------------------------------------------------
 -- clientes
 -- ------------------------------------------------------------
-create table public.clientes (
+create table planner.clientes (
   id uuid primary key default gen_random_uuid(),
   nome text not null,
   segmento text not null default '',
   cidade text not null default 'Montes Claros/MG',
-  gc_responsavel uuid references public.profiles (id),
+  gc_responsavel uuid references planner.profiles (id),
   status text not null default 'ativo'
     check (status in ('ativo', 'pausado', 'encerrado')),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
 
-create index clientes_gc_idx on public.clientes (gc_responsavel);
+create index clientes_gc_idx on planner.clientes (gc_responsavel);
 
 -- ------------------------------------------------------------
 -- blocos_config — blocos do briefing são dados, não código
 -- schema jsonb: { "campos": [{ "chave", "rotulo", "descricao" }] }
 -- ------------------------------------------------------------
-create table public.blocos_config (
+create table planner.blocos_config (
   codigo text primary key,
   titulo text not null,
   ordem int not null default 0,
@@ -75,23 +75,23 @@ create table public.blocos_config (
 -- ------------------------------------------------------------
 -- dossie_blocos — um registro por bloco, por cliente
 -- ------------------------------------------------------------
-create table public.dossie_blocos (
+create table planner.dossie_blocos (
   id uuid primary key default gen_random_uuid(),
-  cliente_id uuid not null references public.clientes (id) on delete cascade,
-  bloco_codigo text not null references public.blocos_config (codigo),
+  cliente_id uuid not null references planner.clientes (id) on delete cascade,
+  bloco_codigo text not null references planner.blocos_config (codigo),
   conteudo jsonb not null default '{}'::jsonb,
   completude int not null default 0 check (completude between 0 and 100),
-  atualizado_por uuid references public.profiles (id),
+  atualizado_por uuid references planner.profiles (id),
   updated_at timestamptz not null default now(),
   unique (cliente_id, bloco_codigo)
 );
 
-create index dossie_blocos_cliente_idx on public.dossie_blocos (cliente_id);
+create index dossie_blocos_cliente_idx on planner.dossie_blocos (cliente_id);
 
 -- ------------------------------------------------------------
 -- camadas_config — camadas de entregável são dados, não código
 -- ------------------------------------------------------------
-create table public.camadas_config (
+create table planner.camadas_config (
   codigo text primary key,
   titulo text not null,
   descricao text not null default '',
@@ -103,9 +103,9 @@ create table public.camadas_config (
 -- ------------------------------------------------------------
 -- planos
 -- ------------------------------------------------------------
-create table public.planos (
+create table planner.planos (
   id uuid primary key default gen_random_uuid(),
-  cliente_id uuid not null references public.clientes (id) on delete cascade,
+  cliente_id uuid not null references planner.clientes (id) on delete cascade,
   periodo_tipo text not null
     check (periodo_tipo in ('mensal', 'trimestral', 'semestral')),
   periodo_inicio date not null,
@@ -121,36 +121,36 @@ create table public.planos (
   ajustes_gc text not null default '',
   gerado_em timestamptz,
   versao_prompt text,
-  created_by uuid references public.profiles (id),
+  created_by uuid references planner.profiles (id),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   check (periodo_fim >= periodo_inicio)
 );
 
-create index planos_cliente_idx on public.planos (cliente_id);
-create index planos_status_idx on public.planos (status);
+create index planos_cliente_idx on planner.planos (cliente_id);
+create index planos_status_idx on planner.planos (status);
 
 -- ------------------------------------------------------------
 -- plano_camadas
 -- ------------------------------------------------------------
-create table public.plano_camadas (
+create table planner.plano_camadas (
   id uuid primary key default gen_random_uuid(),
-  plano_id uuid not null references public.planos (id) on delete cascade,
-  camada_codigo text not null references public.camadas_config (codigo),
+  plano_id uuid not null references planner.planos (id) on delete cascade,
+  camada_codigo text not null references planner.camadas_config (codigo),
   conteudo jsonb not null default '{}'::jsonb,
   ordem int not null default 0,
   unique (plano_id, camada_codigo)
 );
 
-create index plano_camadas_plano_idx on public.plano_camadas (plano_id);
+create index plano_camadas_plano_idx on planner.plano_camadas (plano_id);
 
 -- ------------------------------------------------------------
 -- aprovacoes — trilha de auditoria das decisões
 -- ------------------------------------------------------------
-create table public.aprovacoes (
+create table planner.aprovacoes (
   id uuid primary key default gen_random_uuid(),
-  plano_id uuid not null references public.planos (id) on delete cascade,
-  diretor_id uuid not null references public.profiles (id),
+  plano_id uuid not null references planner.planos (id) on delete cascade,
+  diretor_id uuid not null references planner.profiles (id),
   decisao text not null check (decisao in ('aprovado', 'ajustes_solicitados')),
   comentario text not null default '',
   created_at timestamptz not null default now(),
@@ -158,46 +158,46 @@ create table public.aprovacoes (
     check (decisao <> 'ajustes_solicitados' or length(trim(comentario)) > 0)
 );
 
-create index aprovacoes_plano_idx on public.aprovacoes (plano_id);
+create index aprovacoes_plano_idx on planner.aprovacoes (plano_id);
 
 -- ------------------------------------------------------------
 -- demandas_extras
 -- ------------------------------------------------------------
-create table public.demandas_extras (
+create table planner.demandas_extras (
   id uuid primary key default gen_random_uuid(),
-  cliente_id uuid not null references public.clientes (id) on delete cascade,
-  plano_id uuid references public.planos (id) on delete set null,
+  cliente_id uuid not null references planner.clientes (id) on delete cascade,
+  plano_id uuid references planner.planos (id) on delete set null,
   descricao text not null,
   solicitante text not null default '',
   esforco_estimado text not null default 'medio'
     check (esforco_estimado in ('baixo', 'medio', 'alto')),
   status text not null default 'registrada'
     check (status in ('registrada', 'atendida', 'negociada', 'recusada')),
-  created_by uuid references public.profiles (id),
+  created_by uuid references planner.profiles (id),
   created_at timestamptz not null default now()
 );
 
-create index demandas_extras_cliente_idx on public.demandas_extras (cliente_id);
+create index demandas_extras_cliente_idx on planner.demandas_extras (cliente_id);
 
 -- ------------------------------------------------------------
 -- resultados_ciclo — fechamento que alimenta o dossiê
 -- ------------------------------------------------------------
-create table public.resultados_ciclo (
+create table planner.resultados_ciclo (
   id uuid primary key default gen_random_uuid(),
-  plano_id uuid not null references public.planos (id) on delete cascade,
+  plano_id uuid not null references planner.planos (id) on delete cascade,
   executado jsonb not null default '{}'::jsonb,
   metricas jsonb not null default '{}'::jsonb,
   aprendizados text not null default '',
-  created_by uuid references public.profiles (id),
+  created_by uuid references planner.profiles (id),
   created_at timestamptz not null default now()
 );
 
-create index resultados_ciclo_plano_idx on public.resultados_ciclo (plano_id);
+create index resultados_ciclo_plano_idx on planner.resultados_ciclo (plano_id);
 
 -- ------------------------------------------------------------
 -- prompts_config — metodologia versionada em banco
 -- ------------------------------------------------------------
-create table public.prompts_config (
+create table planner.prompts_config (
   id uuid primary key default gen_random_uuid(),
   codigo text not null,
   versao text not null,
@@ -209,27 +209,27 @@ create table public.prompts_config (
 
 -- Garante no máximo um prompt ativo por código
 create unique index prompts_config_um_ativo_por_codigo
-  on public.prompts_config (codigo) where ativo;
+  on planner.prompts_config (codigo) where ativo;
 
 -- ------------------------------------------------------------
 -- eventos — trilha de mudanças de status (base p/ automações)
 -- ------------------------------------------------------------
-create table public.eventos (
+create table planner.eventos (
   id uuid primary key default gen_random_uuid(),
-  plano_id uuid not null references public.planos (id) on delete cascade,
+  plano_id uuid not null references planner.planos (id) on delete cascade,
   de text,
   para text not null,
-  quem uuid references public.profiles (id),
+  quem uuid references planner.profiles (id),
   quando timestamptz not null default now()
 );
 
-create index eventos_plano_idx on public.eventos (plano_id);
+create index eventos_plano_idx on planner.eventos (plano_id);
 
 -- ============================================================
 -- Triggers utilitários
 -- ============================================================
 
-create or replace function public.set_updated_at()
+create or replace function planner.set_updated_at()
 returns trigger
 language plpgsql
 as $$
@@ -239,59 +239,59 @@ begin
 end;
 $$;
 
-create trigger profiles_updated_at before update on public.profiles
-  for each row execute function public.set_updated_at();
-create trigger clientes_updated_at before update on public.clientes
-  for each row execute function public.set_updated_at();
-create trigger dossie_blocos_updated_at before update on public.dossie_blocos
-  for each row execute function public.set_updated_at();
-create trigger planos_updated_at before update on public.planos
-  for each row execute function public.set_updated_at();
+create trigger profiles_updated_at before update on planner.profiles
+  for each row execute function planner.set_updated_at();
+create trigger clientes_updated_at before update on planner.clientes
+  for each row execute function planner.set_updated_at();
+create trigger dossie_blocos_updated_at before update on planner.dossie_blocos
+  for each row execute function planner.set_updated_at();
+create trigger planos_updated_at before update on planner.planos
+  for each row execute function planner.set_updated_at();
 
 -- ============================================================
 -- Helpers de papel (security definer para evitar recursão em RLS)
 -- ============================================================
 
-create or replace function public.papel_atual()
+create or replace function planner.papel_atual()
 returns text
 language sql
 stable
 security definer
 set search_path = public
 as $$
-  select papel from public.profiles where id = auth.uid();
+  select papel from planner.profiles where id = auth.uid();
 $$;
 
-create or replace function public.eh_diretor()
+create or replace function planner.eh_diretor()
 returns boolean
 language sql
 stable
 security definer
 set search_path = public
 as $$
-  select coalesce(public.papel_atual() in ('diretor', 'admin'), false);
+  select coalesce(planner.papel_atual() in ('diretor', 'admin'), false);
 $$;
 
-create or replace function public.eh_admin()
+create or replace function planner.eh_admin()
 returns boolean
 language sql
 stable
 security definer
 set search_path = public
 as $$
-  select coalesce(public.papel_atual() = 'admin', false);
+  select coalesce(planner.papel_atual() = 'admin', false);
 $$;
 
-create or replace function public.pode_ver_cliente(cid uuid)
+create or replace function planner.pode_ver_cliente(cid uuid)
 returns boolean
 language sql
 stable
 security definer
 set search_path = public
 as $$
-  select public.eh_diretor()
+  select planner.eh_diretor()
     or exists (
-      select 1 from public.clientes c
+      select 1 from planner.clientes c
       where c.id = cid and c.gc_responsavel = auth.uid()
     );
 $$;
@@ -308,7 +308,7 @@ $$;
 --                                                   ciclo_fechado
 -- ============================================================
 
-create or replace function public.valida_transicao_plano()
+create or replace function planner.valida_transicao_plano()
 returns trigger
 language plpgsql
 security definer
@@ -342,7 +342,7 @@ begin
 
   -- Aprovar/reprovar é exclusivo de diretores
   if new.status in ('aprovado', 'ajustes_solicitados')
-     and not public.eh_diretor() then
+     and not planner.eh_diretor() then
     raise exception 'Apenas diretores podem aprovar ou solicitar ajustes em um plano.';
   end if;
 
@@ -351,11 +351,11 @@ end;
 $$;
 
 create trigger planos_valida_transicao
-  before update of status on public.planos
-  for each row execute function public.valida_transicao_plano();
+  before update of status on planner.planos
+  for each row execute function planner.valida_transicao_plano();
 
 -- Trilha de eventos em toda criação e mudança de status
-create or replace function public.registra_evento_plano()
+create or replace function planner.registra_evento_plano()
 returns trigger
 language plpgsql
 security definer
@@ -363,10 +363,10 @@ set search_path = public
 as $$
 begin
   if tg_op = 'INSERT' then
-    insert into public.eventos (plano_id, de, para, quem)
+    insert into planner.eventos (plano_id, de, para, quem)
     values (new.id, null, new.status, auth.uid());
   elsif old.status is distinct from new.status then
-    insert into public.eventos (plano_id, de, para, quem)
+    insert into planner.eventos (plano_id, de, para, quem)
     values (new.id, old.status, new.status, auth.uid());
   end if;
   return new;
@@ -374,15 +374,15 @@ end;
 $$;
 
 create trigger planos_registra_evento
-  after insert or update of status on public.planos
-  for each row execute function public.registra_evento_plano();
+  after insert or update of status on planner.planos
+  for each row execute function planner.registra_evento_plano();
 
 -- ============================================================
 -- RPC: decisão de diretor (aprovação atômica = registro + status)
 -- Basta UM dos diretores decidir.
 -- ============================================================
 
-create or replace function public.decidir_plano(
+create or replace function planner.decidir_plano(
   p_plano_id uuid,
   p_decisao text,
   p_comentario text default ''
@@ -393,7 +393,7 @@ security definer
 set search_path = public
 as $$
 begin
-  if not public.eh_diretor() then
+  if not planner.eh_diretor() then
     raise exception 'Apenas diretores podem decidir sobre planos.';
   end if;
 
@@ -406,16 +406,16 @@ begin
   end if;
 
   if not exists (
-    select 1 from public.planos
+    select 1 from planner.planos
     where id = p_plano_id and status = 'aguardando_aprovacao'
   ) then
     raise exception 'Plano não está aguardando aprovação.';
   end if;
 
-  insert into public.aprovacoes (plano_id, diretor_id, decisao, comentario)
+  insert into planner.aprovacoes (plano_id, diretor_id, decisao, comentario)
   values (p_plano_id, auth.uid(), p_decisao, coalesce(p_comentario, ''));
 
-  update public.planos set status = p_decisao where id = p_plano_id;
+  update planner.planos set status = p_decisao where id = p_plano_id;
 end;
 $$;
 
@@ -424,7 +424,7 @@ $$;
 -- bloco 'historico_sazonalidade' do dossiê automaticamente.
 -- ============================================================
 
-create or replace function public.fechar_ciclo(
+create or replace function planner.fechar_ciclo(
   p_plano_id uuid,
   p_executado jsonb,
   p_metricas jsonb,
@@ -443,20 +443,20 @@ begin
   select cliente_id,
          periodo_tipo || ' ' || to_char(periodo_inicio, 'YYYY-MM-DD') || ' a ' || to_char(periodo_fim, 'YYYY-MM-DD')
     into v_cliente_id, v_periodo
-    from public.planos where id = p_plano_id;
+    from planner.planos where id = p_plano_id;
 
   if v_cliente_id is null then
     raise exception 'Plano não encontrado.';
   end if;
 
-  if not public.pode_ver_cliente(v_cliente_id) then
+  if not planner.pode_ver_cliente(v_cliente_id) then
     raise exception 'Sem permissão sobre este cliente.';
   end if;
 
-  insert into public.resultados_ciclo (plano_id, executado, metricas, aprendizados, created_by)
+  insert into planner.resultados_ciclo (plano_id, executado, metricas, aprendizados, created_by)
   values (p_plano_id, p_executado, p_metricas, p_aprendizados, auth.uid());
 
-  update public.planos set status = 'ciclo_fechado'
+  update planner.planos set status = 'ciclo_fechado'
    where id = p_plano_id and status = 'em_execucao';
 
   -- Alimenta o bloco 6 do dossiê (histórico e sazonalidade)
@@ -468,7 +468,7 @@ begin
     'registrado_em', to_char(now(), 'YYYY-MM-DD')
   );
 
-  insert into public.dossie_blocos (cliente_id, bloco_codigo, conteudo, atualizado_por)
+  insert into planner.dossie_blocos (cliente_id, bloco_codigo, conteudo, atualizado_por)
   values (
     v_cliente_id,
     'historico_sazonalidade',
@@ -477,9 +477,9 @@ begin
   )
   on conflict (cliente_id, bloco_codigo) do update
     set conteudo = jsonb_set(
-          public.dossie_blocos.conteudo,
+          planner.dossie_blocos.conteudo,
           '{ciclos_fechados}',
-          coalesce(public.dossie_blocos.conteudo -> 'ciclos_fechados', '[]'::jsonb) || v_registro
+          coalesce(planner.dossie_blocos.conteudo -> 'ciclos_fechados', '[]'::jsonb) || v_registro
         ),
         atualizado_por = auth.uid(),
         updated_at = now();
